@@ -23,52 +23,77 @@
 </div>
 
 <div id="app" class="hidden">
-<header class="topbar">
-  <div class="brand"><span class="brand-mark small">DA</span><div><b>Daily Achiever</b><small>APSC • Dream · Prepare · Achieve</small></div></div>
-  <nav>
-    <button data-view="dashboard">Dashboard</button>
-    <button data-view="tests">Test Notes</button>
-    <button data-view="notes">Study Notes</button>
-    <button data-view="progress">Progress</button>
-  </nav>
-  <div class="actions"><button id="themeBtn" class="icon">☾</button><button id="logout" class="outline">Logout</button></div>
+<header class="executive-topbar">
+  <div class="exec-brand">
+    <div class="exec-logo"><span></span><span></span><span></span></div>
+    <div><strong>DAILY ACHIEVER</strong><small>For APSC Dreamers</small></div>
+  </div>
+  <div class="exec-motto">“A disciplined today, a better Assam tomorrow.”</div>
+  <div class="exec-user"><div class="exec-date" id="execDate">Sun, 21 Sept 2026<br><b>09:15 AM</b></div><div class="exec-avatar">TS</div><div><strong>Tarun Sharma</strong><small>Keep Going 🌱</small></div><button id="logout" class="outline">Logout</button></div>
 </header>
 
 <main>
-<section id="dashboard" class="view">
-  <div class="hero">
-    <div><span class="eyebrow">YOUR APSC JOURNEY</span><h2>Dream. Prepare. <span>Achieve.</span></h2><p>Small disciplined steps every day become a strong preparation.</p></div>
-    <div class="hero-badge">🎯 <b>9–10 HRS</b><small>Daily Target</small></div>
+<aside class="exec-sidebar">
+  <div class="side-label">STUDY COMMAND</div>
+  <button class="side-link active" data-exec-scroll="dashboard"><span>⌂</span>Dashboard</button>
+  <button class="side-link" data-exec-scroll="timer"><span>◷</span>Study Timer</button>
+  <button class="side-link" data-exec-scroll="journey"><span>▣</span>APSC Journey</button>
+  <button class="side-link" data-view="tests"><span>▤</span>Test Series</button>
+  <button class="side-link" data-view="notes"><span>▥</span>Notes</button>
+  <button class="side-link" data-exec-scroll="subjects"><span>▤</span>Current Affairs</button>
+  <button class="side-link" data-view="progress"><span>▥</span>Progress</button>
+  <button class="side-link" data-exec-scroll="buddy"><span>♧</span>APSC Buddy</button>
+  <button class="side-link" data-exec-scroll="motivation"><span>★</span>Motivation</button>
+  <button class="side-link" data-exec-scroll="resources"><span>▰</span>Resources</button>
+  <button class="side-link" data-exec-scroll="settings"><span>⚙</span>Settings</button>
+  <div class="side-bottom"><div class="assam-mark">⌁</div><b>“A Better You<br>A Better Assam”</b><small>________________</small></div>
+</aside>
+
+<section id="dashboard" class="view executive-dashboard">
+  <div class="exec-hero">
+    <div><span>GOOD MORNING, TARUN.</span><h1>Every small step today brings you closer<br>to your APSC dream.</h1></div>
+    <div class="hero-quote">“Discipline is choosing between what you want now<br>and what you want most.”<small>— Abraham Lincoln</small></div>
   </div>
-  <div class="stats">
-    <div class="stat"><span>Today</span><b id="todayProgress">0%</b><small>daily completion</small></div>
-    <div class="stat"><span>Study Time</span><b id="studyTime">0m</b><small>from checklist</small></div>
-    <div class="stat"><span>Tests</span><b id="testCount">0</b><small>recorded</small></div>
-    <div class="stat"><span>Accuracy</span><b id="accuracy">—</b><small>test average</small></div>
-  </div>
-  <div class="grid two">
-    <div class="panel">
-      <div class="panel-head"><div><h3>Today's Mission</h3><p>Complete the core blocks</p></div><b id="taskPct">0%</b></div>
-      <div id="tasks"></div>
+
+  <div class="exec-top-grid" id="timer">
+    <div class="exec-card timer-card">
+      <div class="exec-card-head"><div><h2>◷ &nbsp;Focus Timer</h2></div><strong id="scSession">Session 1/4</strong><button class="no-pause">No Pause</button></div>
+      <div class="exec-mode"><span id="scStudyMode" class="active">Study (25 min)</span><span id="scRestMode">Rest (5 min)</span></div>
+      <div class="timer-body"><div class="timer-ring"><div><div id="scClock">25:00</div><small id="scStatus">Focus on Progress</small><b>▢</b></div></div><div class="current-task"><span>◉</span><small>Current Task</small><strong id="scTask">APSC Preparation</strong><button>Change Task</button></div></div>
+      <div class="timer-actions"><div class="timer-progress"><i id="scProgress"></i></div><button id="scStart" class="primary">Start Focus</button></div>
     </div>
-    <div class="panel">
-      <div class="panel-head"><div><h3>Daily Achievement</h3><p>Write one line before sleep</p></div>🏆</div>
-      <textarea id="achievement" placeholder="Today I achieved..."></textarea>
-      <button id="saveAchievement" class="primary">Save Achievement</button>
-      <div class="quote">“Consistency is more powerful than motivation.”</div>
+
+    <div class="exec-card buddy-card" id="buddy">
+      <div class="exec-card-head"><div><h2>🌱 &nbsp;APSC Buddy</h2><small>Your Silent Companion</small></div><b class="level-badge" id="scLevel">Level 1</b></div>
+      <div class="buddy-main"><div class="buddy-message"><p id="scPetMsg">Keep going, Tarun!<br>Consistency today creates confidence tomorrow.</p><div class="buddy-stat"><span>♥ Happiness</span><b>92%</b><i><em style="width:92%"></em></i></div><div class="buddy-stat"><span>◆ Experience (XP)</span><b><span id="scXp">0</span>/500</b><i><em id="scXpBar" style="width:0%"></em></i></div><div class="buddy-stat"><span>🔥 Study Streak</span><b><span id="scStreak">0 days</span></b><i><em style="width:35%"></em></i></div></div><div class="plant"><div class="plant-leaves">🌿</div><div class="plant-pot">Small Steps<br><b>Big Change</b></div></div></div>
+      <div class="buddy-bottom">“You are closer than you think.”</div>
+    </div>
+
+    <div class="exec-card plan-card">
+      <div class="exec-card-head"><div><h2>▣ &nbsp;Today’s Plan</h2></div><span>Edit &nbsp; ☰</span></div>
+      <div id="tasks" class="exec-tasks"></div>
+      <div class="plan-quote">“Plan. Study. Improve. Repeat.”</div>
     </div>
   </div>
-  <div class="subject-grid">
-    <div class="subject history"><span>🏛️</span><b>Ancient History</b><small>Read • Revise • MCQ</small></div>
-    <div class="subject geo"><span>🌍</span><b>Geography</b><small>Concept • Map • PYQ</small></div>
-    <div class="subject ca"><span>📰</span><b>Current Affairs</b><small>Daily 30–45 min</small></div>
-    <div class="subject rev"><span>🔁</span><b>Revision</b><small>Weak areas first</small></div>
+
+  <div class="exec-middle-grid" id="journey">
+    <div class="exec-card journey-card">
+      <div class="exec-card-head"><div><h2>▣ &nbsp;My APSC Journey</h2><small>Step by step towards the goal</small></div></div>
+      <div class="journey-content"><div class="journey-road"><div class="journey-stage done"><i>✓</i><b>Foundation</b><small>Completed</small></div><div class="journey-stage done"><i>✓</i><b>Core Subjects</b><small>Completed</small></div><div class="journey-stage current"><i>3</i><b>Practice</b><small>In Progress</small></div><div class="journey-stage"><i>4</i><b>Revision</b><small>Locked</small></div><div class="journey-stage"><i>5</i><b>Mock Tests</b><small>Locked</small></div><div class="journey-stage"><i>♜</i><b>APSC Goal</b><small>Locked</small></div></div>
+      <div class="journey-overall"><span>Overall Progress</span><b id="journeyOverall">0%</b><i><em id="journeyOverallBar"></em></i></div></div>
+      <div class="journey-stats"><div>▣ <span>Journey Time</span><b id="scJourneyDays">1 day</b></div><div>◷ <span>Total Study Time</span><b id="scFocusTime">0m</b></div><div>▥ <span>Tests Attempted</span><b id="scSessions">0</b></div><div>◎ <span>Average Score</span><b id="execAvg">—</b></div></div>
+    </div>
+    <div class="exec-card subjects-card" id="subjects">
+      <div class="exec-card-head"><h2>▥ &nbsp;Subject Progress</h2><a>View Details</a></div>
+      <div class="subject-progress" id="subjectProgress"></div>
+    </div>
   </div>
-<div id="studyCompanion" class="study-companion">
-<div class="sc-card sc-timer"><div class="sc-head"><div><span class="sc-kicker">FOCUS SYSTEM</span><h3>Focus Timer</h3><div class="sc-muted">Automatic study → rest cycle • No Pause</div></div><strong id="scSession">Session 1</strong></div><div class="sc-mode"><span id="scStudyMode" class="active">Study · 25 min</span><span id="scRestMode">Rest · 5 min</span></div><div id="scClock" class="sc-clock">25:00</div><div id="scStatus" class="sc-status">Ready. Start your first focused session.</div><div class="sc-progress"><i id="scProgress"></i></div><div id="scTask" class="sc-note">Current focus: APSC preparation</div><div class="sc-actions"><button id="scStart" class="primary">Start Focus</button></div></div>
-<div><div class="sc-card"><div class="sc-head"><div><span class="sc-kicker">YOUR COMPANION</span><h3>APSC Buddy</h3></div><b id="scLevel">Level 1</b></div><div class="sc-pet"><div id="scPetIcon" class="sc-pet-icon" aria-label="APSC Buddy"><svg viewBox="0 0 80 80" role="img" aria-hidden="true"><path d="M40 10C25 10 17 22 18 39c1 17 10 29 22 29s21-12 22-29C63 22 55 10 40 10Z" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="30" cy="35" r="5" fill="currentColor"/><circle cx="50" cy="35" r="5" fill="currentColor"/><path d="M34 49c4 4 8 4 12 0M18 43l-10 8M62 43l10 8" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M34 14l6-7 6 7" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></div><div style="flex:1"><h4 id="scPetMsg">Stay consistent.</h4><div class="sc-muted">Focus XP <b id="scXp">0</b> / 100</div><div class="sc-bar"><i id="scXpBar"></i></div><div class="sc-muted" style="margin-top:8px">Streak <b id="scStreak">0 days</b></div></div></div></div>
-<div class="sc-card sc-journey"><div class="sc-head"><div><span class="sc-kicker">LONG-TERM VIEW</span><h3>My APSC Journey</h3></div><b id="scJourneyPct">0%</b></div><div class="sc-journey-line" id="scJourneyLine"></div><div class="sc-journey-stats"><div class="sc-mini"><span>Journey Time</span><b id="scJourneyDays">1 day</b></div><div class="sc-mini"><span>Focus Time</span><b id="scFocusTime">0m</b></div><div class="sc-mini"><span>Sessions</span><b id="scSessions">0</b></div></div><div class="sc-reminder" id="scReminder">Morning focus: start with one 25-minute block.</div></div></div>
-</div>
+
+  <div class="exec-bottom-grid">
+    <div class="exec-card thought-card" id="motivation"><h2>❝ &nbsp;Today’s Thought</h2><blockquote>“Success is the sum of small efforts,<br>repeated day in and day out.”</blockquote><small>— Robert Collier</small></div>
+    <div class="exec-card night-card" id="resources"><h2>◐ &nbsp; Night Reminder <span>10:30 PM</span></h2><p>A good sleep today will give you a better<br>mind for tomorrow’s preparation.</p><b>Take rest. You’ve done well today.</b></div>
+    <div class="exec-card activity-card" id="settings"><div class="exec-card-head"><h2>✓ &nbsp;Recent Activity</h2><a>View All</a></div><div id="recentExecActivity"><p>Start a focus session or complete a task to build your activity.</p></div></div>
+  </div>
 </section>
 
 <section id="tests" class="view hidden">
