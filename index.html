@@ -66,7 +66,7 @@
 </section>
 
 <section id="tests" class="view hidden">
-  <div class="page-title"><div><span class="eyebrow">PERFORMANCE</span><h2>Test Notes</h2><p>Record MCQ, PYQ and mock-test performance.</p></div><button class="primary" id="newTest">+ New Test</button></div>
+  <div class="page-title"><div><span class="eyebrow">PERFORMANCE</span><h2>Test Notes</h2><p>Record MCQ, PYQ and mock-test performance.</p></div><div class="import-actions"><button class="outline" id="downloadTemplate">Download Import Template</button><button class="primary" id="importBtn">Import Test Result</button><input id="importFile" type="file" accept=".json,.txt" hidden></div></div>
   <div class="panel form-panel">
     <div class="form-grid">
       <label>Date<input id="tDate" type="date"></label>
@@ -81,7 +81,7 @@
     <label>Weak areas / Revision needed<textarea id="tWeak" placeholder="Topics to revise..."></textarea></label>
     <button id="saveTest" class="primary">Save Test</button>
   </div>
-  <div id="testHistory" class="cards"></div>
+  <div class="import-help">💡 <b>Automatic result entry:</b> Ask ChatGPT to prepare your test result as an import file, then choose <b>Import Test Result</b>. Multiple results can be imported at once.</div><div id="testHistory" class="cards"></div>
 </section>
 
 <section id="notes" class="view hidden">

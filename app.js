@@ -55,5 +55,40 @@ $("saveNote").onclick=()=>{let ns=load("notes",[]),n={title:$("nTitle").value,su
 $("newTest").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
 $("themeBtn").onclick=()=>{document.body.classList.toggle("dark");localStorage.setItem("da3_dark",document.body.classList.contains("dark"))};
 if(localStorage.getItem("da3_dark")==="true")document.body.classList.add("dark");
+
+function normalizeImported(x){
+  return {
+    date:x.date||new Date().toISOString().slice(0,10),
+    subject:x.subject||"Mixed GS",
+    topic:x.topic||"Imported Test",
+    total:Number(x.total||0),
+    attempted:Number(x.attempted||0),
+    correct:Number(x.correct||0),
+    wrong:Number(x.wrong||0),
+    learn:x.learn||x.whatDidILearn||"",
+    weak:x.weak||x.weakAreas||""
+  };
+}
+function importResults(data){
+  let incoming=Array.isArray(data)?data:(Array.isArray(data.tests)?data.tests:[data]);
+  incoming=incoming.map(normalizeImported).filter(x=>x.topic);
+  if(!incoming.length){alert("No valid test result found.");return}
+  let ts=tests(); ts.push(...incoming); save("tests",ts);
+  renderTests(); refresh(); renderProgress();
+  alert(`${incoming.length} test result${incoming.length>1?"s":""} imported ✓`);
+}
+$("importBtn").onclick=()=>$("importFile").click();
+$("importFile").onchange=async e=>{
+  const f=e.target.files[0]; if(!f)return;
+  try{const text=await f.text(); importResults(JSON.parse(text))}
+  catch{alert("Invalid import file. Use the JSON template.")}
+  e.target.value="";
+};
+$("downloadTemplate").onclick=()=>{
+ const example={tests:[{date:new Date().toISOString().slice(0,10),subject:"Geography",topic:"Plate Tectonics",total:35,attempted:35,correct:30,wrong:5,learn:"Plate boundaries and fold mountains",weak:"Transform boundaries"}]};
+ const blob=new Blob([JSON.stringify(example,null,2)],{type:"application/json"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="daily_achiever_test_import.json";a.click();URL.revokeObjectURL(a.href);
+};
+
 let current=localStorage.getItem("da3_current");if(current){user=current;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");$("achievement").value=load("achievement","");initTasks();refresh()}
 $("tDate").value=new Date().toISOString().slice(0,10);
