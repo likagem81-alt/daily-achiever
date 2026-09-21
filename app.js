@@ -1,114 +1,24 @@
-const TASKS=[
-["Ancient History","180 min"],["Geography","150 min"],["MCQ + PYQ Practice","90 min"],["Current Affairs","60 min"],["Revision","60 min"],["Test Analysis","30 min"],["Daily Achievement","30 min"]
-];
-const $=id=>document.getElementById(id);
-let mode="login", user=null;
-function key(k){return `da3_${user}_${k}`}
-function load(k,f){try{return JSON.parse(localStorage.getItem(key(k)))??f}catch{return f}}
-function save(k,v){localStorage.setItem(key(k),JSON.stringify(v))}
-function initTasks(){
- const box=$("tasks");box.innerHTML="";
- TASKS.forEach((t,i)=>{let row=document.createElement("label");row.className="task";
- let checked=load("tasks",{})[new Date().toISOString().slice(0,10)]?.includes(i);
- row.innerHTML=`<input type="checkbox" ${checked?"checked":""}><span>${t[0]}</span><small>${t[1]}</small>`;
- row.querySelector("input").onchange=()=>{let d=load("tasks",{}),day=new Date().toISOString().slice(0,10),arr=d[day]||[];checked=row.querySelector("input").checked;if(checked&&!arr.includes(i))arr.push(i);if(!checked)arr=arr.filter(x=>x!==i);d[day]=arr;save("tasks",d);row.classList.toggle("done",checked);refresh();};row.classList.toggle("done",checked);box.appendChild(row);
- });
-}
-function tests(){return load("tests",[])}
-function refresh(){
- let arr=load("tasks",{})[new Date().toISOString().slice(0,10)]||[], pct=Math.round(arr.length/TASKS.length*100);
- $("todayProgress").textContent=pct+"%";$("taskPct").textContent=pct+"%";
- let mins=arr.reduce((s,i)=>s+parseInt(TASKS[i][1]),0);$("studyTime").textContent=mins>=60?`${Math.floor(mins/60)}h ${mins%60}m`:`${mins}m`;
- let ts=tests(), correct=ts.reduce((s,t)=>s+Number(t.correct||0),0), attempted=ts.reduce((s,t)=>s+Number(t.attempted||0),0),acc=attempted?Math.round(correct/attempted*100):null;
- $("testCount").textContent=ts.length;$("accuracy").textContent=acc===null?"—":acc+"%";
- $("pTests").textContent=ts.length;$("pAccuracy").textContent=acc===null?"—":acc+"%";$("pNotes").textContent=load("notes",[]).length;$("pStreak").textContent=streak()+" days";
-}
-function streak(){let d=load("tasks",{}),n=0,dt=new Date();while(true){let k=dt.toISOString().slice(0,10),a=d[k]||[];if(a.length<3)break;n++;dt.setDate(dt.getDate()-1)}return n}
-function renderTests(){
- let box=$("testHistory"),ts=tests();box.innerHTML=ts.length?"":"<div class='record'><p>No tests yet. Add your first MCQ/PYQ test above.</p></div>";
- ts.slice().reverse().forEach((t,idx)=>{let real=ts.length-1-idx,acc=t.attempted?Math.round(t.correct/t.attempted*100):0;
- let el=document.createElement("div");el.className="record";el.innerHTML=`<button class="delete">Delete</button><div class="record-head"><div><h3>${esc(t.topic||"Untitled Test")}</h3><small>${esc(t.date)} • ${esc(t.subject)}</small></div><span class="pill">${acc}% accuracy</span></div><p><b>${t.correct}</b> correct • <b>${t.wrong}</b> wrong • ${t.attempted}/${t.total} attempted</p>${t.learn?`<p><b>Learned:</b> ${esc(t.learn)}</p>`:""}${t.weak?`<p><b>Revise:</b> ${esc(t.weak)}</p>`:""}`;
- el.querySelector(".delete").onclick=()=>{ts.splice(real,1);save("tests",ts);renderTests();refresh();renderProgress()};box.appendChild(el)})
-}
-function renderNotes(){
- let box=$("notesList"),ns=load("notes",[]);box.innerHTML=ns.length?"":"<div class='record'><p>No notes yet. Save your first study note.</p></div>";
- ns.slice().reverse().forEach((n,idx)=>{let real=ns.length-1-idx,el=document.createElement("div");el.className="record";el.innerHTML=`<button class="delete">Delete</button><span class="pill">${esc(n.subject)}</span><h3>${esc(n.title)}</h3><small>${esc(n.date)}</small><p>${esc(n.body).replace(/\n/g,"<br>")}</p>`;el.querySelector(".delete").onclick=()=>{ns.splice(real,1);save("notes",ns);renderNotes();refresh();renderProgress()};box.appendChild(el)})
-}
-function renderProgress(){let ts=tests();$("recentPerformance").innerHTML=ts.length?ts.slice(-5).reverse().map(t=>{let a=t.attempted?Math.round(t.correct/t.attempted*100):0;return `<div class='task'><span>${esc(t.topic)}</span><small>${esc(t.date)} • ${a}%</small></div>`}).join(""):"<p>No test data yet.</p>"}
-function esc(s=""){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function show(v){document.querySelectorAll(".view").forEach(x=>x.classList.add("hidden"));$(v).classList.remove("hidden");document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===v));if(v==="tests")renderTests();if(v==="notes")renderNotes();if(v==="progress")renderProgress();refresh()}
-function login(){
- let email=$("email").value.trim().toLowerCase(),pass=$("password").value;
- if(!email||!pass){$("authMsg").textContent="Enter email and password.";return}
- let users=JSON.parse(localStorage.getItem("da3_users")||"{}");
- if(mode==="create"){if(users[email]){$("authMsg").textContent="Account already exists.";return}users[email]=pass;localStorage.setItem("da3_users",JSON.stringify(users));}
- else if(users[email]!==pass){$("authMsg").textContent="Incorrect login details. Create an account first.";return}
- user=email;localStorage.setItem("da3_current",email);$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");$("achievement").value=load("achievement","");initTasks();refresh();if(window.initStudyCompanion)window.initStudyCompanion();
-}
-document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{mode=b.dataset.auth;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));$("authBtn").textContent=mode==="login"?"Login":"Create Account";$("authMsg").textContent=""});
-$("authBtn").onclick=login;
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
-$("logout").onclick=()=>{localStorage.removeItem("da3_current");location.reload()};
-$("saveAchievement").onclick=()=>{save("achievement",$("achievement").value);alert("Achievement saved ✓")};
-$("saveTest").onclick=()=>{let ts=tests(),t={date:$("tDate").value||new Date().toISOString().slice(0,10),subject:$("tSubject").value,topic:$("tTopic").value,total:+$("tTotal").value||0,attempted:+$("tAttempted").value||0,correct:+$("tCorrect").value||0,wrong:+$("tWrong").value||0,learn:$("tLearn").value,weak:$("tWeak").value};if(!t.topic){alert("Enter test/topic.");return}ts.push(t);save("tests",ts);["tTopic","tTotal","tAttempted","tCorrect","tWrong","tLearn","tWeak"].forEach(x=>$(x).value="");renderTests();refresh();alert("Test saved ✓")};
-$("saveNote").onclick=()=>{let ns=load("notes",[]),n={title:$("nTitle").value,subject:$("nSubject").value,body:$("nBody").value,date:new Date().toLocaleDateString("en-IN")};if(!n.title||!n.body){alert("Enter title and note.");return}ns.push(n);save("notes",ns);$("nTitle").value="";$("nBody").value="";renderNotes();refresh();alert("Note saved ✓")};
-$("themeBtn").onclick=()=>{document.body.classList.toggle("dark");localStorage.setItem("da3_dark",document.body.classList.contains("dark"))};
-if(localStorage.getItem("da3_dark")==="true")document.body.classList.add("dark");
-
-function normalizeImported(x){
-  return {
-    date:x.date||new Date().toISOString().slice(0,10),
-    subject:x.subject||"Mixed GS",
-    topic:x.topic||"Imported Test",
-    total:Number(x.total||0),
-    attempted:Number(x.attempted||0),
-    correct:Number(x.correct||0),
-    wrong:Number(x.wrong||0),
-    learn:x.learn||x.whatDidILearn||"",
-    weak:x.weak||x.weakAreas||""
-  };
-}
-function importResults(data){
-  let incoming=Array.isArray(data)?data:(Array.isArray(data.tests)?data.tests:[data]);
-  incoming=incoming.map(normalizeImported).filter(x=>x.topic);
-  if(!incoming.length){alert("No valid test result found.");return}
-  let ts=tests(); ts.push(...incoming); save("tests",ts);
-  renderTests(); refresh(); renderProgress();
-  alert(`${incoming.length} test result${incoming.length>1?"s":""} imported ✓`);
-}
-$("importBtn").onclick=()=>$("importFile").click();
-$("importFile").onchange=async e=>{
-  const f=e.target.files[0]; if(!f)return;
-  try{const text=await f.text(); importResults(JSON.parse(text))}
-  catch{alert("Invalid import file. Use the JSON template.")}
-  e.target.value="";
-};
-$("downloadTemplate").onclick=()=>{
- const example={tests:[{date:new Date().toISOString().slice(0,10),subject:"Geography",topic:"Plate Tectonics",total:35,attempted:35,correct:30,wrong:5,learn:"Plate boundaries and fold mountains",weak:"Transform boundaries"}]};
- const blob=new Blob([JSON.stringify(example,null,2)],{type:"application/json"});
- const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="daily_achiever_test_import.json";a.click();URL.revokeObjectURL(a.href);
-};
-
-let current=localStorage.getItem("da3_current");if(current){user=current;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");$("achievement").value=load("achievement","");initTasks();refresh()}
-$("tDate").value=new Date().toISOString().slice(0,10);
-
-
-function renderExecutiveDashboard(){
-  const box=$("subjectProgress");
-  if(box){
-    const subjects=[["Polity",88],["History",78],["Geography",84],["Economy",65],["Environment",72],["Assam Specific",70]];
-    box.innerHTML=subjects.map(x=>'<div class="subject-row"><span>'+x[0]+'</span><i><em style="width:'+x[1]+'%"></em></i><b>'+x[1]+'%</b></div>').join("");
-  }
-  const ts=tests(), attempted=ts.reduce((s,t)=>s+Number(t.attempted||0),0), correct=ts.reduce((s,t)=>s+Number(t.correct||0),0);
-  if($("execAvg")) $("execAvg").textContent=attempted?Math.round(correct/attempted*100)+"%":"—";
-}
-document.querySelectorAll(".side-link[data-view]").forEach(b=>b.onclick=()=>show(b.dataset.view));
-document.querySelectorAll("[data-exec-scroll]").forEach(b=>b.onclick=()=>{
-  const el=$(b.dataset.execScroll);
-  if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
-  document.querySelectorAll(".side-link").forEach(x=>x.classList.remove("active"));
-  b.classList.add("active");
-});
-const _show=show;
-show=function(v){_show(v); if(v==="dashboard") setTimeout(renderExecutiveDashboard,30);};
-setTimeout(renderExecutiveDashboard,100);
+const TASKS=[["Polity","120 min"],["History + Geography","120 min"],["MCQ + PYQ Practice","90 min"],["Current Affairs","60 min"],["Revision","60 min"],["Test Analysis","30 min"]];
+const $=id=>document.getElementById(id);let user=localStorage.getItem("da4_current")||null,mode="login",timer={phase:"study",remaining:1500,running:false,session:1,focus:0,xp:0};
+const today=()=>new Date().toISOString().slice(0,10),key=k=>"da4_"+user+"_"+k,load=(k,f)=>{try{return JSON.parse(localStorage.getItem(key(k)))??f}catch{return f}},save=(k,v)=>localStorage.setItem(key(k),JSON.stringify(v));
+const esc=s=>String(s??"").replace(/[&<>"\x27]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","\x27":"&#039;"}[m]));
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".side-link").forEach(b=>b.classList.toggle("active",b.dataset.page===id));$("sidebar")?.classList.remove("open");if(id==="tests")renderTests();if(id==="notes")renderNotes();if(id==="progress")renderProgress()}
+function initTasks(){const d=load("tasks",{}),a=d[today()]||[];$("tasks").innerHTML=TASKS.map((t,i)=>'<label class="task '+(a.includes(i)?"done":"")+'"><input type="checkbox" data-task="'+i+'" '+(a.includes(i)?"checked":"")+'><span>'+t[0]+'</span><small>'+t[1]+'</small></label>').join("");document.querySelectorAll("[data-task]").forEach(cb=>cb.onchange=()=>{const x=load("tasks",{}),aa=x[today()]||[],i=+cb.dataset.task;if(cb.checked&&!aa.includes(i))aa.push(i);if(!cb.checked)x[today()]=aa.filter(v=>v!==i);else x[today()]=aa;save("tasks",x);renderAll()})}
+function tests(){return load("tests",[])}function accuracy(){const ts=tests(),a=ts.reduce((s,t)=>s+Number(t.attempted||0),0),c=ts.reduce((s,t)=>s+Number(t.correct||0),0);return a?Math.round(c/a*100):null}function streak(){let d=load("tasks",{}),n=0,dt=new Date();for(;;){if((d[dt.toISOString().slice(0,10)]||[]).length<3)break;n++;dt.setDate(dt.getDate()-1)}return n}
+function renderStats(){const a=load("tasks",{})[today()]||[],mins=a.reduce((s,i)=>s+parseInt(TASKS[i][1]),0),acc=accuracy();$("todayProgress").textContent=Math.round(a.length/TASKS.length*100)+"%";$("studyTime").textContent=mins>=60?Math.floor(mins/60)+"h "+mins%60+"m":mins+"m";$("testCount").textContent=tests().length;$("accuracy").textContent=acc==null?"—":acc+"%";$("pTests").textContent=tests().length;$("pAccuracy").textContent=acc==null?"—":acc+"%";$("pNotes").textContent=load("notes",[]).length;$("pStreak").textContent=streak()+" days"}
+function renderTests(){const box=$("testHistory"),ts=tests();box.innerHTML="";if(!ts.length){box.innerHTML="<div class=\"empty\">No tests recorded yet.</div>";return}ts.slice().reverse().forEach((t,r)=>{const i=ts.length-1-r,a=t.attempted?Math.round(t.correct/t.attempted*100):0,el=document.createElement("div");el.className="record";el.innerHTML='<button class="delete" data-del="'+i+'">Delete</button><div class="record-head"><div><h3>'+esc(t.topic)+'</h3><small>'+esc(t.date)+" · "+esc(t.subject)+'</small></div><span class="pill">'+a+'% accuracy</span></div><p>'+t.correct+" correct · "+t.wrong+" wrong · "+t.attempted+"/"+t.total+" attempted</p>"+(t.learn?"<p><b>Learned:</b> "+esc(t.learn)+"</p>":"")+(t.weak?"<p><b>Revise:</b> "+esc(t.weak)+"</p>":"");box.appendChild(el)});document.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{const x=tests();x.splice(+b.dataset.del,1);save("tests",x);renderAll()})}
+function renderNotes(){const box=$("notesList"),ns=load("notes",[]);box.innerHTML="";if(!ns.length){box.innerHTML="<div class=\"empty\">No notes saved yet.</div>";return}ns.slice().reverse().forEach((n,r)=>{const i=ns.length-1-r,el=document.createElement("div");el.className="record";el.innerHTML='<button class="delete" data-ndel="'+i+'">Delete</button><span class="pill">'+esc(n.subject)+'</span><h3>'+esc(n.title)+'</h3><small>'+esc(n.date)+'</small><p>'+esc(n.body).replace(/\n/g,"<br>")+"</p>";box.appendChild(el)});document.querySelectorAll("[data-ndel]").forEach(b=>b.onclick=()=>{const x=load("notes",[]);x.splice(+b.dataset.ndel,1);save("notes",x);renderAll()})}
+function renderProgress(){const ts=tests();$("recentPerformance").innerHTML=ts.length?ts.slice(-6).reverse().map(t=>"<div class=\"perf-row\"><b>"+esc(t.topic)+"</b><span>"+esc(t.date)+" · "+(t.attempted?Math.round(t.correct/t.attempted*100):0)+"%</span></div>").join(""):"<p class=\"muted\">No test data yet.</p>"}
+function timerLoad(){timer=load("timer",timer)}function timerSave(){save("timer",timer)}function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function renderTimer(){const total=timer.phase==="study"?1500:300,p=Math.max(0,Math.min(100,(1-timer.remaining/total)*100));$("bigClock").textContent=fmt(timer.remaining);$("dashClock").textContent=fmt(timer.remaining);$("timerStatus").textContent=timer.running?(timer.phase==="study"?"Focus — stay with the work.":"Rest — recover, then return."):"Ready. Start when you are prepared.";$("dashTimerStatus").textContent=timer.running?(timer.phase==="study"?"Study block in progress.":"Rest period in progress."):"Ready for a focused session.";$("timerBar").style.width=p+"%";$("sessionNo").textContent=timer.session;$("timerPhase").textContent=timer.phase.toUpperCase();$("studyMode").classList.toggle("active",timer.phase==="study");$("restMode").classList.toggle("active",timer.phase==="rest");$("startTimer").textContent=timer.running?"Running":"Start Focus";$("xp").textContent=timer.xp;$("xpBar").style.width=(timer.xp%500)/5+"%";$("buddyLevel").textContent="Level "+(Math.floor(timer.xp/500)+1);$("focusTotal").textContent=timer.focus>=60?Math.floor(timer.focus/60)+"h "+timer.focus%60+"m":timer.focus+"m";$("sessionTotal").textContent=timer.session-1;const pct=Math.min(100,Math.floor(timer.xp/500*100));$("journeyOverall").textContent=pct+"%";$("journeyOverallBar").style.width=pct+"%";$("journeyBar").style.width=pct+"%";$("journeyPct").textContent=pct+"%"}
+let tick=null;function startTimer(){if(timer.running)return;timer.running=true;timerSave();renderTimer();clearInterval(tick);tick=setInterval(()=>{timer.remaining--;if(timer.remaining<=0){if(timer.phase==="study"){timer.focus+=25;timer.xp+=25;timer.phase="rest";timer.remaining=300;timer.session++}else{timer.phase="study";timer.remaining=1500}timerSave()}renderTimer()},1000)}
+function updateClock(){const d=new Date();$("liveDate").textContent=d.toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});$("heroDay").textContent=d.toLocaleDateString("en-IN",{weekday:"long",day:"2-digit",month:"long"});$("heroTime").textContent=d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit"})}
+function renderAll(){initTasks();renderStats();renderTests();renderNotes();renderProgress();renderTimer();$("currentBrief").value=load("brief","");$("journeyDays").textContent=Math.max(1,Math.floor((Date.now()-load("startDate",Date.now()))/86400000)+1)+" days"}
+function openApp(){user=localStorage.getItem("da4_current");if(!user)return;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");if(!load("startDate",null))save("startDate",Date.now());timerLoad();renderAll();updateClock();setInterval(updateClock,1000)}
+document.querySelectorAll(".auth-tab").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll(".auth-tab").forEach(x=>x.classList.toggle("active",x===b));$("authBtn").textContent=mode==="login"?"Login":"Create Account";$("authMsg").textContent=""});
+$("authBtn").onclick=()=>{const email=$("email").value.trim().toLowerCase(),pass=$("password").value;if(!email||!pass){$("authMsg").textContent="Enter email and password.";return}const users=JSON.parse(localStorage.getItem("da4_users")||"{}");if(mode==="create"){if(users[email]){$("authMsg").textContent="Account already exists.";return}users[email]=pass;localStorage.setItem("da4_users",JSON.stringify(users))}else if(users[email]!==pass){$("authMsg").textContent="Incorrect details. Create the account first.";return}localStorage.setItem("da4_current",email);openApp()};
+document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>showPage(b.dataset.page));$("logout").onclick=()=>{localStorage.removeItem("da4_current");location.reload()};$("mobileMenu").onclick=()=>$("sidebar").classList.toggle("open");$("startTimer").onclick=startTimer;
+$("saveTest").onclick=()=>{const ts=tests(),t={date:$("tDate").value||today(),subject:$("tSubject").value,topic:$("tTopic").value.trim(),total:+$("tTotal").value||0,attempted:+$("tAttempted").value||0,correct:+$("tCorrect").value||0,wrong:+$("tWrong").value||0,learn:$("tLearn").value.trim(),weak:$("tWeak").value.trim()};if(!t.topic){alert("Enter the test/topic.");return}ts.push(t);save("tests",ts);["tTopic","tTotal","tAttempted","tCorrect","tWrong","tLearn","tWeak"].forEach(id=>$(id).value="");renderAll();alert("Test saved.")};
+$("saveNote").onclick=()=>{const ns=load("notes",[]),n={title:$("nTitle").value.trim(),subject:$("nSubject").value,body:$("nBody").value.trim(),date:new Date().toLocaleDateString("en-IN")};if(!n.title||!n.body){alert("Enter a title and note.");return}ns.push(n);save("notes",ns);$("nTitle").value="";$("nBody").value="";renderAll();alert("Note saved.")};
+$("saveBrief").onclick=()=>{save("brief",$("currentBrief").value);alert("Today’s brief saved.")};$("themeBtn").onclick=()=>{document.body.classList.toggle("dark");localStorage.setItem("da4_dark",document.body.classList.contains("dark")?"1":"0")};
+$("resetTasks").onclick=()=>{if(confirm("Reset today’s tasks?")){const d=load("tasks",{});delete d[today()];save("tasks",d);renderAll()}};$("resetTimer").onclick=()=>{if(confirm("Clear timer data?")){timer={phase:"study",remaining:1500,running:false,session:1,focus:0,xp:0};timerSave();clearInterval(tick);renderAll()}};if(localStorage.getItem("da4_dark")==="1")document.body.classList.add("dark");$("tDate").value=today();openApp();
