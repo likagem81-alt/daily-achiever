@@ -2,3 +2,18 @@
 /* Soft cute background + more lifelike APSC Buddy */
 body{background:radial-gradient(circle at 8% 12%,rgba(214,235,220,.8) 0,transparent 26%),radial-gradient(circle at 92% 80%,rgba(246,231,190,.55) 0,transparent 24%),linear-gradient(135deg,#f8faf8 0%,#eef5f0 48%,#fbfaf5 100%);background-attachment:fixed}.content:before{content:"";position:fixed;inset:72px 0 0 225px;pointer-events:none;opacity:.18;background-image:radial-gradient(#0f5132 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.5),transparent 75%);z-index:-1}.buddy-card-large{background:linear-gradient(145deg,#fffdf7,#f2f8f3);overflow:hidden}.buddy-mascot{filter:drop-shadow(0 15px 15px rgba(23,49,38,.12));transform:translateY(0);transition:transform .3s ease}.buddy-card-large:hover .buddy-mascot{transform:translateY(-5px)}.buddy-head{background:radial-gradient(circle at 38% 30%,#fff8e7 0 9%,#ead8b4 35%,#c9aa72 100%);box-shadow:inset -8px -12px 18px rgba(112,79,34,.12),inset 7px 5px 12px rgba(255,255,255,.6)}.buddy-ear{background:radial-gradient(circle at 45% 35%,#f1dfbf,#c5a46b 80%);box-shadow:inset -4px -5px 7px rgba(92,64,29,.12)}.buddy-head .eye{box-shadow:0 1px 0 #fff8 inset,0 2px 4px rgba(0,0,0,.25)}.buddy-body{background:linear-gradient(145deg,#176c46,#0b4029 75%);box-shadow:inset 8px 5px 12px rgba(255,255,255,.08),inset -8px -10px 12px rgba(0,0,0,.16)}.buddy-shadow{background:radial-gradient(ellipse,rgba(23,49,38,.22),transparent 70%)}
 @media(max-width:900px){.content:before{inset:64px 0 0 0}}
+
+/* APSC Journey challenges & Civil Service rewards */
+.journey-reward-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.daily-challenge{display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(135deg,#fffdf5,#f0f7f2);border-color:#e5d7ad}
+.daily-challenge h2{margin:7px 0 5px}.daily-challenge p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.challenge-reward{min-width:92px;text-align:center;padding:12px;border-radius:14px;background:#fff;border:1px solid #eadfbf;box-shadow:0 8px 20px rgba(23,49,38,.06)}
+.challenge-reward span{display:block;font-size:30px;margin-bottom:5px}.challenge-reward b{font-size:11px;color:var(--green)}
+.reward-cabinet{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.reward-symbol{display:flex;align-items:center;gap:10px;padding:11px;border-radius:12px;border:1px solid var(--line);background:#f8faf8;transition:.2s}
+.reward-symbol>span{font-size:25px;filter:grayscale(1);opacity:.4}.reward-symbol b,.reward-symbol small{display:block}.reward-symbol b{font-size:11px}.reward-symbol small{font-size:9px;color:var(--muted);margin-top:3px}
+.reward-symbol.unlocked{background:linear-gradient(135deg,#fffaf0,#eef7f1);border-color:#dcc98e;box-shadow:0 6px 16px rgba(201,163,75,.12)}
+.reward-symbol.unlocked>span{filter:none;opacity:1}.reward-symbol.locked{opacity:.72}
+.dark .daily-challenge,.dark .reward-symbol,.dark .challenge-reward{background:#17211c;border-color:#2b3931}
+@media(max-width:900px){.journey-reward-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.daily-challenge{display:block}.challenge-reward{margin-top:14px}.reward-cabinet{grid-template-columns:1fr}}
