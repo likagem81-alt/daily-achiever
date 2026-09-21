@@ -102,6 +102,7 @@ function renderExecutiveDashboard(){
   const ts=tests(), attempted=ts.reduce((s,t)=>s+Number(t.attempted||0),0), correct=ts.reduce((s,t)=>s+Number(t.correct||0),0);
   if($("execAvg")) $("execAvg").textContent=attempted?Math.round(correct/attempted*100)+"%":"—";
 }
+document.querySelectorAll(".side-link[data-view]").forEach(b=>b.onclick=()=>show(b.dataset.view));
 document.querySelectorAll("[data-exec-scroll]").forEach(b=>b.onclick=()=>{
   const el=$(b.dataset.execScroll);
   if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
