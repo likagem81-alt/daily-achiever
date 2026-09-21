@@ -31,3 +31,26 @@ html,body{width:100%;max-width:100%;overflow-x:hidden!important}
 #scPetIcon.plant-leaves svg *{visibility:visible!important}
 @media(max-width:1100px){.executive-dashboard{width:calc(100% - 202px)}}
 @media(max-width:800px){.executive-dashboard{width:100%;}.exec-sidebar{overflow-y:hidden}}
+
+/* APSC Buddy - robust CSS mascot */
+#scPetIcon.buddy-mascot{position:relative;width:150px!important;height:150px!important;display:block!important;background:transparent!important;border:0!important;font-size:0!important;overflow:visible}
+#scPetIcon.buddy-mascot .buddy-head{position:absolute;left:27px;top:18px;width:96px;height:86px;background:linear-gradient(145deg,#fff,#e6eef0);border:4px solid #173957;border-radius:42% 42% 46% 46%;box-shadow:0 8px 18px #17395720;z-index:3}
+#scPetIcon.buddy-mascot .buddy-ear{position:absolute;top:22px;width:30px;height:34px;background:#d7a83b;border:4px solid #173957;border-radius:50% 50% 45% 45%;z-index:1}
+#scPetIcon.buddy-mascot .buddy-ear.left{left:18px;transform:rotate(-28deg)}
+#scPetIcon.buddy-mascot .buddy-ear.right{right:18px;transform:rotate(28deg)}
+#scPetIcon.buddy-mascot .buddy-eye{position:absolute;top:31px;width:18px;height:18px;background:#fff;border:3px solid #173957;border-radius:50%}
+#scPetIcon.buddy-mascot .buddy-eye:after{content:"";position:absolute;left:4px;top:4px;width:7px;height:7px;background:#173957;border-radius:50%}
+#scPetIcon.buddy-mascot .buddy-eye.left{left:19px}.buddy-mascot .buddy-eye.right{right:19px}
+#scPetIcon.buddy-mascot .buddy-nose{position:absolute;left:42px;top:52px;width:12px;height:9px;background:#d7a83b;clip-path:polygon(50% 100%,0 0,100% 0)}
+#scPetIcon.buddy-mascot .buddy-smile{position:absolute;left:34px;top:62px;width:28px;height:12px;border-bottom:3px solid #173957;border-radius:0 0 50% 50%}
+#scPetIcon.buddy-mascot .buddy-badge{position:absolute;right:-9px;bottom:-8px;background:#173957;color:#fff;padding:4px 7px;border-radius:5px;font:800 8px Arial,sans-serif;letter-spacing:1px;box-shadow:0 3px 8px #17395735}
+#scPetIcon.buddy-mascot .buddy-body{position:absolute;left:42px;top:92px;width:66px;height:42px;background:#173957;border-radius:17px 17px 13px 13px;z-index:2;box-shadow:0 7px 13px #17395722}
+#scPetIcon.buddy-mascot .buddy-body:before{content:"";position:absolute;left:25px;top:8px;width:16px;height:16px;border-radius:50%;background:#d7a83b}
+#scPetIcon.buddy-mascot .buddy-body span{position:absolute;top:15px;width:13px;height:24px;background:#d7a83b;border-radius:9px}
+#scPetIcon.buddy-mascot .buddy-body span:first-child{left:-8px;transform:rotate(18deg)}
+#scPetIcon.buddy-mascot .buddy-body span:last-child{right:-8px;transform:rotate(-18deg)}
+#scPetIcon.buddy-mascot .buddy-shadow{position:absolute;left:31px;bottom:1px;width:90px;height:12px;background:#17395720;border-radius:50%;filter:blur(2px)}
+@keyframes buddyFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+#scPetIcon.buddy-mascot .buddy-head,#scPetIcon.buddy-mascot .buddy-body,#scPetIcon.buddy-mascot .buddy-ear{animation:buddyFloat 3.2s ease-in-out infinite}
+.buddy-card .plant{min-width:160px!important}
+@media(max-width:1100px){#scPetIcon.buddy-mascot{margin:auto}}
