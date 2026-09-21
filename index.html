@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Daily Achiever — APSC Command Center</title>
-<link rel="stylesheet" href="style.css?v=20260926">
+<link rel="stylesheet" href="style.css?v=20260927">
 <style>
 .auth-tabs{display:flex;gap:6px}.auth-tab{flex:1;border:0;padding:11px;border-radius:9px}.auth-tab.active{background:#fff;font-weight:800;color:#0f5132}.login-card input{display:block}.app{min-height:100vh}.challenge-open{margin-top:8px;font-size:11px;padding:7px 10px}.reward-symbol{cursor:default}
 </style></head><body>
 <div id="loginScreen" class="login-screen"><div class="login-card">
 <div class="brand-symbol">DA</div><p class="eyebrow">APSC STUDY COMMAND CENTER</p><h1>Daily Achiever</h1><p class="muted">A disciplined system for a disciplined aspirant.</p>
 <div class="auth-tabs"><button type="button" class="auth-tab active" data-mode="login">Login</button><button type="button" class="auth-tab" data-mode="create">Create Account</button></div>
-<input id="email" type="email" placeholder="Email address" autocomplete="username"><input id="password" type="password" placeholder="Password" autocomplete="current-password">
+<input id="email" type="text" placeholder="Email address" autocomplete="username"><input id="password" type="password" placeholder="Password" autocomplete="current-password">
 <button type="button" id="authBtn" class="btn primary full">Login</button><p id="authMsg" class="form-msg"></p>
 </div></div>
 <div id="app" class="app hidden">
@@ -17,10 +17,73 @@
 <button type="button" class="side-link active" data-page="dashboard"><span>⌂</span>Dashboard</button><button type="button" class="side-link " data-page="timer"><span>◷</span>Study Timer</button><button type="button" class="side-link " data-page="journey"><span>◎</span>APSC Journey</button><button type="button" class="side-link " data-page="tests"><span>▤</span>Test Series</button><button type="button" class="side-link " data-page="notes"><span>▥</span>Notes</button><button type="button" class="side-link " data-page="current"><span>◈</span>Current Affairs</button><button type="button" class="side-link " data-page="progress"><span>◒</span>Progress</button><button type="button" class="side-link " data-page="buddy"><span>♧</span>APSC Buddy</button><button type="button" class="side-link " data-page="motivation"><span>★</span>Motivation</button><button type="button" class="side-link " data-page="resources"><span>▰</span>Resources</button><button type="button" class="side-link " data-page="settings"><span>⚙</span>Settings</button>
 <div class="side-footer"><div class="assam-line"></div><b>A Better You.<br>A Better Assam.</b><small>Daily progress matters.</small></div></aside>
 <main class="content">
-<section id="dashboard" class="page active"><div class="hero"><div><span class="eyebrow">GOOD MORNING, ROBIN.</span><h1>Build the officer<br>you want to become.</h1><p>Every focused session is a step towards your APSC goal.</p></div><div class="hero-date"><span id="heroDay">—</span><b id="heroTime">—</b><small>Local time</small></div></div>
-<div class="stat-grid"><div class="stat-card"><span>Today’s Progress</span><b id="todayProgress">0%</b><small>Tasks completed</small></div><div class="stat-card"><span>Focus Time</span><b id="studyTime">0m</b><small>Today</small></div><div class="stat-card"><span>Tests Recorded</span><b id="testCount">0</b><small>All time</small></div><div class="stat-card"><span>Accuracy</span><b id="accuracy">—</b><small>Across tests</small></div></div>
-<div class="dashboard-grid"><div class="card"><div class="card-head"><div><span class="eyebrow">TODAY</span><h2>Study Plan</h2></div></div><div id="tasks" class="task-list"></div></div><div class="card timer-mini"><div class="card-head"><div><span class="eyebrow">FOCUS SYSTEM</span><h2>25 / 5 Timer</h2></div><span class="badge">NO PAUSE</span></div><div class="mini-clock" id="dashClock">25:00</div><p id="dashTimerStatus">Ready for a focused session.</p><button type="button" class="btn primary full" data-page="timer">Open Focus Timer</button></div></div>
-<div class="dashboard-grid lower"><div class="card journey-preview"><div class="card-head"><div><span class="eyebrow">LONG-TERM</span><h2>My APSC Journey</h2></div><button type="button" class="text-btn" data-page="journey">Open</button></div><div class="journey-bar"><i id="journeyBar"></i></div><div class="journey-meta"><b id="journeyPct">0%</b><span>Foundation → APSC Goal</span></div></div><div class="card thought"><span class="eyebrow">TODAY’S THOUGHT</span><blockquote>“Small disciplines repeated with consistency create remarkable results.”</blockquote><small>— Robin Sharma</small></div></div></section>
+<section id="dashboard" class="page active">
+<div class="dash-layout">
+  <div class="dash-main">
+    <div class="hero visual-hero">
+      <div class="hero-copy">
+        <div class="greeting-row"><span class="eyebrow">DAILY ACHIEVER • APSC</span><span class="hero-status">● FOCUS SYSTEM READY</span></div>
+        <h1>Good day, Robin! <span>👋</span></h1>
+        <p>Stay consistent. You are one focused session closer to your public-service goal.</p>
+        <div class="hero-quote"><span class="quote-leaf">✦</span><div><b>“Discipline is the bridge between your goals and your success.”</b><small>— A.P.J. Abdul Kalam</small></div></div>
+        <div class="hero-meta"><span>📅 <b id="heroDay">—</b></span><span>🕒 <b id="heroTime">—</b></span></div>
+      </div>
+      <div class="hero-pet-scene" aria-label="APSC Buddy">
+        <div class="pet-glow"></div>
+        <div class="buddy-mascot hero-puppy">
+          <div class="buddy-ear left"></div><div class="buddy-ear right"></div>
+          <div class="buddy-head"><span class="eye e1"></span><span class="eye e2"></span><span class="nose"></span><span class="smile"></span><b>APSC<br>BUDDY</b></div>
+          <div class="buddy-body"><i></i><i></i></div><div class="buddy-shadow"></div>
+        </div>
+        <div class="buddy-speech"><b>APSC Buddy says:</b><span>Great to see you, Robin! Stay focused. One step closer to public service today. 💚</span></div>
+      </div>
+    </div>
+
+    <div class="dash-stats">
+      <div><span>Today’s Progress</span><b id="todayProgress">0%</b><small>Tasks completed</small></div>
+      <div><span>Focus Time</span><b id="studyTime">0m</b><small>Today</small></div>
+      <div><span>Tests Recorded</span><b id="testCount">0</b><small>All time</small></div>
+      <div><span>Accuracy</span><b id="accuracy">—</b><small>Across tests</small></div>
+    </div>
+
+    <div class="card journey-preview journey-showcase">
+      <div class="card-head"><div><span class="eyebrow">MY APSC JOURNEY</span><h2>From Preparation to Public Service</h2></div><button type="button" class="text-btn" data-page="journey">View Journey →</button></div>
+      <div class="journey-steps">
+        <div class="journey-node done"><i>▣</i><b>Foundation</b><small>Study Basics</small><em>Completed ✓</em></div>
+        <div class="journey-node current"><i>▤</i><b>Prelims</b><small>Clear the First Step</small><em>In Progress</em></div>
+        <div class="journey-node"><i>✎</i><b>Mains</b><small>Write to Make a Difference</small><em>Locked</em></div>
+        <div class="journey-node"><i>●</i><b>Interview</b><small>Prove Your Vision</small><em>Locked</em></div>
+        <div class="journey-node"><i>★</i><b>Civil Service</b><small>Serve the People</small><em>Locked</em></div>
+      </div>
+      <div class="journey-bar"><i id="journeyBar"></i></div>
+      <div class="journey-meta"><b id="journeyPct">0%</b><span>Foundation → APSC Goal</span></div>
+    </div>
+  </div>
+
+  <aside class="dash-side">
+    <div class="card dash-timer-card">
+      <div class="side-card-title"><h2>◷ Study Timer <span>(25 / 5)</span></h2><span class="badge">◉ Focus</span></div>
+      <div class="circle-timer"><div><b id="dashClock">25:00</b><small>Focus Time</small></div></div>
+      <p id="dashTimerStatus">Ready for a focused session.</p>
+      <div class="timer-actions"><button type="button" class="btn primary" data-page="timer">▶ Start</button><button type="button" class="btn soft" data-page="timer">Reset</button></div>
+    </div>
+
+    <div class="card dash-progress-card">
+      <div class="side-card-title"><h2>✓ Today’s Progress</h2><span id="dashTaskCount">0 / 6 tasks</span></div>
+      <div class="progress-line"><i id="dashProgressLine"></i></div>
+      <div id="tasks" class="task-list dashboard-task-list"></div>
+    </div>
+
+    <div class="card dash-motivation">
+      <span class="eyebrow">TODAY’S MOTIVATION</span>
+      <blockquote>“The purpose of public service is to make life better for people, not easier for yourself.”</blockquote>
+      <small>— Daily Achiever</small>
+    </div>
+
+    <div class="assam-card"><span>From Assam</span><b>to a better India.</b><small>Same roots. Higher dreams.</small></div>
+  </aside>
+</div>
+</section>
 <section id="timer" class="page"><div class="page-head"><div><span class="eyebrow">FOCUS SYSTEM</span><h1>Study Timer</h1><p>25 minutes study → 5 minutes rest. Automatic cycle.</p></div></div><div class="timer-layout"><div class="card timer-card-large"><div class="timer-mode"><span id="studyMode" class="active">STUDY · 25 MIN</span><span id="restMode">REST · 5 MIN</span></div><div class="big-clock" id="bigClock">25:00</div><p id="timerStatus">Ready. Start when you are prepared.</p><div class="timer-track"><i id="timerBar"></i></div><div class="timer-session">SESSION <b id="sessionNo">1</b> · <span id="timerPhase">STUDY</span></div><button type="button" id="startTimer" class="btn primary timer-start">Start Focus</button><div class="no-pause-note">Automatic cycle enabled. There is no pause button.</div></div><div class="card timer-info"><span class="eyebrow">SESSION RULE</span><h2>Protect your attention.</h2><ul><li>25 minutes uninterrupted study.</li><li>5 minutes recovery.</li><li>Next study block starts automatically.</li><li>Each completed study block earns XP.</li></ul></div></div></section>
 <section id="journey" class="page"><div class="page-head"><div><span class="eyebrow">LONG-TERM VIEW</span><h1>My APSC Journey</h1><p>Progress is built in stages.</p></div></div><div class="card journey-card-full"><div class="road"><div class="stage done"><i>✓</i><b>Foundation</b><small>Completed</small></div><div class="stage current"><i>2</i><b>Core Subjects</b><small>Current</small></div><div class="stage"><i>3</i><b>Practice</b><small>Next</small></div><div class="stage"><i>4</i><b>Revision</b><small>Next</small></div><div class="stage"><i>5</i><b>Mock Tests</b><small>Next</small></div><div class="stage"><i>★</i><b>APSC Goal</b><small>Destination</small></div></div><div class="journey-progress"><span>Overall progress</span><b id="journeyOverall">0%</b><i><em id="journeyOverallBar"></em></i></div></div>
 <div class="stat-grid three"><div class="stat-card"><span>Journey Time</span><b id="journeyDays">1 day</b></div><div class="stat-card"><span>Total Focus Time</span><b id="focusTotal">0m</b></div><div class="stat-card"><span>Completed Sessions</span><b id="sessionTotal">0</b></div></div>
@@ -62,7 +125,7 @@ function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60)
 function renderTimer(){var total=timer.phase==="study"?1500:300,p=Math.max(0,Math.min(100,(1-timer.remaining/total)*100));$("bigClock").textContent=fmt(timer.remaining);$("dashClock").textContent=fmt(timer.remaining);$("timerStatus").textContent=timer.running?(timer.phase==="study"?"Focus — stay with the work.":"Rest — recover, then return."):"Ready. Start when you are prepared.";$("dashTimerStatus").textContent=timer.running?(timer.phase==="study"?"Study block in progress.":"Rest period in progress."):"Ready for a focused session.";$("timerBar").style.width=p+"%";$("sessionNo").textContent=timer.session;$("timerPhase").textContent=timer.phase.toUpperCase();$("studyMode").classList.toggle("active",timer.phase==="study");$("restMode").classList.toggle("active",timer.phase==="rest");$("startTimer").textContent=timer.running?"Running":"Start Focus";$("xp").textContent=timer.xp;$("xpBar").style.width=(timer.xp%500)/5+"%";$("buddyLevel").textContent="Level "+(Math.floor(timer.xp/500)+1);$("focusTotal").textContent=timer.focus>=60?Math.floor(timer.focus/60)+"h "+timer.focus%60+"m":timer.focus+"m";$("sessionTotal").textContent=timer.session-1;var pct=Math.min(100,Math.floor(timer.xp/500*100));$("journeyOverall").textContent=pct+"%";$("journeyOverallBar").style.width=pct+"%";$("journeyBar").style.width=pct+"%";$("journeyPct").textContent=pct+"%"}
 function startTimer(){if(timer.running)return;timer.running=true;save("timer",timer);clearInterval(tick);tick=setInterval(function(){timer.remaining--;if(timer.remaining<=0){if(timer.phase==="study"){timer.focus+=25;timer.xp+=25;timer.phase="rest";timer.remaining=300;timer.session++}else{timer.phase="study";timer.remaining=1500}save("timer",timer)}renderTimer()},1000);renderTimer()}
 function updateClock(){var d=new Date();$("liveDate").textContent=d.toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});$("heroDay").textContent=d.toLocaleDateString("en-IN",{weekday:"long",day:"2-digit",month:"long"});$("heroTime").textContent=d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit"})}
-function renderAll(){renderTasks();renderStats();renderRewards();renderTests();renderNotes();renderProgress();renderTimer();$("currentBrief").value=load("brief","");$("journeyDays").textContent=Math.max(1,Math.floor((Date.now()-load("startDate",Date.now()))/86400000)+1)+" days"}
+function renderAll(){renderTasks();renderStats();renderRewards();var ta=(load("tasks",{})[today()]||[]).length;if($("dashTaskCount"))$("dashTaskCount").textContent=ta+" / 6 tasks";if($("dashProgressLine"))$("dashProgressLine").style.width=Math.round(ta/6*100)+"%";renderTests();renderNotes();renderProgress();renderTimer();$("currentBrief").value=load("brief","");$("journeyDays").textContent=Math.max(1,Math.floor((Date.now()-load("startDate",Date.now()))/86400000)+1)+" days"}
 document.querySelectorAll(".auth-tab").forEach(function(b){b.onclick=function(){mode=b.getAttribute("data-mode");document.querySelectorAll(".auth-tab").forEach(function(x){x.classList.toggle("active",x===b)});$("authBtn").textContent=mode==="login"?"Login":"Create Account";$("authMsg").textContent=""}})
 $("authBtn").onclick=auth;
 document.querySelectorAll("[data-page]").forEach(function(b){b.onclick=function(){showPage(b.getAttribute("data-page"))}});
