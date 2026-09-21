@@ -52,7 +52,6 @@ $("logout").onclick=()=>{localStorage.removeItem("da3_current");location.reload(
 $("saveAchievement").onclick=()=>{save("achievement",$("achievement").value);alert("Achievement saved ✓")};
 $("saveTest").onclick=()=>{let ts=tests(),t={date:$("tDate").value||new Date().toISOString().slice(0,10),subject:$("tSubject").value,topic:$("tTopic").value,total:+$("tTotal").value||0,attempted:+$("tAttempted").value||0,correct:+$("tCorrect").value||0,wrong:+$("tWrong").value||0,learn:$("tLearn").value,weak:$("tWeak").value};if(!t.topic){alert("Enter test/topic.");return}ts.push(t);save("tests",ts);["tTopic","tTotal","tAttempted","tCorrect","tWrong","tLearn","tWeak"].forEach(x=>$(x).value="");renderTests();refresh();alert("Test saved ✓")};
 $("saveNote").onclick=()=>{let ns=load("notes",[]),n={title:$("nTitle").value,subject:$("nSubject").value,body:$("nBody").value,date:new Date().toLocaleDateString("en-IN")};if(!n.title||!n.body){alert("Enter title and note.");return}ns.push(n);save("notes",ns);$("nTitle").value="";$("nBody").value="";renderNotes();refresh();alert("Note saved ✓")};
-$("newTest").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
 $("themeBtn").onclick=()=>{document.body.classList.toggle("dark");localStorage.setItem("da3_dark",document.body.classList.contains("dark"))};
 if(localStorage.getItem("da3_dark")==="true")document.body.classList.add("dark");
 
