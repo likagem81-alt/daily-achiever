@@ -1,133 +1,80 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Daily Achiever — APSC Command Center</title>
-<link rel="stylesheet" href="style.css?v=20260925">
-</head>
-<body>
-<div id="loginScreen" class="login-screen">
-  <div class="login-card">
-    <div class="brand-symbol">DA</div><p class="eyebrow">APSC STUDY COMMAND CENTER</p>
-    <h1>Daily Achiever</h1><p class="muted">A disciplined system for a disciplined aspirant.</p>
-    <div class="auth-tabs"><button class="auth-tab active" data-mode="login">Login</button><button class="auth-tab" data-mode="create">Create Account</button></div>
-    <input id="email" type="email" placeholder="Email address" autocomplete="username">
-    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
-    <button id="authBtn" class="btn primary full">Login</button><p id="authMsg" class="form-msg"></p>
-  </div>
-</div>
-
+<link rel="stylesheet" href="style.css?v=20260926">
+<style>
+.auth-tabs{display:flex;gap:6px}.auth-tab{flex:1;border:0;padding:11px;border-radius:9px}.auth-tab.active{background:#fff;font-weight:800;color:#0f5132}.login-card input{display:block}.app{min-height:100vh}.challenge-open{margin-top:8px;font-size:11px;padding:7px 10px}.reward-symbol{cursor:default}
+</style></head><body>
+<div id="loginScreen" class="login-screen"><div class="login-card">
+<div class="brand-symbol">DA</div><p class="eyebrow">APSC STUDY COMMAND CENTER</p><h1>Daily Achiever</h1><p class="muted">A disciplined system for a disciplined aspirant.</p>
+<div class="auth-tabs"><button type="button" class="auth-tab active" data-mode="login">Login</button><button type="button" class="auth-tab" data-mode="create">Create Account</button></div>
+<input id="email" type="email" placeholder="Email address" autocomplete="username"><input id="password" type="password" placeholder="Password" autocomplete="current-password">
+<button type="button" id="authBtn" class="btn primary full">Login</button><p id="authMsg" class="form-msg"></p>
+</div></div>
 <div id="app" class="app hidden">
-<header class="topbar">
-  <button id="mobileMenu" class="mobile-menu">☰</button>
-  <div class="brand"><div class="brand-symbol small">DA</div><div><b>DAILY ACHIEVER</b><small>APSC Command Center</small></div></div>
-  <div class="top-motto">Discipline • Consistency • Service</div>
-  <div class="top-user"><span id="liveDate">—</span><div class="avatar">RS</div><div><b>Robin Sharma</b><small>APSC Aspirant</small></div><button id="logout" class="btn ghost">Logout</button></div>
-</header>
-
-<aside id="sidebar" class="sidebar">
-  <div class="side-title">STUDY COMMAND</div>
-  <button class="side-link active" data-page="dashboard"><span>⌂</span>Dashboard</button>
-  <button class="side-link" data-page="timer"><span>◷</span>Study Timer</button>
-  <button class="side-link" data-page="journey"><span>◎</span>APSC Journey</button>
-  <button class="side-link" data-page="tests"><span>▤</span>Test Series</button>
-  <button class="side-link" data-page="notes"><span>▥</span>Notes</button>
-  <button class="side-link" data-page="current"><span>◈</span>Current Affairs</button>
-  <button class="side-link" data-page="progress"><span>◒</span>Progress</button>
-  <button class="side-link" data-page="buddy"><span>♧</span>APSC Buddy</button>
-  <button class="side-link" data-page="motivation"><span>★</span>Motivation</button>
-  <button class="side-link" data-page="resources"><span>▰</span>Resources</button>
-  <button class="side-link" data-page="settings"><span>⚙</span>Settings</button>
-  <div class="side-footer"><div class="assam-line"></div><b>A Better You.<br>A Better Assam.</b><small>Daily progress matters.</small></div>
-</aside>
-
+<header class="topbar"><button type="button" id="mobileMenu" class="mobile-menu">☰</button><div class="brand"><div class="brand-symbol small">DA</div><div><b>DAILY ACHIEVER</b><small>APSC Command Center</small></div></div><div class="top-motto">Discipline • Consistency • Service</div><div class="top-user"><span id="liveDate">—</span><div class="avatar">RS</div><div><b>Robin Sharma</b><small>APSC Aspirant</small></div><button type="button" id="logout" class="btn ghost">Logout</button></div></header>
+<aside id="sidebar" class="sidebar"><div class="side-title">STUDY COMMAND</div>
+<button type="button" class="side-link active" data-page="dashboard"><span>⌂</span>Dashboard</button><button type="button" class="side-link " data-page="timer"><span>◷</span>Study Timer</button><button type="button" class="side-link " data-page="journey"><span>◎</span>APSC Journey</button><button type="button" class="side-link " data-page="tests"><span>▤</span>Test Series</button><button type="button" class="side-link " data-page="notes"><span>▥</span>Notes</button><button type="button" class="side-link " data-page="current"><span>◈</span>Current Affairs</button><button type="button" class="side-link " data-page="progress"><span>◒</span>Progress</button><button type="button" class="side-link " data-page="buddy"><span>♧</span>APSC Buddy</button><button type="button" class="side-link " data-page="motivation"><span>★</span>Motivation</button><button type="button" class="side-link " data-page="resources"><span>▰</span>Resources</button><button type="button" class="side-link " data-page="settings"><span>⚙</span>Settings</button>
+<div class="side-footer"><div class="assam-line"></div><b>A Better You.<br>A Better Assam.</b><small>Daily progress matters.</small></div></aside>
 <main class="content">
-<section id="dashboard" class="page active">
-  <div class="hero">
-    <div><span class="eyebrow">GOOD MORNING, ROBIN.</span><h1>Build the officer<br>you want to become.</h1><p>Every focused session is a step towards your APSC goal.</p></div>
-    <div class="hero-date"><span id="heroDay">—</span><b id="heroTime">—</b><small>Local time</small></div>
-  </div>
-  <div class="stat-grid">
-    <div class="stat-card"><span>Today’s Progress</span><b id="todayProgress">0%</b><small>Tasks completed</small></div>
-    <div class="stat-card"><span>Focus Time</span><b id="studyTime">0m</b><small>Today</small></div>
-    <div class="stat-card"><span>Tests Recorded</span><b id="testCount">0</b><small>All time</small></div>
-    <div class="stat-card"><span>Accuracy</span><b id="accuracy">—</b><small>Across tests</small></div>
-  </div>
-  <div class="dashboard-grid">
-    <div class="card">
-      <div class="card-head"><div><span class="eyebrow">TODAY</span><h2>Study Plan</h2></div><button class="text-btn" data-page="settings">Manage</button></div>
-      <div id="tasks" class="task-list"></div>
-    </div>
-    <div class="card timer-mini">
-      <div class="card-head"><div><span class="eyebrow">FOCUS SYSTEM</span><h2>25 / 5 Timer</h2></div><span class="badge">NO PAUSE</span></div>
-      <div class="mini-clock" id="dashClock">25:00</div><p id="dashTimerStatus">Ready for a focused session.</p>
-      <button class="btn primary full" data-page="timer">Open Focus Timer</button>
-    </div>
-  </div>
-  <div class="dashboard-grid lower">
-    <div class="card journey-preview"><div class="card-head"><div><span class="eyebrow">LONG-TERM</span><h2>My APSC Journey</h2></div><button class="text-btn" data-page="journey">Open</button></div><div class="journey-bar"><i id="journeyBar"></i></div><div class="journey-meta"><b id="journeyPct">0%</b><span>Foundation → APSC Goal</span></div></div>
-    <div class="card thought"><span class="eyebrow">TODAY’S THOUGHT</span><blockquote>“Small disciplines repeated with consistency create remarkable results.”</blockquote><small>— Robin Sharma</small></div>
-  </div>
-</section>
-
-<section id="timer" class="page">
-  <div class="page-head"><div><span class="eyebrow">FOCUS SYSTEM</span><h1>Study Timer</h1><p>25 minutes study → 5 minutes rest. The cycle continues automatically.</p></div></div>
-  <div class="timer-layout">
-    <div class="card timer-card-large">
-      <div class="timer-mode"><span id="studyMode" class="active">STUDY · 25 MIN</span><span id="restMode">REST · 5 MIN</span></div>
-      <div class="big-clock" id="bigClock">25:00</div><p id="timerStatus">Ready. Start when you are prepared.</p>
-      <div class="timer-track"><i id="timerBar"></i></div>
-      <div class="timer-session">SESSION <b id="sessionNo">1</b> · <span id="timerPhase">STUDY</span></div>
-      <button id="startTimer" class="btn primary timer-start">Start Focus</button>
-      <div class="no-pause-note">Automatic cycle enabled. There is no pause button.</div>
-    </div>
-    <div class="card timer-info"><span class="eyebrow">SESSION RULE</span><h2>Protect your attention.</h2><ul><li>25 minutes uninterrupted study.</li><li>5 minutes recovery.</li><li>Next study block starts automatically.</li><li>Each completed study block earns XP.</li></ul><div class="focus-task"><small>Current focus</small><b>APSC Preparation</b></div></div>
-  </div>
-</section>
-
-<section id="journey" class="page">
- <div class="page-head"><div><span class="eyebrow">LONG-TERM VIEW</span><h1>My APSC Journey</h1><p>Progress is built in stages.</p></div></div>
- <div class="card journey-card-full"><div class="road">
-  <div class="stage done"><i>✓</i><b>Foundation</b><small>Completed</small></div><div class="stage done"><i>✓</i><b>Core Subjects</b><small>Completed</small></div><div class="stage current"><i>3</i><b>Practice</b><small>Current focus</small></div><div class="stage"><i>4</i><b>Revision</b><small>Next</small></div><div class="stage"><i>5</i><b>Mock Tests</b><small>Next</small></div><div class="stage"><i>★</i><b>APSC Goal</b><small>Destination</small></div>
- </div><div class="journey-progress"><span>Overall progress</span><b id="journeyOverall">0%</b><i><em id="journeyOverallBar"></em></i></div></div>
- <div class="stat-grid three"><div class="stat-card"><span>Journey Time</span><b id="journeyDays">1 day</b></div><div class="stat-card"><span>Total Focus Time</span><b id="focusTotal">0m</b></div><div class="stat-card"><span>Completed Sessions</span><b id="sessionTotal">0</b></div></div>\n <div class="journey-reward-grid"><div class="card daily-challenge"><div><span class="eyebrow">TODAY'S CHALLENGE</span><h2 id="challengeTitle">Complete all 6 study tasks</h2><p id="challengeText">Finish today's plan to unlock a Civil Service reward.</p></div><div class="challenge-reward"><span id="challengeIcon">🏛️</span><b id="challengeReward">+100 XP</b><button class="btn outline challenge-open" data-page="journey">View Rewards</button></div></div><div class="card reward-card"><div class="card-head"><div><span class="eyebrow">REWARD CABINET</span><h2>My Civil Service Symbols</h2></div><span class="badge" id="rewardCount">0 unlocked</span></div><div id="rewardCabinet" class="reward-cabinet"></div></div></div>
-</section>
-
-<section id="tests" class="page">
- <div class="page-head"><div><span class="eyebrow">PERFORMANCE</span><h1>Test Series</h1><p>Record MCQs, PYQs and mock tests.</p></div></div>
- <div class="card form-card"><div class="form-grid"><label>Date<input id="tDate" type="date"></label><label>Subject<select id="tSubject"><option>Polity</option><option>History</option><option>Geography</option><option>Economy</option><option>Environment</option><option>Current Affairs</option><option>Assam</option><option>Mixed GS</option></select></label><label>Test / Topic<input id="tTopic" placeholder="e.g. Plate Tectonics"></label><label>Total Questions<input id="tTotal" type="number"></label><label>Attempted<input id="tAttempted" type="number"></label><label>Correct<input id="tCorrect" type="number"></label><label>Wrong<input id="tWrong" type="number"></label></div><label>What did I learn?<textarea id="tLearn"></textarea></label><label>Weak areas / revision?<textarea id="tWeak"></textarea></label><button id="saveTest" class="btn primary">Save Test</button></div>
- <div class="section-title"><h2>Test History</h2></div><div id="testHistory" class="record-list"></div>
-</section>
-
-<section id="notes" class="page">
- <div class="page-head"><div><span class="eyebrow">KNOWLEDGE BANK</span><h1>Study Notes</h1><p>Keep concise, exam-ready notes.</p></div></div>
- <div class="card form-card"><div class="form-grid"><label>Title<input id="nTitle" placeholder="e.g. Fundamental Rights"></label><label>Subject<select id="nSubject"><option>Polity</option><option>History</option><option>Geography</option><option>Economy</option><option>Environment</option><option>Current Affairs</option><option>Assam</option></select></label></div><label>Note<textarea id="nBody" rows="8" placeholder="Write your key points..."></textarea></label><button id="saveNote" class="btn primary">Save Note</button></div>
- <div class="section-title"><h2>Saved Notes</h2></div><div id="notesList" class="record-list"></div>
-</section>
-
-<section id="current" class="page">
- <div class="page-head"><div><span class="eyebrow">DAILY BRIEF</span><h1>Current Affairs</h1><p>Use this space for the issues you revise today.</p></div></div>
- <div class="current-grid"><div class="card"><h2>Today’s Brief</h2><textarea id="currentBrief" rows="12" placeholder="Write important national, international, Assam and economy updates..."></textarea><button id="saveBrief" class="btn primary">Save Today’s Brief</button></div><div class="card checklist"><h2>Revision Lens</h2><label><input type="checkbox"> Constitutional / governance relevance</label><label><input type="checkbox"> Assam-specific relevance</label><label><input type="checkbox"> Data / report / index</label><label><input type="checkbox"> Environment / geography link</label><label><input type="checkbox"> Possible prelims fact</label><label><input type="checkbox"> Possible mains angle</label></div></div>
-</section>
-
-<section id="progress" class="page">
- <div class="page-head"><div><span class="eyebrow">PERFORMANCE</span><h1>Your Progress</h1><p>Measure consistency, not just hours.</p></div></div>
- <div class="stat-grid"><div class="stat-card"><span>Tests Recorded</span><b id="pTests">0</b></div><div class="stat-card"><span>Average Accuracy</span><b id="pAccuracy">—</b></div><div class="stat-card"><span>Notes Saved</span><b id="pNotes">0</b></div><div class="stat-card"><span>Current Streak</span><b id="pStreak">0 days</b></div></div>
- <div class="card"><div class="card-head"><h2>Recent Performance</h2></div><div id="recentPerformance"></div></div>
-</section>
-
-<section id="buddy" class="page">
- <div class="page-head"><div><span class="eyebrow">COMPANION</span><h1>APSC Buddy</h1><p>A quiet reminder to stay steady.</p></div></div>
- <div class="buddy-layout"><div class="card buddy-card-large"><div class="buddy-mascot" aria-label="APSC Buddy"><div class="buddy-ear left"></div><div class="buddy-ear right"></div><div class="buddy-head"><span class="eye e1"></span><span class="eye e2"></span><span class="nose"></span><span class="smile"></span><b>APSC</b></div><div class="buddy-body"><i></i><i></i></div><div class="buddy-shadow"></div></div><h2 id="buddyLevel">Level 1</h2><p id="buddyMsg">Consistency today creates confidence tomorrow.</p><div class="xp-line"><span>Experience</span><b><span id="xp">0</span> / 500 XP</b></div><i class="xp-bar"><em id="xpBar"></em></i></div><div class="card"><span class="eyebrow">BUDDY PRINCIPLES</span><h2>Steady. Focused. Consistent.</h2><p class="large-copy">Your buddy grows when you complete focused study sessions. There is no competition here — only progress.</p><div class="buddy-stats"><b>♥</b><span>Protect your attention.</span><b>◆</b><span>Review your mistakes.</span><b>★</b><span>Return tomorrow.</span></div></div></div>
-</section>
-
-<section id="motivation" class="page"><div class="page-head"><div><span class="eyebrow">MENTAL DISCIPLINE</span><h1>Motivation</h1><p>Read this when the day feels difficult.</p></div></div><div class="quote-grid"><div class="card quote-big">“You do not need to feel motivated to begin. Begin, and let discipline carry the session.”</div><div class="card quote-big">“The goal is not a perfect day. The goal is to return to the work.”</div><div class="card quote-big">“One chapter. One test. One revision. One day at a time.”</div></div></section>
-
-<section id="resources" class="page"><div class="page-head"><div><span class="eyebrow">REFERENCE DESK</span><h1>Resources</h1><p>Your study system in one place.</p></div></div><div class="resource-grid"><div class="card"><h2>Daily Workflow</h2><ol><li>Read core subject material.</li><li>Practice MCQs / PYQs.</li><li>Analyse mistakes.</li><li>Revise weak areas.</li><li>Record the day.</li></ol></div><div class="card"><h2>APSC Mains</h2><p>Idea → evidence → analysis → conclusion.</p><p>Prefer clear, grammatical English over difficult vocabulary.</p></div><div class="card"><h2>Night Reminder</h2><p class="large-copy">Protect your sleep. Tomorrow’s preparation starts with tonight’s recovery.</p></div></div></section>
-
-<section id="settings" class="page"><div class="page-head"><div><span class="eyebrow">CONTROL PANEL</span><h1>Settings</h1><p>Simple controls for your workspace.</p></div></div><div class="card settings-list"><div><div><b>Dark Mode</b><small>Switch the interface theme.</small></div><button id="themeBtn" class="toggle">Toggle</button></div><div><div><b>Reset Today’s Tasks</b><small>Clear only today’s checklist.</small></div><button id="resetTasks" class="btn outline">Reset</button></div><div><div><b>Clear Study Timer Data</b><small>Remove XP, sessions and focus-time history.</small></div><button id="resetTimer" class="btn outline">Clear</button></div></div></section>
-</main>
-</div>
-<script src="app.js?v=20260925"></script>
-</body>
-</html>
+<section id="dashboard" class="page active"><div class="hero"><div><span class="eyebrow">GOOD MORNING, ROBIN.</span><h1>Build the officer<br>you want to become.</h1><p>Every focused session is a step towards your APSC goal.</p></div><div class="hero-date"><span id="heroDay">—</span><b id="heroTime">—</b><small>Local time</small></div></div>
+<div class="stat-grid"><div class="stat-card"><span>Today’s Progress</span><b id="todayProgress">0%</b><small>Tasks completed</small></div><div class="stat-card"><span>Focus Time</span><b id="studyTime">0m</b><small>Today</small></div><div class="stat-card"><span>Tests Recorded</span><b id="testCount">0</b><small>All time</small></div><div class="stat-card"><span>Accuracy</span><b id="accuracy">—</b><small>Across tests</small></div></div>
+<div class="dashboard-grid"><div class="card"><div class="card-head"><div><span class="eyebrow">TODAY</span><h2>Study Plan</h2></div></div><div id="tasks" class="task-list"></div></div><div class="card timer-mini"><div class="card-head"><div><span class="eyebrow">FOCUS SYSTEM</span><h2>25 / 5 Timer</h2></div><span class="badge">NO PAUSE</span></div><div class="mini-clock" id="dashClock">25:00</div><p id="dashTimerStatus">Ready for a focused session.</p><button type="button" class="btn primary full" data-page="timer">Open Focus Timer</button></div></div>
+<div class="dashboard-grid lower"><div class="card journey-preview"><div class="card-head"><div><span class="eyebrow">LONG-TERM</span><h2>My APSC Journey</h2></div><button type="button" class="text-btn" data-page="journey">Open</button></div><div class="journey-bar"><i id="journeyBar"></i></div><div class="journey-meta"><b id="journeyPct">0%</b><span>Foundation → APSC Goal</span></div></div><div class="card thought"><span class="eyebrow">TODAY’S THOUGHT</span><blockquote>“Small disciplines repeated with consistency create remarkable results.”</blockquote><small>— Robin Sharma</small></div></div></section>
+<section id="timer" class="page"><div class="page-head"><div><span class="eyebrow">FOCUS SYSTEM</span><h1>Study Timer</h1><p>25 minutes study → 5 minutes rest. Automatic cycle.</p></div></div><div class="timer-layout"><div class="card timer-card-large"><div class="timer-mode"><span id="studyMode" class="active">STUDY · 25 MIN</span><span id="restMode">REST · 5 MIN</span></div><div class="big-clock" id="bigClock">25:00</div><p id="timerStatus">Ready. Start when you are prepared.</p><div class="timer-track"><i id="timerBar"></i></div><div class="timer-session">SESSION <b id="sessionNo">1</b> · <span id="timerPhase">STUDY</span></div><button type="button" id="startTimer" class="btn primary timer-start">Start Focus</button><div class="no-pause-note">Automatic cycle enabled. There is no pause button.</div></div><div class="card timer-info"><span class="eyebrow">SESSION RULE</span><h2>Protect your attention.</h2><ul><li>25 minutes uninterrupted study.</li><li>5 minutes recovery.</li><li>Next study block starts automatically.</li><li>Each completed study block earns XP.</li></ul></div></div></section>
+<section id="journey" class="page"><div class="page-head"><div><span class="eyebrow">LONG-TERM VIEW</span><h1>My APSC Journey</h1><p>Progress is built in stages.</p></div></div><div class="card journey-card-full"><div class="road"><div class="stage done"><i>✓</i><b>Foundation</b><small>Completed</small></div><div class="stage current"><i>2</i><b>Core Subjects</b><small>Current</small></div><div class="stage"><i>3</i><b>Practice</b><small>Next</small></div><div class="stage"><i>4</i><b>Revision</b><small>Next</small></div><div class="stage"><i>5</i><b>Mock Tests</b><small>Next</small></div><div class="stage"><i>★</i><b>APSC Goal</b><small>Destination</small></div></div><div class="journey-progress"><span>Overall progress</span><b id="journeyOverall">0%</b><i><em id="journeyOverallBar"></em></i></div></div>
+<div class="stat-grid three"><div class="stat-card"><span>Journey Time</span><b id="journeyDays">1 day</b></div><div class="stat-card"><span>Total Focus Time</span><b id="focusTotal">0m</b></div><div class="stat-card"><span>Completed Sessions</span><b id="sessionTotal">0</b></div></div>
+<div class="journey-reward-grid"><div class="card daily-challenge"><div><span class="eyebrow">TODAY'S CHALLENGE</span><h2 id="challengeTitle">Complete all 6 study tasks</h2><p id="challengeText">Finish today's plan to unlock a Civil Service reward.</p></div><div class="challenge-reward"><span id="challengeIcon">🏛️</span><b id="challengeReward">+100 XP</b><button type="button" class="btn outline challenge-open" data-page="journey">Rewards</button></div></div><div class="card reward-card"><div class="card-head"><div><span class="eyebrow">REWARD CABINET</span><h2>My Civil Service Symbols</h2></div><span class="badge" id="rewardCount">0 unlocked</span></div><div id="rewardCabinet" class="reward-cabinet"></div></div></div></section>
+<section id="tests" class="page"><div class="page-head"><div><span class="eyebrow">PERFORMANCE</span><h1>Test Series</h1><p>Record MCQs, PYQs and mock tests.</p></div></div><div class="card form-card"><div class="form-grid"><label>Date<input id="tDate" type="date"></label><label>Subject<select id="tSubject"><option>Polity</option><option>History</option><option>Geography</option><option>Economy</option><option>Environment</option><option>Current Affairs</option><option>Assam</option><option>Mixed GS</option></select></label><label>Test / Topic<input id="tTopic" placeholder="e.g. Plate Tectonics"></label><label>Total Questions<input id="tTotal" type="number"></label><label>Attempted<input id="tAttempted" type="number"></label><label>Correct<input id="tCorrect" type="number"></label><label>Wrong<input id="tWrong" type="number"></label></div><label>What did I learn?<textarea id="tLearn"></textarea></label><label>Weak areas / revision?<textarea id="tWeak"></textarea></label><button type="button" id="saveTest" class="btn primary">Save Test</button></div><div class="section-title"><h2>Test History</h2></div><div id="testHistory" class="record-list"></div></section>
+<section id="notes" class="page"><div class="page-head"><div><span class="eyebrow">KNOWLEDGE BANK</span><h1>Study Notes</h1><p>Keep concise, exam-ready notes.</p></div></div><div class="card form-card"><div class="form-grid"><label>Title<input id="nTitle" placeholder="e.g. Fundamental Rights"></label><label>Subject<select id="nSubject"><option>Polity</option><option>History</option><option>Geography</option><option>Economy</option><option>Environment</option><option>Current Affairs</option><option>Assam</option></select></label></div><label>Note<textarea id="nBody" rows="8"></textarea></label><button type="button" id="saveNote" class="btn primary">Save Note</button></div><div class="section-title"><h2>Saved Notes</h2></div><div id="notesList" class="record-list"></div></section>
+<section id="current" class="page"><div class="page-head"><div><span class="eyebrow">DAILY BRIEF</span><h1>Current Affairs</h1><p>Issues you revise today.</p></div></div><div class="current-grid"><div class="card"><h2>Today’s Brief</h2><textarea id="currentBrief" rows="12"></textarea><button type="button" id="saveBrief" class="btn primary">Save Today’s Brief</button></div><div class="card checklist"><h2>Revision Lens</h2><label><input type="checkbox"> Constitutional / governance relevance</label><label><input type="checkbox"> Assam-specific relevance</label><label><input type="checkbox"> Possible prelims fact</label><label><input type="checkbox"> Possible mains angle</label></div></div></section>
+<section id="progress" class="page"><div class="page-head"><div><span class="eyebrow">PERFORMANCE</span><h1>Your Progress</h1></div></div><div class="stat-grid"><div class="stat-card"><span>Tests Recorded</span><b id="pTests">0</b></div><div class="stat-card"><span>Average Accuracy</span><b id="pAccuracy">—</b></div><div class="stat-card"><span>Notes Saved</span><b id="pNotes">0</b></div><div class="stat-card"><span>Current Streak</span><b id="pStreak">0 days</b></div></div><div class="card"><h2>Recent Performance</h2><div id="recentPerformance"></div></div></section>
+<section id="buddy" class="page"><div class="page-head"><div><span class="eyebrow">COMPANION</span><h1>APSC Buddy</h1><p>Your study companion.</p></div></div><div class="buddy-layout"><div class="card buddy-card-large"><div class="buddy-mascot"><div class="buddy-ear left"></div><div class="buddy-ear right"></div><div class="buddy-head"><span class="eye e1"></span><span class="eye e2"></span><span class="nose"></span><span class="smile"></span><b>APSC</b></div><div class="buddy-body"><i></i><i></i></div><div class="buddy-shadow"></div></div><h2 id="buddyLevel">Level 1</h2><p id="buddyMsg">Consistency today creates confidence tomorrow.</p><div class="xp-line"><span>Experience</span><b><span id="xp">0</span> XP</b></div><i class="xp-bar"><em id="xpBar"></em></i></div><div class="card"><span class="eyebrow">BUDDY PRINCIPLES</span><h2>Steady. Focused. Consistent.</h2><p class="large-copy">Complete focused sessions and keep returning to the work.</p></div></div></section>
+<section id="motivation" class="page"><div class="page-head"><div><span class="eyebrow">MENTAL DISCIPLINE</span><h1>Motivation</h1></div></div><div class="quote-grid"><div class="card quote-big">“Begin, and let discipline carry the session.”</div><div class="card quote-big">“The goal is not a perfect day. The goal is to return to the work.”</div><div class="card quote-big">“One chapter. One test. One revision. One day at a time.”</div></div></section>
+<section id="resources" class="page"><div class="page-head"><div><span class="eyebrow">REFERENCE DESK</span><h1>Resources</h1></div></div><div class="resource-grid"><div class="card"><h2>Daily Workflow</h2><ol><li>Core subject</li><li>MCQs / PYQs</li><li>Mistake analysis</li><li>Revision</li><li>Record the day</li></ol></div><div class="card"><h2>APSC Mains</h2><p>Idea → evidence → analysis → conclusion.</p></div><div class="card"><h2>Night Reminder</h2><p class="large-copy">Protect your sleep and return tomorrow.</p></div></div></section>
+<section id="settings" class="page"><div class="page-head"><div><span class="eyebrow">CONTROL PANEL</span><h1>Settings</h1></div></div><div class="card settings-list"><div><div><b>Dark Mode</b><small>Switch the interface theme.</small></div><button type="button" id="themeBtn" class="toggle">Toggle</button></div><div><div><b>Reset Today’s Tasks</b></div><button type="button" id="resetTasks" class="btn outline">Reset</button></div><div><div><b>Clear Study Timer Data</b></div><button type="button" id="resetTimer" class="btn outline">Clear</button></div></div></section>
+</main></div>
+<script>
+(function(){
+"use strict";
+var TASKS=[["Polity","120 min"],["History + Geography","120 min"],["MCQ + PYQ Practice","90 min"],["Current Affairs","60 min"],["Revision","60 min"],["Test Analysis","30 min"]];
+var user=null,mode="login",timer={phase:"study",remaining:1500,running:false,session:1,focus:0,xp:0},tick=null;
+function $(id){return document.getElementById(id)}
+function today(){return new Date().toISOString().slice(0,10)}
+function key(k){return "da4_"+user+"_"+k}
+function load(k,f){try{var v=JSON.parse(localStorage.getItem(key(k)));return v===null||v===undefined?f:v}catch(e){return f}}
+function save(k,v){localStorage.setItem(key(k),JSON.stringify(v))}
+function tests(){return load("tests",[])}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(m){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]})}
+function showPage(id){document.querySelectorAll(".page").forEach(function(p){p.classList.toggle("active",p.id===id)});document.querySelectorAll(".side-link").forEach(function(b){b.classList.toggle("active",b.getAttribute("data-page")===id)});$("sidebar").classList.remove("open")}
+function openApp(){user=localStorage.getItem("da4_current");if(!user)return;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");if(!load("startDate",null))save("startDate",Date.now());timer=load("timer",timer);renderAll();updateClock();setInterval(updateClock,1000)}
+function auth(){var email=$("email").value.trim().toLowerCase(),pass=$("password").value;if(!email||!pass){$("authMsg").textContent="Enter email and password.";return}var users={};try{users=JSON.parse(localStorage.getItem("da4_users")||"{}")}catch(e){}if(mode==="create"){if(users[email]){$("authMsg").textContent="Account already exists.";return}users[email]=pass;localStorage.setItem("da4_users",JSON.stringify(users));$("authMsg").textContent="Account created. Opening dashboard..."}else if(users[email]!==pass){$("authMsg").textContent="Incorrect email/password. Create the account first.";return}localStorage.setItem("da4_current",email);openApp()}
+function renderTasks(){var d=load("tasks",{}),a=d[today()]||[];$("tasks").innerHTML=TASKS.map(function(t,i){return '<label class="task '+(a.indexOf(i)>=0?"done":"")+'"><input type="checkbox" data-task="'+i+'" '+(a.indexOf(i)>=0?"checked":"")+'><span>'+t[0]+'</span><small>'+t[1]+"</small></label>"}).join("");document.querySelectorAll("[data-task]").forEach(function(cb){cb.onchange=function(){var x=load("tasks",{}),aa=x[today()]||[],i=Number(cb.getAttribute("data-task"));if(cb.checked&&aa.indexOf(i)<0)aa.push(i);if(!cb.checked)aa=aa.filter(function(v){return v!==i});x[today()]=aa;save("tasks",x);challengeCheck();renderAll()}})}
+function accuracy(){var ts=tests(),a=0,c=0;ts.forEach(function(t){a+=Number(t.attempted||0);c+=Number(t.correct||0)});return a?Math.round(c/a*100):null}
+function streak(){var d=load("tasks",{}),n=0,dt=new Date();while((d[dt.toISOString().slice(0,10)]||[]).length>=3){n++;dt.setDate(dt.getDate()-1)}return n}
+function challengeCheck(){var d=load("tasks",{}),a=d[today()]||[],r=load("rewards",{});if(a.length===TASKS.length&&!r[today()]){r[today()]="foundation";save("rewards",r);timer.xp+=100;save("timer",timer)}}
+function renderRewards(){var r=load("rewards",{}),n=Object.keys(r).length,levels=[["🏛️","Foundation Service","1 challenge"],["⚖️","Public Service","5 challenges"],["📜","Civil Service","10 challenges"],["🦁","Administrative Officer","20 challenges"],["🏅","ACS Aspirant","30 challenges"],["🏆","Civil Service Champion","50 challenges"]],needs=[1,5,10,20,30,50];$("rewardCount").textContent=levels.filter(function(x,i){return n>=needs[i]}).length+" unlocked";$("rewardCabinet").innerHTML=levels.map(function(x,i){var ok=n>=needs[i];return '<div class="reward-symbol '+(ok?"unlocked":"locked")+'"><span>'+x[0]+'</span><div><b>'+x[1]+'</b><small>'+x[2]+'</small></div></div>'}).join("");var done=!!r[today()];$("challengeTitle").textContent=done?"Challenge completed ✓":"Complete all 6 study tasks";$("challengeText").textContent=done?"Reward unlocked — keep building your service journey.":"Finish today's plan to unlock a Civil Service reward.";$("challengeIcon").textContent=done?"🏆":"🏛️";$("challengeReward").textContent=done?"+100 XP · UNLOCKED":"+100 XP"}
+function renderStats(){var a=load("tasks",{})[today()]||[],mins=0;a.forEach(function(i){mins+=parseInt(TASKS[i][1],10)});var ac=accuracy();$("todayProgress").textContent=Math.round(a.length/TASKS.length*100)+"%";$("studyTime").textContent=mins>=60?Math.floor(mins/60)+"h "+mins%60+"m":mins+"m";$("testCount").textContent=tests().length;$("accuracy").textContent=ac===null?"—":ac+"%";$("pTests").textContent=tests().length;$("pAccuracy").textContent=ac===null?"—":ac+"%";$("pNotes").textContent=load("notes",[]).length;$("pStreak").textContent=streak()+" days"}
+function renderTests(){var box=$("testHistory"),ts=tests();if(!ts.length){box.innerHTML='<div class="empty">No tests recorded yet.</div>';return}box.innerHTML=ts.slice().reverse().map(function(t){var a=t.attempted?Math.round(t.correct/t.attempted*100):0;return '<div class="record"><div class="record-head"><div><h3>'+esc(t.topic)+'</h3><small>'+esc(t.date)+" · "+esc(t.subject)+'</small></div><span class="pill">'+a+'% accuracy</span></div><p>'+t.correct+" correct · "+t.wrong+" wrong · "+t.attempted+"/"+t.total+" attempted</p></div>"}).join("")}
+function renderNotes(){var box=$("notesList"),ns=load("notes",[]);if(!ns.length){box.innerHTML='<div class="empty">No notes saved yet.</div>';return}box.innerHTML=ns.slice().reverse().map(function(n){return '<div class="record"><span class="pill">'+esc(n.subject)+'</span><h3>'+esc(n.title)+'</h3><small>'+esc(n.date)+'</small><p>'+esc(n.body).replace(/\n/g,"<br>")+"</p></div>"}).join("")}
+function renderProgress(){var ts=tests();$("recentPerformance").innerHTML=ts.length?ts.slice(-6).reverse().map(function(t){return '<div class="perf-row"><b>'+esc(t.topic)+'</b><span>'+esc(t.date)+" · "+(t.attempted?Math.round(t.correct/t.attempted*100):0)+"%</span></div>"}).join(""):'<p class="muted">No test data yet.</p>'}
+function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function renderTimer(){var total=timer.phase==="study"?1500:300,p=Math.max(0,Math.min(100,(1-timer.remaining/total)*100));$("bigClock").textContent=fmt(timer.remaining);$("dashClock").textContent=fmt(timer.remaining);$("timerStatus").textContent=timer.running?(timer.phase==="study"?"Focus — stay with the work.":"Rest — recover, then return."):"Ready. Start when you are prepared.";$("dashTimerStatus").textContent=timer.running?(timer.phase==="study"?"Study block in progress.":"Rest period in progress."):"Ready for a focused session.";$("timerBar").style.width=p+"%";$("sessionNo").textContent=timer.session;$("timerPhase").textContent=timer.phase.toUpperCase();$("studyMode").classList.toggle("active",timer.phase==="study");$("restMode").classList.toggle("active",timer.phase==="rest");$("startTimer").textContent=timer.running?"Running":"Start Focus";$("xp").textContent=timer.xp;$("xpBar").style.width=(timer.xp%500)/5+"%";$("buddyLevel").textContent="Level "+(Math.floor(timer.xp/500)+1);$("focusTotal").textContent=timer.focus>=60?Math.floor(timer.focus/60)+"h "+timer.focus%60+"m":timer.focus+"m";$("sessionTotal").textContent=timer.session-1;var pct=Math.min(100,Math.floor(timer.xp/500*100));$("journeyOverall").textContent=pct+"%";$("journeyOverallBar").style.width=pct+"%";$("journeyBar").style.width=pct+"%";$("journeyPct").textContent=pct+"%"}
+function startTimer(){if(timer.running)return;timer.running=true;save("timer",timer);clearInterval(tick);tick=setInterval(function(){timer.remaining--;if(timer.remaining<=0){if(timer.phase==="study"){timer.focus+=25;timer.xp+=25;timer.phase="rest";timer.remaining=300;timer.session++}else{timer.phase="study";timer.remaining=1500}save("timer",timer)}renderTimer()},1000);renderTimer()}
+function updateClock(){var d=new Date();$("liveDate").textContent=d.toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});$("heroDay").textContent=d.toLocaleDateString("en-IN",{weekday:"long",day:"2-digit",month:"long"});$("heroTime").textContent=d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit"})}
+function renderAll(){renderTasks();renderStats();renderRewards();renderTests();renderNotes();renderProgress();renderTimer();$("currentBrief").value=load("brief","");$("journeyDays").textContent=Math.max(1,Math.floor((Date.now()-load("startDate",Date.now()))/86400000)+1)+" days"}
+document.querySelectorAll(".auth-tab").forEach(function(b){b.onclick=function(){mode=b.getAttribute("data-mode");document.querySelectorAll(".auth-tab").forEach(function(x){x.classList.toggle("active",x===b)});$("authBtn").textContent=mode==="login"?"Login":"Create Account";$("authMsg").textContent=""}})
+$("authBtn").onclick=auth;
+document.querySelectorAll("[data-page]").forEach(function(b){b.onclick=function(){showPage(b.getAttribute("data-page"))}});
+$("mobileMenu").onclick=function(){$("sidebar").classList.toggle("open")};
+$("logout").onclick=function(){localStorage.removeItem("da4_current");location.reload()};
+$("startTimer").onclick=startTimer;
+$("saveTest").onclick=function(){var t={date:$("tDate").value||today(),subject:$("tSubject").value,topic:$("tTopic").value.trim(),total:Number($("tTotal").value)||0,attempted:Number($("tAttempted").value)||0,correct:Number($("tCorrect").value)||0,wrong:Number($("tWrong").value)||0};if(!t.topic){alert("Enter the test/topic.");return}var ts=tests();ts.push(t);save("tests",ts);renderAll();alert("Test saved.")};
+$("saveNote").onclick=function(){var n={title:$("nTitle").value.trim(),subject:$("nSubject").value,body:$("nBody").value.trim(),date:new Date().toLocaleDateString("en-IN")};if(!n.title||!n.body){alert("Enter a title and note.");return}var ns=load("notes",[]);ns.push(n);save("notes",ns);$("nTitle").value="";$("nBody").value="";renderAll();alert("Note saved.")};
+$("saveBrief").onclick=function(){save("brief",$("currentBrief").value);alert("Today’s brief saved.")};
+$("themeBtn").onclick=function(){document.body.classList.toggle("dark");localStorage.setItem("da4_dark",document.body.classList.contains("dark")?"1":"0")};
+$("resetTasks").onclick=function(){var d=load("tasks",{});delete d[today()];save("tasks",d);renderAll()};
+$("resetTimer").onclick=function(){timer={phase:"study",remaining:1500,running:false,session:1,focus:0,xp:0};save("timer",timer);clearInterval(tick);renderAll()};
+$("tDate").value=today();if(localStorage.getItem("da4_dark")==="1")document.body.classList.add("dark");openApp();
+})();
+</script></body></html>
