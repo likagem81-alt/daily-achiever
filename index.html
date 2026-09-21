@@ -1,156 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0f5132">
-<title>Daily Achiever • APSC</title>
-<link rel="stylesheet" href="style.css?v=20260921">
-<link rel="stylesheet" href="study-companion.css?v=20260921">
-<style id="executive-critical">
-html,body{margin:0!important;padding:0!important;font-family:Arial,Helvetica,sans-serif!important;background:#e9eef1!important;color:#102849!important}
-.executive-topbar{height:80px;background:linear-gradient(110deg,#102743,#183653);color:#fff;display:flex;align-items:center;padding:0 28px;gap:30px;position:sticky;top:0;z-index:30;box-shadow:0 5px 20px #10274322}.exec-brand{display:flex;align-items:center;gap:14px;min-width:290px}.exec-brand strong{font-family:Georgia,serif;font-size:27px;letter-spacing:.4px}.exec-brand small,.exec-user small{display:block;opacity:.82;margin-top:3px}.exec-motto{flex:1;text-align:center;font-family:Georgia,serif;font-size:17px}.exec-user{display:flex;align-items:center;gap:12px;min-width:300px;justify-content:flex-end}.exec-date{text-align:right;font-size:13px;line-height:1.5}.exec-avatar{width:42px;height:42px;border-radius:50%;background:#e9eef3;color:#183653;display:grid;place-items:center;font-weight:800}.exec-user .outline{color:#fff;border-color:#ffffff55;background:transparent}.exec-sidebar{position:fixed;left:0;top:80px;bottom:0;width:202px;background:linear-gradient(180deg,#102743,#173957);color:#fff;padding:22px 12px;z-index:20;box-shadow:8px 0 25px #10274318}.side-label{font-size:9px;letter-spacing:2px;opacity:.55;padding:0 14px 12px}.side-link{width:100%;border:0;background:transparent;color:#e9f0f5;text-align:left;padding:12px 14px;border-radius:4px;font-family:Georgia,serif;font-size:15px;margin:2px 0}.side-link span{display:inline-block;width:30px;font-size:20px}.side-link:hover,.side-link.active{background:#244565;box-shadow:inset 4px 0 #d8ad42}.side-bottom{position:absolute;bottom:30px;left:25px;right:15px;font-family:Georgia,serif;line-height:1.5}.executive-dashboard{margin-left:202px;max-width:none!important;padding:10px 18px 30px!important;background:linear-gradient(180deg,#e8eef1,#f4f6f5)!important}.exec-hero{height:150px;border-radius:8px;background:linear-gradient(90deg,#f6f7f6,#d8e2e7);display:flex;align-items:center;justify-content:space-between;padding:30px 40px;margin-bottom:10px;border:1px solid #d2dce2}.exec-hero h1{font-family:Georgia,serif;font-size:25px;line-height:1.25;margin:9px 0;color:#102c4d}.hero-quote{font-family:Georgia,serif;color:#263a4e;font-size:15px;line-height:1.45}.exec-top-grid{display:grid;grid-template-columns:1.5fr 1fr .9fr;gap:10px}.exec-card{background:#fff;border:1px solid #d7e0e5;border-radius:8px;box-shadow:0 3px 12px #10274312;padding:15px;overflow:hidden}.exec-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.exec-card h2{font-family:Georgia,serif;font-size:18px;margin:0;color:#102c4d}.exec-card-head small{display:block;color:#587086;font-size:11px;margin-top:2px}.exec-mode{display:flex;background:#eef3f7;border-radius:6px;margin:10px 0}.exec-mode span{flex:1;text-align:center;padding:9px;font-size:13px}.exec-mode .active{background:#142f50;color:#fff;border-radius:6px}.timer-body{display:flex;align-items:center;justify-content:center;gap:22px}.timer-ring{width:210px;height:210px;border-radius:50%;background:conic-gradient(#163a60,#4a9a9b,#163a60);padding:9px;flex:0 0 auto}.timer-ring>div{height:100%;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}.timer-ring #scClock{font-size:52px;font-weight:500;color:#17365b}.current-task{background:#edf3f8;border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:6px;min-width:175px}.timer-progress{height:6px;background:#e4ebef;border-radius:10px;overflow:hidden;margin:8px 0}.timer-progress i{display:block;height:100%;width:0;background:#4a9a9b}.timer-actions .primary{width:100%;background:#145f3d}.level-badge{background:#cda65a;color:#fff;border-radius:5px;padding:6px 10px}.buddy-main{display:flex;gap:15px;margin-top:10px}.buddy-message{flex:1}.buddy-message p{background:#eef6f0;padding:11px;border-radius:7px;color:#164d32;line-height:1.45}.buddy-stat{display:grid;grid-template-columns:1fr auto;gap:3px;margin:8px 0;font-size:11px}.buddy-stat i{grid-column:1/3;height:8px;background:#edf1f3;border-radius:8px;overflow:hidden}.buddy-stat em{display:block;height:100%;background:#41a77e;border-radius:8px}.plant{text-align:center;align-self:end}.plant-leaves{font-size:64px;line-height:.9}.plant-pot{background:#f3f0e9;border-radius:0 0 20px 20px;padding:7px 12px;font-family:Georgia,serif;font-size:11px}.buddy-bottom,.plan-quote{background:#edf5ef;border-radius:7px;padding:10px;text-align:center;font-family:Georgia,serif;color:#287051;margin-top:10px;font-size:11px}.exec-tasks .task{display:flex;align-items:center;gap:8px;padding:9px 4px;border-bottom:1px solid #edf0f2}.exec-tasks .task small{margin-left:auto}.exec-middle-grid{display:grid;grid-template-columns:2.15fr .85fr;gap:10px;margin-top:10px}.journey-road{display:grid;grid-template-columns:repeat(6,1fr);position:relative;gap:3px;margin-top:12px}.journey-road:before{content:"";position:absolute;left:6%;right:6%;top:14px;height:2px;background:#c8d0d4}.journey-stage{text-align:center;position:relative;z-index:1}.journey-stage i{display:grid;place-items:center;width:28px;height:28px;margin:auto;border-radius:50%;background:#bcc4c8;color:#fff;font-style:normal}.journey-stage.done i{background:#168059}.journey-stage.current i{background:#fff;border:3px solid #d4a64a;color:#bd8c2d}.journey-stage b{display:block;font-family:Georgia,serif;font-size:12px;margin-top:7px}.journey-stage small{font-size:10px;color:#6d7d88}.journey-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:10px}.journey-stats>div{background:#edf3f8;padding:9px;border-radius:6px;font-size:14px}.journey-stats span{display:block;color:#647889;font-size:10px}.exec-bottom-grid{display:grid;grid-template-columns:1fr 1.1fr 1.05fr;gap:10px;margin-top:10px}.thought-card blockquote,.night-card p{font-family:Georgia,serif;line-height:1.5}.night-card{background:#fffaf0}.subject-row{display:grid;grid-template-columns:100px 1fr 38px;align-items:center;gap:8px;margin:11px 0;font-size:12px}.subject-row i{height:9px;background:#e8edf0;border-radius:8px;overflow:hidden}.subject-row em{display:block;height:100%;background:#55b18a;border-radius:8px}.executive-dashboard .subject-grid,.executive-dashboard .stats,.executive-dashboard>.grid.two{display:none!important}
-@media(max-width:1100px){.exec-top-grid{grid-template-columns:1.25fr 1fr}.plan-card{grid-column:1/-1}.exec-middle-grid{grid-template-columns:1fr}.exec-bottom-grid{grid-template-columns:1fr}.exec-motto{display:none}}@media(max-width:800px){.exec-sidebar{position:static;width:auto;height:auto;display:flex;overflow:auto;padding:6px}.side-label,.side-bottom{display:none}.side-link{white-space:nowrap;width:auto}.executive-dashboard{margin-left:0!important}.exec-top-grid{grid-template-columns:1fr}.journey-stats{grid-template-columns:repeat(2,1fr)}.exec-hero{height:auto}.timer-body{flex-direction:column}.exec-user{min-width:auto}.exec-date{display:none}}
-</style></head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily Achiever — APSC Command Center</title>
+<link rel="stylesheet" href="style.css?v=20260922">
+</head>
 <body>
-<div id="loginScreen" class="auth">
-  <div class="auth-card">
-    <div class="brand-mark">DA</div>
-    <h1>Daily Achiever</h1>
-    <p>APSC Study Command Center</p>
-    <div class="tabs"><button class="tab active" data-auth="login">Login</button><button class="tab" data-auth="create">Create Account</button></div>
-    <input id="email" type="email" placeholder="Email">
-    <input id="password" type="password" placeholder="Password">
-    <button id="authBtn" class="primary wide">Login</button>
-    <small id="authMsg"></small>
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="brand-symbol">DA</div><p class="eyebrow">APSC STUDY COMMAND CENTER</p>
+    <h1>Daily Achiever</h1><p class="muted">A disciplined system for a disciplined aspirant.</p>
+    <div class="auth-tabs"><button class="auth-tab active" data-mode="login">Login</button><button class="auth-tab" data-mode="create">Create Account</button></div>
+    <input id="email" type="email" placeholder="Email address" autocomplete="username">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+    <button id="authBtn" class="btn primary full">Login</button><p id="authMsg" class="form-msg"></p>
   </div>
 </div>
 
-<div id="app" class="hidden">
-<header class="executive-topbar">
-  <div class="exec-brand">
-    <div class="exec-logo"><span></span><span></span><span></span></div>
-    <div><strong>DAILY ACHIEVER</strong><small>For APSC Dreamers</small></div>
-  </div>
-  <div class="exec-motto">“A disciplined today, a better Assam tomorrow.”</div>
-  <div class="exec-user"><div class="exec-date" id="execDate">Sun, 21 Sept 2026<br><b>09:15 AM</b></div><div class="exec-avatar">RS</div><div><strong>Robin Sharma</strong><small>Keep Going 📚</small></div><button id="logout" class="outline">Logout</button></div>
+<div id="app" class="app hidden">
+<header class="topbar">
+  <button id="mobileMenu" class="mobile-menu">☰</button>
+  <div class="brand"><div class="brand-symbol small">DA</div><div><b>DAILY ACHIEVER</b><small>APSC Command Center</small></div></div>
+  <div class="top-motto">Discipline • Consistency • Service</div>
+  <div class="top-user"><span id="liveDate">—</span><div class="avatar">RS</div><div><b>Robin Sharma</b><small>APSC Aspirant</small></div><button id="logout" class="btn ghost">Logout</button></div>
 </header>
 
-<main>
-<aside class="exec-sidebar">
-  <div class="side-label">STUDY COMMAND</div>
-  <button class="side-link active" data-exec-scroll="dashboard"><span>⌂</span>Dashboard</button>
-  <button class="side-link" data-exec-scroll="timer"><span>◷</span>Study Timer</button>
-  <button class="side-link" data-exec-scroll="journey"><span>▣</span>APSC Journey</button>
-  <button class="side-link" data-view="tests"><span>▤</span>Test Series</button>
-  <button class="side-link" data-view="notes"><span>▥</span>Notes</button>
-  <button class="side-link" data-exec-scroll="subjects"><span>▤</span>Current Affairs</button>
-  <button class="side-link" data-view="progress"><span>▥</span>Progress</button>
-  <button class="side-link" data-exec-scroll="buddy"><span>♧</span>APSC Buddy</button>
-  <button class="side-link" data-exec-scroll="motivation"><span>★</span>Motivation</button>
-  <button class="side-link" data-exec-scroll="resources"><span>▰</span>Resources</button>
-  <button class="side-link" data-exec-scroll="settings"><span>⚙</span>Settings</button>
-  <div class="side-bottom"><div class="assam-mark">⌁</div><b>“A Better You<br>A Better Assam”</b><small>________________</small></div>
+<aside id="sidebar" class="sidebar">
+  <div class="side-title">STUDY COMMAND</div>
+  <button class="side-link active" data-page="dashboard"><span>⌂</span>Dashboard</button>
+  <button class="side-link" data-page="timer"><span>◷</span>Study Timer</button>
+  <button class="side-link" data-page="journey"><span>◎</span>APSC Journey</button>
+  <button class="side-link" data-page="tests"><span>▤</span>Test Series</button>
+  <button class="side-link" data-page="notes"><span>▥</span>Notes</button>
+  <button class="side-link" data-page="current"><span>◈</span>Current Affairs</button>
+  <button class="side-link" data-page="progress"><span>◒</span>Progress</button>
+  <button class="side-link" data-page="buddy"><span>♧</span>APSC Buddy</button>
+  <button class="side-link" data-page="motivation"><span>★</span>Motivation</button>
+  <button class="side-link" data-page="resources"><span>▰</span>Resources</button>
+  <button class="side-link" data-page="settings"><span>⚙</span>Settings</button>
+  <div class="side-footer"><div class="assam-line"></div><b>A Better You.<br>A Better Assam.</b><small>Daily progress matters.</small></div>
 </aside>
 
-<section id="dashboard" class="view executive-dashboard">
-  <div class="exec-hero">
-    <div><span>GOOD MORNING, ROBIN.</span><h1>Every small step today brings you closer<br>to your APSC dream.</h1></div>
-    <div class="hero-quote">“Discipline is choosing between what you want now<br>and what you want most.”<small>— Abraham Lincoln</small></div>
+<main class="content">
+<section id="dashboard" class="page active">
+  <div class="hero">
+    <div><span class="eyebrow">GOOD MORNING, ROBIN.</span><h1>Build the officer<br>you want to become.</h1><p>Every focused session is a step towards your APSC goal.</p></div>
+    <div class="hero-date"><span id="heroDay">—</span><b id="heroTime">—</b><small>Local time</small></div>
   </div>
-
-  <div class="exec-top-grid" id="timer">
-    <div class="exec-card timer-card">
-      <div class="exec-card-head"><div><h2>◷ &nbsp;Focus Timer</h2></div><strong id="scSession">Session 1/4</strong><button class="no-pause">No Pause</button></div>
-      <div class="exec-mode"><span id="scStudyMode" class="active">Study (25 min)</span><span id="scRestMode">Rest (5 min)</span></div>
-      <div class="timer-body"><div class="timer-ring"><div><div id="scClock">25:00</div><small id="scStatus">Focus on Progress</small><b>▢</b></div></div><div class="current-task"><span>◉</span><small>Current Task</small><strong id="scTask">APSC Preparation</strong><button>Change Task</button></div></div>
-      <div class="timer-actions"><div class="timer-progress"><i id="scProgress"></i></div><button id="scStart" class="primary">Start Focus</button></div>
-    </div>
-
-    <div class="exec-card buddy-card" id="buddy">
-      <div class="exec-card-head"><div><h2>🌱 &nbsp;APSC Buddy</h2><small>Your Silent Companion</small></div><b class="level-badge" id="scLevel">Level 1</b></div>
-      <div class="buddy-main"><div class="buddy-message"><p id="scPetMsg">Keep going, Robin!<br>Consistency today creates confidence tomorrow.</p><div class="buddy-stat"><span>♥ Happiness</span><b>92%</b><i><em style="width:92%"></em></i></div><div class="buddy-stat"><span>◆ Experience (XP)</span><b><span id="scXp">0</span>/500</b><i><em id="scXpBar" style="width:0%"></em></i></div><div class="buddy-stat"><span>🔥 Study Streak</span><b><span id="scStreak">0 days</span></b><i><em style="width:35%"></em></i></div></div><div class="plant"><div id="scPetIcon" class="buddy-mascot" data-level="1" aria-label="APSC Buddy">
-  <div class="buddy-ear left"></div><div class="buddy-ear right"></div>
-  <div class="buddy-head">
-    <span class="buddy-eye left"></span><span class="buddy-eye right"></span>
-    <span class="buddy-nose"></span><span class="buddy-smile"></span>
-    <span class="buddy-badge">APSC</span>
+  <div class="stat-grid">
+    <div class="stat-card"><span>Today’s Progress</span><b id="todayProgress">0%</b><small>Tasks completed</small></div>
+    <div class="stat-card"><span>Focus Time</span><b id="studyTime">0m</b><small>Today</small></div>
+    <div class="stat-card"><span>Tests Recorded</span><b id="testCount">0</b><small>All time</small></div>
+    <div class="stat-card"><span>Accuracy</span><b id="accuracy">—</b><small>Across tests</small></div>
   </div>
-  <div class="buddy-body"><span></span><span></span></div>
-  <div class="buddy-shadow"></div>
-</div><div class="plant-label">FOCUS COMPANION<br><b>Steady • Focused • Consistent</b></div></div></div>
-      <div class="buddy-bottom">“You are closer than you think.”</div>
+  <div class="dashboard-grid">
+    <div class="card">
+      <div class="card-head"><div><span class="eyebrow">TODAY</span><h2>Study Plan</h2></div><button class="text-btn" data-page="settings">Manage</button></div>
+      <div id="tasks" class="task-list"></div>
     </div>
-
-    <div class="exec-card plan-card">
-      <div class="exec-card-head"><div><h2>▣ &nbsp;Today’s Plan</h2></div><span>Edit &nbsp; ☰</span></div>
-      <div id="tasks" class="exec-tasks"></div>
-      <div class="plan-quote">“Plan. Study. Improve. Repeat.”</div>
+    <div class="card timer-mini">
+      <div class="card-head"><div><span class="eyebrow">FOCUS SYSTEM</span><h2>25 / 5 Timer</h2></div><span class="badge">NO PAUSE</span></div>
+      <div class="mini-clock" id="dashClock">25:00</div><p id="dashTimerStatus">Ready for a focused session.</p>
+      <button class="btn primary full" data-page="timer">Open Focus Timer</button>
     </div>
   </div>
-
-  <div class="exec-middle-grid" id="journey">
-    <div class="exec-card journey-card">
-      <div class="exec-card-head"><div><h2>▣ &nbsp;My APSC Journey</h2><small>Step by step towards the goal</small></div></div>
-      <div class="journey-content"><div class="journey-road" id="scJourneyLine"><div class="journey-stage done"><i>✓</i><b>Foundation</b><small>Completed</small></div><div class="journey-stage done"><i>✓</i><b>Core Subjects</b><small>Completed</small></div><div class="journey-stage current"><i>3</i><b>Practice</b><small>In Progress</small></div><div class="journey-stage"><i>4</i><b>Revision</b><small>Locked</small></div><div class="journey-stage"><i>5</i><b>Mock Tests</b><small>Locked</small></div><div class="journey-stage"><i>♜</i><b>APSC Goal</b><small>Locked</small></div></div>
-      <div class="journey-overall"><span>Overall Progress</span><b id="journeyOverall">0%</b><i><em id="journeyOverallBar"></em></i></div></div>
-      <div class="journey-stats"><div>▣ <span>Journey Time</span><b id="scJourneyDays">1 day</b></div><div>◷ <span>Total Study Time</span><b id="scFocusTime">0m</b></div><div>▥ <span>Tests Attempted</span><b id="scSessions">0</b></div><div>◎ <span>Average Score</span><b id="execAvg">—</b></div></div>
-    </div>
-    <div class="exec-card subjects-card" id="subjects">
-      <div class="exec-card-head"><h2>▥ &nbsp;Subject Progress</h2><a>View Details</a></div>
-      <div class="subject-progress" id="subjectProgress"></div>
-    </div>
-  </div>
-
-  <div class="exec-bottom-grid">
-    <div class="exec-card thought-card" id="motivation"><h2>❝ &nbsp;Today’s Thought</h2><blockquote>“Success is the sum of small efforts,<br>repeated day in and day out.”</blockquote><small>— Robert Collier</small></div>
-    <div class="exec-card night-card" id="resources"><h2>◐ &nbsp; Night Reminder <span>10:30 PM</span></h2><p>A good sleep today will give you a better<br>mind for tomorrow’s preparation.</p><b>Take rest. You’ve done well today.</b></div>
-    <div class="exec-card activity-card" id="settings"><div class="exec-card-head"><h2>✓ &nbsp;Recent Activity</h2><a>View All</a></div><div id="recentExecActivity"><p>Start a focus session or complete a task to build your activity.</p></div></div>
+  <div class="dashboard-grid lower">
+    <div class="card journey-preview"><div class="card-head"><div><span class="eyebrow">LONG-TERM</span><h2>My APSC Journey</h2></div><button class="text-btn" data-page="journey">Open</button></div><div class="journey-bar"><i id="journeyBar"></i></div><div class="journey-meta"><b id="journeyPct">0%</b><span>Foundation → APSC Goal</span></div></div>
+    <div class="card thought"><span class="eyebrow">TODAY’S THOUGHT</span><blockquote>“Small disciplines repeated with consistency create remarkable results.”</blockquote><small>— Robin Sharma</small></div>
   </div>
 </section>
 
-<section id="tests" class="view hidden">
-  <div class="page-title"><div><span class="eyebrow">PERFORMANCE</span><h2>Test Notes</h2><p>Record MCQ, PYQ and mock-test performance.</p></div><div class="import-actions"><button class="outline" id="downloadTemplate">Download Import Template</button><button class="primary" id="importBtn">Import Test Result</button><input id="importFile" type="file" accept=".json,.txt" hidden></div></div>
-  <div class="panel form-panel">
-    <div class="form-grid">
-      <label>Date<input id="tDate" type="date"></label>
-      <label>Subject<select id="tSubject"><option>Ancient History</option><option>Geography</option><option>Polity</option><option>Environment</option><option>Economy</option><option>Current Affairs</option><option>Assam</option><option>Mixed GS</option></select></label>
-      <label>Test / Topic<input id="tTopic" placeholder="e.g. Buddhism PYQ"></label>
-      <label>Total Questions<input id="tTotal" type="number" min="1"></label>
-      <label>Attempted<input id="tAttempted" type="number" min="0"></label>
-      <label>Correct<input id="tCorrect" type="number" min="0"></label>
-      <label>Wrong<input id="tWrong" type="number" min="0"></label>
+<section id="timer" class="page">
+  <div class="page-head"><div><span class="eyebrow">FOCUS SYSTEM</span><h1>Study Timer</h1><p>25 minutes study → 5 minutes rest. The cycle continues automatically.</p></div></div>
+  <div class="timer-layout">
+    <div class="card timer-card-large">
+      <div class="timer-mode"><span id="studyMode" class="active">STUDY · 25 MIN</span><span id="restMode">REST · 5 MIN</span></div>
+      <div class="big-clock" id="bigClock">25:00</div><p id="timerStatus">Ready. Start when you are prepared.</p>
+      <div class="timer-track"><i id="timerBar"></i></div>
+      <div class="timer-session">SESSION <b id="sessionNo">1</b> · <span id="timerPhase">STUDY</span></div>
+      <button id="startTimer" class="btn primary timer-start">Start Focus</button>
+      <div class="no-pause-note">Automatic cycle enabled. There is no pause button.</div>
     </div>
-    <label>What did I learn?<textarea id="tLearn" placeholder="Key concepts learned..."></textarea></label>
-    <label>Weak areas / Revision needed<textarea id="tWeak" placeholder="Topics to revise..."></textarea></label>
-    <button id="saveTest" class="primary">Save Test</button>
+    <div class="card timer-info"><span class="eyebrow">SESSION RULE</span><h2>Protect your attention.</h2><ul><li>25 minutes uninterrupted study.</li><li>5 minutes recovery.</li><li>Next study block starts automatically.</li><li>Each completed study block earns XP.</li></ul><div class="focus-task"><small>Current focus</small><b>APSC Preparation</b></div></div>
   </div>
-  <div class="import-help">💡 <b>Automatic result entry:</b> Ask ChatGPT to prepare your test result as an import file, then choose <b>Import Test Result</b>. Multiple results can be imported at once.</div><div id="testHistory" class="cards"></div>
 </section>
 
-<section id="notes" class="view hidden">
-  <div class="page-title"><div><span class="eyebrow">KNOWLEDGE BANK</span><h2>Study Notes</h2><p>Keep short, exam-ready notes in one place.</p></div></div>
-  <div class="panel form-panel">
-    <div class="form-grid"><label>Title<input id="nTitle" placeholder="e.g. Fundamental Rights"></label><label>Subject<select id="nSubject"><option>Ancient History</option><option>Geography</option><option>Polity</option><option>Environment</option><option>Economy</option><option>Current Affairs</option><option>Assam</option><option>Mixed GS</option></select></label></div>
-    <label>Note<textarea id="nBody" rows="7" placeholder="Write your exam-ready points..."></textarea></label>
-    <button id="saveNote" class="primary">Save Note</button>
-  </div>
-  <div id="notesList" class="cards"></div>
+<section id="journey" class="page">
+ <div class="page-head"><div><span class="eyebrow">LONG-TERM VIEW</span><h1>My APSC Journey</h1><p>Progress is built in stages.</p></div></div>
+ <div class="card journey-card-full"><div class="road">
+  <div class="stage done"><i>✓</i><b>Foundation</b><small>Completed</small></div><div class="stage done"><i>✓</i><b>Core Subjects</b><small>Completed</small></div><div class="stage current"><i>3</i><b>Practice</b><small>Current focus</small></div><div class="stage"><i>4</i><b>Revision</b><small>Next</small></div><div class="stage"><i>5</i><b>Mock Tests</b><small>Next</small></div><div class="stage"><i>★</i><b>APSC Goal</b><small>Destination</small></div>
+ </div><div class="journey-progress"><span>Overall progress</span><b id="journeyOverall">0%</b><i><em id="journeyOverallBar"></em></i></div></div>
+ <div class="stat-grid three"><div class="stat-card"><span>Journey Time</span><b id="journeyDays">1 day</b></div><div class="stat-card"><span>Total Focus Time</span><b id="focusTotal">0m</b></div><div class="stat-card"><span>Completed Sessions</span><b id="sessionTotal">0</b></div></div>
 </section>
 
-<section id="progress" class="view hidden">
-  <div class="page-title"><div><span class="eyebrow">LONG-TERM VIEW</span><h2>Your Progress</h2><p>Track consistency, tests and revision.</p></div></div>
-  <div class="progress-grid">
-    <div class="big-card"><span>Tests Recorded</span><b id="pTests">0</b></div>
-    <div class="big-card"><span>Average Accuracy</span><b id="pAccuracy">—</b></div>
-    <div class="big-card"><span>Notes Saved</span><b id="pNotes">0</b></div>
-    <div class="big-card"><span>Current Streak</span><b id="pStreak">0 days</b></div>
-  </div>
-  <div class="panel"><h3>Recent Performance</h3><div id="recentPerformance"></div></div>
+<section id="tests" class="page">
+ <div class="page-head"><div><span class="eyebrow">PERFORMANCE</span><h1>Test Series</h1><p>Record MCQs, PYQs and mock tests.</p></div></div>
+ <div class="card form-card"><div class="form-grid"><label>Date<input id="tDate" type="date"></label><label>Subject<select id="tSubject"><option>Polity</option><option>History</option><option>Geography</option><option>Economy</option><option>Environment</option><option>Current Affairs</option><option>Assam</option><option>Mixed GS</option></select></label><label>Test / Topic<input id="tTopic" placeholder="e.g. Plate Tectonics"></label><label>Total Questions<input id="tTotal" type="number"></label><label>Attempted<input id="tAttempted" type="number"></label><label>Correct<input id="tCorrect" type="number"></label><label>Wrong<input id="tWrong" type="number"></label></div><label>What did I learn?<textarea id="tLearn"></textarea></label><label>Weak areas / revision?<textarea id="tWeak"></textarea></label><button id="saveTest" class="btn primary">Save Test</button></div>
+ <div class="section-title"><h2>Test History</h2></div><div id="testHistory" class="record-list"></div>
 </section>
+
+<section id="notes" class="page">
+ <div class="page-head"><div><span class="eyebrow">KNOWLEDGE BANK</span><h1>Study Notes</h1><p>Keep concise, exam-ready notes.</p></div></div>
+ <div class="card form-card"><div class="form-grid"><label>Title<input id="nTitle" placeholder="e.g. Fundamental Rights"></label><label>Subject<select id="nSubject"><option>Polity</option><option>History</option><option>Geography</option><option>Economy</option><option>Environment</option><option>Current Affairs</option><option>Assam</option></select></label></div><label>Note<textarea id="nBody" rows="8" placeholder="Write your key points..."></textarea></label><button id="saveNote" class="btn primary">Save Note</button></div>
+ <div class="section-title"><h2>Saved Notes</h2></div><div id="notesList" class="record-list"></div>
+</section>
+
+<section id="current" class="page">
+ <div class="page-head"><div><span class="eyebrow">DAILY BRIEF</span><h1>Current Affairs</h1><p>Use this space for the issues you revise today.</p></div></div>
+ <div class="current-grid"><div class="card"><h2>Today’s Brief</h2><textarea id="currentBrief" rows="12" placeholder="Write important national, international, Assam and economy updates..."></textarea><button id="saveBrief" class="btn primary">Save Today’s Brief</button></div><div class="card checklist"><h2>Revision Lens</h2><label><input type="checkbox"> Constitutional / governance relevance</label><label><input type="checkbox"> Assam-specific relevance</label><label><input type="checkbox"> Data / report / index</label><label><input type="checkbox"> Environment / geography link</label><label><input type="checkbox"> Possible prelims fact</label><label><input type="checkbox"> Possible mains angle</label></div></div>
+</section>
+
+<section id="progress" class="page">
+ <div class="page-head"><div><span class="eyebrow">PERFORMANCE</span><h1>Your Progress</h1><p>Measure consistency, not just hours.</p></div></div>
+ <div class="stat-grid"><div class="stat-card"><span>Tests Recorded</span><b id="pTests">0</b></div><div class="stat-card"><span>Average Accuracy</span><b id="pAccuracy">—</b></div><div class="stat-card"><span>Notes Saved</span><b id="pNotes">0</b></div><div class="stat-card"><span>Current Streak</span><b id="pStreak">0 days</b></div></div>
+ <div class="card"><div class="card-head"><h2>Recent Performance</h2></div><div id="recentPerformance"></div></div>
+</section>
+
+<section id="buddy" class="page">
+ <div class="page-head"><div><span class="eyebrow">COMPANION</span><h1>APSC Buddy</h1><p>A quiet reminder to stay steady.</p></div></div>
+ <div class="buddy-layout"><div class="card buddy-card-large"><div class="buddy-mascot" aria-label="APSC Buddy"><div class="buddy-ear left"></div><div class="buddy-ear right"></div><div class="buddy-head"><span class="eye e1"></span><span class="eye e2"></span><span class="nose"></span><span class="smile"></span><b>APSC</b></div><div class="buddy-body"><i></i><i></i></div><div class="buddy-shadow"></div></div><h2 id="buddyLevel">Level 1</h2><p id="buddyMsg">Consistency today creates confidence tomorrow.</p><div class="xp-line"><span>Experience</span><b><span id="xp">0</span> / 500 XP</b></div><i class="xp-bar"><em id="xpBar"></em></i></div><div class="card"><span class="eyebrow">BUDDY PRINCIPLES</span><h2>Steady. Focused. Consistent.</h2><p class="large-copy">Your buddy grows when you complete focused study sessions. There is no competition here — only progress.</p><div class="buddy-stats"><b>♥</b><span>Protect your attention.</span><b>◆</b><span>Review your mistakes.</span><b>★</b><span>Return tomorrow.</span></div></div></div>
+</section>
+
+<section id="motivation" class="page"><div class="page-head"><div><span class="eyebrow">MENTAL DISCIPLINE</span><h1>Motivation</h1><p>Read this when the day feels difficult.</p></div></div><div class="quote-grid"><div class="card quote-big">“You do not need to feel motivated to begin. Begin, and let discipline carry the session.”</div><div class="card quote-big">“The goal is not a perfect day. The goal is to return to the work.”</div><div class="card quote-big">“One chapter. One test. One revision. One day at a time.”</div></div></section>
+
+<section id="resources" class="page"><div class="page-head"><div><span class="eyebrow">REFERENCE DESK</span><h1>Resources</h1><p>Your study system in one place.</p></div></div><div class="resource-grid"><div class="card"><h2>Daily Workflow</h2><ol><li>Read core subject material.</li><li>Practice MCQs / PYQs.</li><li>Analyse mistakes.</li><li>Revise weak areas.</li><li>Record the day.</li></ol></div><div class="card"><h2>APSC Mains</h2><p>Idea → evidence → analysis → conclusion.</p><p>Prefer clear, grammatical English over difficult vocabulary.</p></div><div class="card"><h2>Night Reminder</h2><p class="large-copy">Protect your sleep. Tomorrow’s preparation starts with tonight’s recovery.</p></div></div></section>
+
+<section id="settings" class="page"><div class="page-head"><div><span class="eyebrow">CONTROL PANEL</span><h1>Settings</h1><p>Simple controls for your workspace.</p></div></div><div class="card settings-list"><div><div><b>Dark Mode</b><small>Switch the interface theme.</small></div><button id="themeBtn" class="toggle">Toggle</button></div><div><div><b>Reset Today’s Tasks</b><small>Clear only today’s checklist.</small></div><button id="resetTasks" class="btn outline">Reset</button></div><div><div><b>Clear Study Timer Data</b><small>Remove XP, sessions and focus-time history.</small></div><button id="resetTimer" class="btn outline">Clear</button></div></div></section>
 </main>
 </div>
-<script src="app.js"></script>
-<script src="study-companion.js"></script>
+<script src="app.js?v=20260922"></script>
 </body>
 </html>
