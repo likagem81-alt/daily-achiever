@@ -43,7 +43,7 @@ function login(){
  let users=JSON.parse(localStorage.getItem("da3_users")||"{}");
  if(mode==="create"){if(users[email]){$("authMsg").textContent="Account already exists.";return}users[email]=pass;localStorage.setItem("da3_users",JSON.stringify(users));}
  else if(users[email]!==pass){$("authMsg").textContent="Incorrect login details. Create an account first.";return}
- user=email;localStorage.setItem("da3_current",email);$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");$("achievement").value=load("achievement","");initTasks();refresh();
+ user=email;localStorage.setItem("da3_current",email);$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");$("achievement").value=load("achievement","");initTasks();refresh();if(window.initStudyCompanion)window.initStudyCompanion();
 }
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{mode=b.dataset.auth;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));$("authBtn").textContent=mode==="login"?"Login":"Create Account";$("authMsg").textContent=""});
 $("authBtn").onclick=login;
