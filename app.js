@@ -91,3 +91,23 @@ $("downloadTemplate").onclick=()=>{
 
 let current=localStorage.getItem("da3_current");if(current){user=current;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");$("achievement").value=load("achievement","");initTasks();refresh()}
 $("tDate").value=new Date().toISOString().slice(0,10);
+
+
+function renderExecutiveDashboard(){
+  const box=$("subjectProgress");
+  if(box){
+    const subjects=[["Polity",88],["History",78],["Geography",84],["Economy",65],["Environment",72],["Assam Specific",70]];
+    box.innerHTML=subjects.map(x=>'<div class="subject-row"><span>'+x[0]+'</span><i><em style="width:'+x[1]+'%"></em></i><b>'+x[1]+'%</b></div>').join("");
+  }
+  const ts=tests(), attempted=ts.reduce((s,t)=>s+Number(t.attempted||0),0), correct=ts.reduce((s,t)=>s+Number(t.correct||0),0);
+  if($("execAvg")) $("execAvg").textContent=attempted?Math.round(correct/attempted*100)+"%":"—";
+}
+document.querySelectorAll("[data-exec-scroll]").forEach(b=>b.onclick=()=>{
+  const el=$(b.dataset.execScroll);
+  if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
+  document.querySelectorAll(".side-link").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+});
+const _show=show;
+show=function(v){_show(v); if(v==="dashboard") setTimeout(renderExecutiveDashboard,30);};
+setTimeout(renderExecutiveDashboard,100);
