@@ -2,7 +2,7 @@
 const $=id=>document.getElementById(id); const key=k=>`da3_${localStorage.getItem("da3_current")||"guest"}_${k}`;
 function save(k,v){localStorage.setItem(key(k),JSON.stringify(v))} function load(k,f){try{return JSON.parse(localStorage.getItem(key(k)))??f}catch{return f}}
 function mount(){
- if(document.getElementById("studyCompanion")) return;
+ if(document.getElementById("studyCompanion") || document.querySelector(".executive-dashboard")) return;
  const dash=$("dashboard"); if(!dash) return;
  const wrap=document.createElement("div"); wrap.id="studyCompanion"; wrap.className="study-companion";
  wrap.innerHTML=`<div class="sc-card sc-timer"><div class="sc-head"><div><span class="sc-kicker">FOCUS SYSTEM</span><h3>Focus Timer</h3><div class="sc-muted">Automatic study → rest cycle • No Pause</div></div><strong id="scSession">Session 1</strong></div><div class="sc-mode"><span id="scStudyMode" class="active">Study · 25 min</span><span id="scRestMode">Rest · 5 min</span></div><div id="scClock" class="sc-clock">25:00</div><div id="scStatus" class="sc-status">Ready. Start your first focused session.</div><div class="sc-progress"><i id="scProgress"></i></div><div id="scTask" class="sc-note">Current focus: APSC preparation</div><div class="sc-actions"><button id="scStart" class="primary">Start Focus</button></div></div>
