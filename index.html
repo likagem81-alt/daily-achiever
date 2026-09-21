@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Achiever</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <section id="auth" class="screen">
+    <div class="card auth-card">
+      <div class="logo">DA</div>
+      <h1>Daily Achiever</h1>
+      <p class="muted">Your focused APSC study tracker</p>
+
+      <div class="tabs">
+        <button id="loginTab" class="tab active">Login</button>
+        <button id="registerTab" class="tab">Create account</button>
+      </div>
+
+      <form id="authForm">
+        <label>Email</label>
+        <input id="email" type="email" placeholder="you@example.com" required>
+        <label>Password</label>
+        <input id="password" type="password" placeholder="Password" minlength="4" required>
+        <button class="primary" type="submit" id="authSubmit">Login</button>
+      </form>
+      <p id="authMsg" class="message"></p>
+      <p class="demo-note">This first version stores your account locally in this browser. It is a prototype, not secure production authentication.</p>
+    </div>
+  </section>
+
+  <section id="dashboard" class="screen hidden">
+    <header class="topbar">
+      <div>
+        <div class="brand">Daily Achiever</div>
+        <div class="muted small">APSC Study Tracker</div>
+      </div>
+      <div class="top-actions">
+        <span id="dateLabel"></span>
+        <button id="logout" class="ghost">Logout</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="hero">
+        <div>
+          <h2>Today's Progress</h2>
+          <p class="muted">Target: <strong>9 hours</strong> of focused self-study</p>
+        </div>
+        <div class="progress-ring">
+          <span id="progressPercent">0%</span>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span>Study time</span><strong id="studyTotal">0h 0m</strong></div>
+        <div class="stat"><span>Tasks done</span><strong id="tasksDone">0 / 7</strong></div>
+        <div class="stat"><span>Streak</span><strong id="streak">0 days</strong></div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="section-head">
+            <h3>Daily Checklist</h3>
+            <button id="resetToday" class="text-btn">Reset today</button>
+          </div>
+          <div id="tasks"></div>
+        </div>
+
+        <div class="card">
+          <h3>Today's Results</h3>
+          <label>MCQs attempted</label>
+          <input id="mcqAttempted" type="number" min="0" placeholder="0">
+          <label>MCQs correct</label>
+          <input id="mcqCorrect" type="number" min="0" placeholder="0">
+          <div class="result-box">
+            <span>Accuracy</span><strong id="accuracy">0%</strong>
+          </div>
+          <label>Today's achievement</label>
+          <textarea id="achievement" placeholder="What did you accomplish today?"></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-head">
+          <h3>Study Log</h3>
+          <span class="muted small">Only today's entries are editable here</span>
+        </div>
+        <div id="log"></div>
+      </div>
+    </main>
+  </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
