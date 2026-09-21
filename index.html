@@ -2,118 +2,108 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily Achiever — APSC</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0f5132">
+<title>Daily Achiever • APSC</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="auth" class="screen">
+<div id="loginScreen" class="auth">
   <div class="auth-card">
-    <div class="logo">DA</div>
+    <div class="brand-mark">DA</div>
     <h1>Daily Achiever</h1>
-    <p>APSC Study Tracker</p>
-    <div class="tabs"><button id="loginTab" class="active">Login</button><button id="registerTab">Create account</button></div>
-    <form id="authForm">
-      <label>Email</label><input id="email" type="email" required placeholder="you@example.com">
-      <label>Password</label><input id="password" type="password" minlength="4" required placeholder="Password">
-      <button class="primary" id="authSubmit">Login</button>
-    </form>
-    <div id="authMsg"></div>
-    <small>Personal prototype: your data is stored in this browser.</small>
+    <p>APSC Study Command Center</p>
+    <div class="tabs"><button class="tab active" data-auth="login">Login</button><button class="tab" data-auth="create">Create Account</button></div>
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+    <button id="authBtn" class="primary wide">Login</button>
+    <small id="authMsg"></small>
   </div>
 </div>
 
 <div id="app" class="hidden">
-<header>
-  <div><b>Daily Achiever</b><span>APSC Study Tracker</span></div>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark small">DA</span><div><b>Daily Achiever</b><small>APSC • Dream · Prepare · Achieve</small></div></div>
   <nav>
-    <button data-view="dashboard" class="nav active">Dashboard</button>
-    <button data-view="tests" class="nav">Test Notes</button>
-    <button data-view="notes" class="nav">Study Notes</button>
-    <button data-view="progress" class="nav">Progress</button>
+    <button data-view="dashboard">Dashboard</button>
+    <button data-view="tests">Test Notes</button>
+    <button data-view="notes">Study Notes</button>
+    <button data-view="progress">Progress</button>
   </nav>
-  <button id="logout" class="logout">Logout</button>
+  <div class="actions"><button id="themeBtn" class="icon">☾</button><button id="logout" class="outline">Logout</button></div>
 </header>
 
 <main>
-  <section id="dashboard" class="view">
-    <div class="banner">
-      <div>
-        <h2>Dream • Prepare • Achieve</h2>
-        <p>“Consistency creates results.”</p>
-      </div>
-      <div class="banner-side">APSC<br><small>Serve • Learn • Grow</small></div>
+<section id="dashboard" class="view">
+  <div class="hero">
+    <div><span class="eyebrow">YOUR APSC JOURNEY</span><h2>Dream. Prepare. <span>Achieve.</span></h2><p>Small disciplined steps every day become a strong preparation.</p></div>
+    <div class="hero-badge">🎯 <b>9–10 HRS</b><small>Daily Target</small></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><span>Today</span><b id="todayProgress">0%</b><small>daily completion</small></div>
+    <div class="stat"><span>Study Time</span><b id="studyTime">0m</b><small>from checklist</small></div>
+    <div class="stat"><span>Tests</span><b id="testCount">0</b><small>recorded</small></div>
+    <div class="stat"><span>Accuracy</span><b id="accuracy">—</b><small>test average</small></div>
+  </div>
+  <div class="grid two">
+    <div class="panel">
+      <div class="panel-head"><div><h3>Today's Mission</h3><p>Complete the core blocks</p></div><b id="taskPct">0%</b></div>
+      <div id="tasks"></div>
     </div>
+    <div class="panel">
+      <div class="panel-head"><div><h3>Daily Achievement</h3><p>Write one line before sleep</p></div>🏆</div>
+      <textarea id="achievement" placeholder="Today I achieved..."></textarea>
+      <button id="saveAchievement" class="primary">Save Achievement</button>
+      <div class="quote">“Consistency is more powerful than motivation.”</div>
+    </div>
+  </div>
+  <div class="subject-grid">
+    <div class="subject history"><span>🏛️</span><b>Ancient History</b><small>Read • Revise • MCQ</small></div>
+    <div class="subject geo"><span>🌍</span><b>Geography</b><small>Concept • Map • PYQ</small></div>
+    <div class="subject ca"><span>📰</span><b>Current Affairs</b><small>Daily 30–45 min</small></div>
+    <div class="subject rev"><span>🔁</span><b>Revision</b><small>Weak areas first</small></div>
+  </div>
+</section>
 
-    <div class="hero">
-      <div><h2>Today's Progress</h2><p>Target: <b>9 hours</b> focused self-study</p></div>
-      <div class="circle"><span id="percent">0%</span></div>
+<section id="tests" class="view hidden">
+  <div class="page-title"><div><span class="eyebrow">PERFORMANCE</span><h2>Test Notes</h2><p>Record MCQ, PYQ and mock-test performance.</p></div><button class="primary" id="newTest">+ New Test</button></div>
+  <div class="panel form-panel">
+    <div class="form-grid">
+      <label>Date<input id="tDate" type="date"></label>
+      <label>Subject<select id="tSubject"><option>Ancient History</option><option>Geography</option><option>Polity</option><option>Environment</option><option>Economy</option><option>Current Affairs</option><option>Assam</option><option>Mixed GS</option></select></label>
+      <label>Test / Topic<input id="tTopic" placeholder="e.g. Buddhism PYQ"></label>
+      <label>Total Questions<input id="tTotal" type="number" min="1"></label>
+      <label>Attempted<input id="tAttempted" type="number" min="0"></label>
+      <label>Correct<input id="tCorrect" type="number" min="0"></label>
+      <label>Wrong<input id="tWrong" type="number" min="0"></label>
     </div>
+    <label>What did I learn?<textarea id="tLearn" placeholder="Key concepts learned..."></textarea></label>
+    <label>Weak areas / Revision needed<textarea id="tWeak" placeholder="Topics to revise..."></textarea></label>
+    <button id="saveTest" class="primary">Save Test</button>
+  </div>
+  <div id="testHistory" class="cards"></div>
+</section>
 
-    <div class="stats">
-      <div><span>Study time</span><b id="studyTime">0h 0m</b></div>
-      <div><span>Tasks done</span><b id="tasksDone">0 / 7</b></div>
-      <div><span>MCQ accuracy</span><b id="dashAccuracy">0%</b></div>
-      <div><span>Study streak</span><b id="streak">0 days</b></div>
-    </div>
+<section id="notes" class="view hidden">
+  <div class="page-title"><div><span class="eyebrow">KNOWLEDGE BANK</span><h2>Study Notes</h2><p>Keep short, exam-ready notes in one place.</p></div></div>
+  <div class="panel form-panel">
+    <div class="form-grid"><label>Title<input id="nTitle" placeholder="e.g. Fundamental Rights"></label><label>Subject<select id="nSubject"><option>Ancient History</option><option>Geography</option><option>Polity</option><option>Environment</option><option>Economy</option><option>Current Affairs</option><option>Assam</option><option>Mixed GS</option></select></label></div>
+    <label>Note<textarea id="nBody" rows="7" placeholder="Write your exam-ready points..."></textarea></label>
+    <button id="saveNote" class="primary">Save Note</button>
+  </div>
+  <div id="notesList" class="cards"></div>
+</section>
 
-    <div class="two">
-      <div class="card">
-        <div class="title-row"><h3>Today's Checklist</h3><button id="reset" class="smallbtn">Reset</button></div>
-        <div id="tasks"></div>
-      </div>
-      <div class="card">
-        <h3>Today's Achievement</h3>
-        <textarea id="achievement" placeholder="What did you complete or learn today?"></textarea>
-        <button id="saveAchievement" class="primary">Save achievement</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="tests" class="view hidden">
-    <div class="page-head"><div><h2>Test Notes</h2><p>Record every APSC/UPSC practice test and learn from mistakes.</p></div><button id="clearTest" class="smallbtn">Clear form</button></div>
-    <div class="two">
-      <div class="card">
-        <h3>Add Test Result</h3>
-        <label>Date</label><input id="testDate" type="date">
-        <label>Subject</label><select id="testSubject"><option>Ancient History</option><option>Geography</option><option>Polity</option><option>Environment</option><option>Economy</option><option>Current Affairs</option><option>Assam</option><option>Mixed GS</option></select>
-        <label>Test / Topic</label><input id="testName" placeholder="e.g. Buddhism — UPSC Prelims">
-        <div class="row"><div><label>Total Questions</label><input id="totalQ" type="number" min="0"></div><div><label>Attempted</label><input id="attempted" type="number" min="0"></div></div>
-        <div class="row"><div><label>Correct</label><input id="correct" type="number" min="0"></div><div><label>Wrong</label><input id="wrong" type="number" min="0"></div></div>
-        <label>What did I learn?</label><textarea id="learned" placeholder="Key concepts, facts, mistakes..."></textarea>
-        <label>Weak areas / revision needed</label><textarea id="weak" placeholder="Topics to revise"></textarea>
-        <button id="saveTest" class="primary">Save Test Result</button>
-      </div>
-      <div class="card">
-        <h3>My Test History</h3>
-        <div id="testHistory"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="notes" class="view hidden">
-    <div class="page-head"><div><h2>Study Notes</h2><p>Keep short revision notes inside your tracker.</p></div><button id="newNote" class="smallbtn">New note</button></div>
-    <div class="two">
-      <div class="card">
-        <label>Note title</label><input id="noteTitle" placeholder="e.g. Harappan Civilization">
-        <label>Subject</label><input id="noteSubject" placeholder="Ancient History">
-        <label>Note</label><textarea id="noteBody" class="big" placeholder="Write your important points here..."></textarea>
-        <button id="saveNote" class="primary">Save Note</button>
-      </div>
-      <div class="card"><h3>Saved Notes</h3><div id="noteHistory"></div></div>
-    </div>
-  </section>
-
-  <section id="progress" class="view hidden">
-    <div class="page-head"><div><h2>Progress</h2><p>Your saved study and test records.</p></div></div>
-    <div class="stats">
-      <div><span>Tests recorded</span><b id="testCount">0</b></div>
-      <div><span>Average accuracy</span><b id="avgAccuracy">0%</b></div>
-      <div><span>Notes saved</span><b id="noteCount">0</b></div>
-      <div><span>Current streak</span><b id="progressStreak">0 days</b></div>
-    </div>
-    <div class="card"><h3>Recent Test Performance</h3><div id="progressTests"></div></div>
-  </section>
+<section id="progress" class="view hidden">
+  <div class="page-title"><div><span class="eyebrow">LONG-TERM VIEW</span><h2>Your Progress</h2><p>Track consistency, tests and revision.</p></div></div>
+  <div class="progress-grid">
+    <div class="big-card"><span>Tests Recorded</span><b id="pTests">0</b></div>
+    <div class="big-card"><span>Average Accuracy</span><b id="pAccuracy">—</b></div>
+    <div class="big-card"><span>Notes Saved</span><b id="pNotes">0</b></div>
+    <div class="big-card"><span>Current Streak</span><b id="pStreak">0 days</b></div>
+  </div>
+  <div class="panel"><h3>Recent Performance</h3><div id="recentPerformance"></div></div>
+</section>
 </main>
 </div>
 <script src="app.js"></script>
