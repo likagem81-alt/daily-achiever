@@ -16,3 +16,18 @@ body{background:#e9eef0;color:#102849}
 .plant-leaves{width:122px;height:122px;display:grid;place-items:center;font-size:0}.plant-leaves svg{width:118px;height:118px;display:block;filter:drop-shadow(0 5px 5px #10274318)}.plant-label{text-align:center;margin-top:5px;font-size:9px;letter-spacing:1.2px;color:#607586;line-height:1.5}.plant-label b{letter-spacing:.2px;color:#173957}.plant{min-width:145px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
 .buddy-card .exec-card-head h2{letter-spacing:.1px}.buddy-card .level-badge{font-family:Arial,sans-serif}
 @media(min-width:1101px){.buddy-card{min-width:0}.buddy-main{min-height:245px}.plan-card{min-width:0}}
+
+/* Final layout stabilization */
+html,body{width:100%;max-width:100%;overflow-x:hidden!important}
+.executive-topbar{width:100%;box-sizing:border-box;overflow:hidden}
+.exec-sidebar{overflow-y:auto;overflow-x:hidden;box-sizing:border-box}
+.side-bottom{position:sticky;margin-top:18px;bottom:auto}
+.executive-dashboard{width:calc(100% - 202px);box-sizing:border-box;min-width:0}
+.exec-top-grid,.exec-middle-grid,.exec-bottom-grid{min-width:0}
+.exec-card{min-width:0}
+.buddy-main{min-width:0}.plant{min-width:135px}
+#scPetIcon.plant-leaves{width:125px!important;height:125px!important;display:grid!important;place-items:center!important;font-size:0!important;background:transparent!important;border:0!important}
+#scPetIcon.plant-leaves svg{display:block!important;width:120px!important;height:120px!important;visibility:visible!important;opacity:1!important}
+#scPetIcon.plant-leaves svg *{visibility:visible!important}
+@media(max-width:1100px){.executive-dashboard{width:calc(100% - 202px)}}
+@media(max-width:800px){.executive-dashboard{width:100%;}.exec-sidebar{overflow-y:hidden}}
