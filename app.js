@@ -17,7 +17,14 @@ function renderTimer(){const total=timer.phase==="study"?1500:300,p=Math.max(0,M
 let tick=null;function startTimer(){if(timer.running)return;timer.running=true;timerSave();renderTimer();clearInterval(tick);tick=setInterval(()=>{timer.remaining--;if(timer.remaining<=0){if(timer.phase==="study"){timer.focus+=25;timer.xp+=25;timer.phase="rest";timer.remaining=300;timer.session++}else{timer.phase="study";timer.remaining=1500}timerSave()}renderTimer()},1000)}
 function updateClock(){const d=new Date();$("liveDate").textContent=d.toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});$("heroDay").textContent=d.toLocaleDateString("en-IN",{weekday:"long",day:"2-digit",month:"long"});$("heroTime").textContent=d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit"})}
 
-// Seed the user's completed Jainism UPSC test result once.
+// Seed the user's completed Geomorphology UPSC test result once.
+function seedGeomorphologyResult(){
+  const ts=tests();
+  const exists=ts.some(t=>t.topic==="Geomorphology — UPSC Prelims" && t.date==="2026-09-22" && Number(t.correct)===15 && Number(t.total)===20);
+  if(exists)return;
+  ts.push({date:"2026-09-22",subject:"Geography",topic:"Geomorphology — UPSC Prelims",total:20,attempted:19,correct:15,wrong:4,learn:"Strong on exfoliation, glacial landforms, karst topography, mass wasting, pediplanation, isostasy, deltas, base level, faulting and differential erosion.",weak:"Revise weathering vs erosion, knickpoints, meander erosion/deposition, and aeolian erosional vs depositional landforms. Q14 was skipped.",analysis:"Q1: Weathering is in-situ breakdown; transportation belongs to erosion. Q4: Knickpoint means an abrupt change in river gradient. Q5: Outer meander bank is erosional and inner bank is depositional. Q12: Barchan is a depositional wind landform; yardang is erosional."});
+  save("tests",ts);
+}
 function seedJainismResult(){
   const ts=tests();
   const exists=ts.some(t=>t.topic==="Jainism — UPSC Prelims" && t.date==="2026-09-22" && Number(t.correct)===18 && Number(t.total)===20);
@@ -26,7 +33,7 @@ function seedJainismResult(){
   save("tests",ts);
 }
 function renderAll(){initTasks();challengeCheck();renderStats();renderRewards();renderTests();renderNotes();renderProgress();renderTimer();$("currentBrief").value=load("brief","");$("journeyDays").textContent=Math.max(1,Math.floor((Date.now()-load("startDate",Date.now()))/86400000)+1)+" days"}
-function openApp(){user=localStorage.getItem("da4_current");if(!user)return;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");if(!load("startDate",null))save("startDate",Date.now());seedJainismResult();timerLoad();renderAll();updateClock();setInterval(updateClock,1000)}
+function openApp(){user=localStorage.getItem("da4_current");if(!user)return;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");if(!load("startDate",null))save("startDate",Date.now());seedGeomorphologyResult();seedJainismResult();timerLoad();renderAll();updateClock();setInterval(updateClock,1000)}
 document.querySelectorAll(".auth-tab").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll(".auth-tab").forEach(x=>x.classList.toggle("active",x===b));$("authBtn").textContent=mode==="login"?"Login":"Create Account";$("authMsg").textContent=""});
 $("authBtn").onclick=()=>{const email=$("email").value.trim().toLowerCase(),pass=$("password").value;if(!email||!pass){$("authMsg").textContent="Enter email and password.";return}const users=JSON.parse(localStorage.getItem("da4_users")||"{}");if(mode==="create"){if(users[email]){$("authMsg").textContent="Account already exists.";return}users[email]=pass;localStorage.setItem("da4_users",JSON.stringify(users))}else if(users[email]!==pass){$("authMsg").textContent="Incorrect details. Create the account first.";return}localStorage.setItem("da4_current",email);openApp()};
 document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>showPage(b.dataset.page));$("logout").onclick=()=>{localStorage.removeItem("da4_current");location.reload()};$("mobileMenu").onclick=()=>$("sidebar").classList.toggle("open");$("startTimer").onclick=startTimer;
