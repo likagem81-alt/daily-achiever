@@ -93,8 +93,15 @@ Weathering → no transportation
 PRELIMS MEMORY: Physical = frost, exfoliation, salt | Chemical = solution, carbonation, oxidation, hydration, hydrolysis | Biological = roots, burrowing, lichens.`});
   save("notes",ns);
 }
+function seedWeatheringTestResult(){
+  const ts=tests();
+  const exists=ts.some(t=>t.topic==="Weathering — UPSC/APSC Concept Test" && t.date==="2026-09-22" && Number(t.correct)===19);
+  if(exists)return;
+  ts.push({date:"2026-09-22",subject:"Geography",topic:"Weathering — UPSC/APSC Concept Test",total:20,attempted:20,correct:19,wrong:1,learn:"Strong understanding of physical, chemical and biological weathering; frost action; exfoliation; salt weathering; carbonation; oxidation; hydrolysis; hydration; biological weathering; climate controls; and weathering vs erosion.",weak:"Revise the complete carbonation chain: CO2 + H2O → carbonic acid → limestone dissolution → karst features. Q5 was the only error.",analysis:"Q5: Carbonation involves carbon dioxide dissolved in water forming weak carbonic acid; it is especially important in limestone regions and contributes to karst features. Correct answer: D (1, 2 and 3)."});
+  save("tests",ts);
+}
 function renderAll(){initTasks();challengeCheck();renderStats();renderRewards();renderTests();renderNotes();renderProgress();renderTimer();$("currentBrief").value=load("brief","");$("journeyDays").textContent=Math.max(1,Math.floor((Date.now()-load("startDate",Date.now()))/86400000)+1)+" days"}
-function openApp(){user=localStorage.getItem("da4_current");if(!user)return;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");if(!load("startDate",null))save("startDate",Date.now());seedGeomorphologyResult();seedJainismResult();seedWeatheringNotes();timerLoad();renderAll();updateClock();setInterval(updateClock,1000)}
+function openApp(){user=localStorage.getItem("da4_current");if(!user)return;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");if(!load("startDate",null))save("startDate",Date.now());seedGeomorphologyResult();seedJainismResult();seedWeatheringNotes();seedWeatheringTestResult();timerLoad();renderAll();updateClock();setInterval(updateClock,1000)}
 document.querySelectorAll(".auth-tab").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll(".auth-tab").forEach(x=>x.classList.toggle("active",x===b));$("authBtn").textContent=mode==="login"?"Login":"Create Account";$("authMsg").textContent=""});
 $("authBtn").onclick=()=>{const email=$("email").value.trim().toLowerCase(),pass=$("password").value;if(!email||!pass){$("authMsg").textContent="Enter email and password.";return}const users=JSON.parse(localStorage.getItem("da4_users")||"{}");if(mode==="create"){if(users[email]){$("authMsg").textContent="Account already exists.";return}users[email]=pass;localStorage.setItem("da4_users",JSON.stringify(users))}else if(users[email]!==pass){$("authMsg").textContent="Incorrect details. Create the account first.";return}localStorage.setItem("da4_current",email);openApp()};
 document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>showPage(b.dataset.page));$("logout").onclick=()=>{localStorage.removeItem("da4_current");location.reload()};$("mobileMenu").onclick=()=>$("sidebar").classList.toggle("open");$("startTimer").onclick=startTimer;
