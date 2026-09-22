@@ -327,16 +327,31 @@ if($("mapcenter")){$("mapSearch").addEventListener("input",renderMapCenter);$("m
 function aiEl(id){return document.getElementById(id)}
 function aiAdd(role,text){var m=aiEl("aiMessages");if(!m)return;var d=document.createElement("div");d.className="ai-msg "+role;var b=document.createElement("div");b.className="ai-bubble";b.textContent=text;d.appendChild(b);m.appendChild(d);m.scrollTop=m.scrollHeight}
 function aiContext(){try{var k=[];for(var i=0;i<localStorage.length;i++){var z=localStorage.key(i);if(z&&z.indexOf("da4_")===0&&/(tests|revisions|mains|profile)/.test(z))k.push(z)}return k}catch(e){return[]}}
-function aiReply(q){
-var s=q.toLowerCase(),ts=[];try{ts=tests()}catch(e){}
-if(/performance|analyse|analyze|test/.test(s)){var n=0,c=0;ts.forEach(function(t){n+=+t.attempted||0;c+=+t.correct||0});var a=n?Math.round(c/n*100):0;return n?"Your recorded tests contain "+n+" attempted questions with about "+a+"% accuracy. Review your wrong answers first, then revise the weak topics before taking another full test.":"No test data is available yet. Record a test result first, then I can analyse it."}
-if(/revision|revise|weak/.test(s)){return"Revision rule: revise a weak topic today, then again after 1 day, 3 days, 7 days and 15 days. For your current workflow, start with the topics marked wrong in the Revision List and finish with 10–20 MCQs."}
-if(/mains|answer/.test(s)){return"Use the Mains Practice page: write a clear introduction, 3–5 analytical points with examples, a practical way forward, and a concise conclusion. Keep the language simple and precise."}
-if(/mcq|question|prelims/.test(s)){return"Sure. Example: Which process is most directly associated with carbonation? A) Oxidation B) Solution of limestone by weak carbonic acid C) Frost action D) Salt weathering. Answer: B."}
-if(/hello|hi|hey/.test(s)){return"Hello! I’m your Daily Achiever study assistant. Ask me about APSC/UPSC topics, tests, revision or Mains practice."}
-return"I can help with APSC/UPSC study planning, Geography, History, Polity, Environment, MCQs, revision and Mains writing. For live AI answers to any topic, this chat interface will need an AI API connection; the current version keeps your study data private in your browser."
+function notePool(){try{var ns=load("notes",[]);return ns.filter(function(n){return n&&n.body}).map(function(n){return {title:n.title||"Note",subject:n.subject||"Mixed GS",body:n.body}})}catch(e){return[]}}
+function makeNoteQuestion(){
+var ns=notePool();if(!ns.length)return "Your Notes section is empty. Add notes first, then I can generate note-based questions.";
+var used=load("aiUsedQuestions",[]),pool=[];
+ns.forEach(function(n){var b=n.body, lines=b.split(/\\n+/).map(function(x){return x.replace(/^\\s*[•\\d.\\-]+\\s*/,"").trim()}).filter(function(x){return x.length>35});lines.forEach(function(line){pool.push({n:n,line:line})})});
+pool=pool.filter(function(x){return used.indexOf(x.line)<0});if(!pool.length){used=[];pool=[];ns.forEach(function(n){n.body.split(/\\n+/).forEach(function(line){line=line.replace(/^\\s*[•\\d.\\-]+\\s*/,"").trim();if(line.length>35)pool.push({n:n,line:line})})})}
+var x=pool[Math.floor(Math.random()*pool.length)],line=x.line,topic=x.n.title.replace(/—.*/,"").trim();
+var clean=line.replace(/^(UPSC traps:|Memory:)/i,"").trim();
+var q="According to your note on "+topic+", which statement is correct?";
+var opts=[clean,"This statement is unrelated to the topic","This process occurs only outside the Earth","This statement reverses the process described in the note"];
+var shift=Math.floor(Math.random()*4),a=opts.splice(shift,1)[0];opts.push(a);var ans=opts.indexOf(a);
+used.push(line);save("aiUsedQuestions",used);
+return q+"\\n\\nA) "+opts[0]+"\\nB) "+opts[1]+"\\nC) "+opts[2]+"\\nD) "+opts[3]+"\\n\\nAnswer: "+String.fromCharCode(65+ans)+"\\n\\n📚 Source: "+x.n.title+"\\n💡 Note point: "+clean;
 }
-function sendAI(){var q=(aiEl("aiInput").value||"").trim();if(!q)return;aiAdd("user",q);aiEl("aiInput").value="";setTimeout(function(){aiAdd("ai",aiReply(q))},180)}
+function aiReply(q){
+var s=q.toLowerCase();
+if(/mcq|question|quiz|test|prelims/.test(s))return makeNoteQuestion();
+if(/notes|note|what.*read|source/.test(s)){var ns=notePool();return ns.length?"Yes. I can use the notes saved in your Daily Achiever Notes section. Current note topics include: "+ns.map(function(n){return n.title}).join(", ")+". Ask me for an MCQ and the question will be generated from those notes.":"No notes are saved yet."}
+var ts=[];try{ts=tests()}catch(e){}
+if(/performance|analyse|analyze|test/.test(s)){var n=0,c=0;ts.forEach(function(t){n+=+t.attempted||0;c+=+t.correct||0});var a=n?Math.round(c/n*100):0;return n?"Your recorded tests contain "+n+" attempted questions with about "+a+"% accuracy. Review your wrong answers first, then revise the weak topics before taking another full test.":"No test data is available yet. Record a test result first, then I can analyse it."}
+if(/revision|revise|weak/.test(s))return "Revision rule: revise a weak topic today, then again after 1 day, 3 days, 7 days and 15 days. I can also generate questions from your saved notes.";
+if(/mains|answer/.test(s))return "Use the Mains Practice page: write a clear introduction, 3–5 analytical points with examples, a practical way forward, and a concise conclusion.";
+if(/hello|hi|hey/.test(s))return "Hello! I’m your Daily Achiever study assistant. Your saved notes can be used for note-based questions.";
+return "I can use your saved Notes, Test results and Revision data. Try: “Give me 10 MCQs from my notes” or “Ask me one question from my Geography notes.”";
+}
 function initAI(){if(!aiEl("aiMessages"))return;if(!aiEl("aiMessages").children.length)aiAdd("ai","Hello! I’m your Daily Achiever study assistant. Ask me a question or use one of the quick actions below.");aiEl("aiSend").onclick=sendAI;aiEl("aiInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendAI()}});document.querySelectorAll("[data-ai-prompt]").forEach(function(b){b.onclick=function(){aiEl("aiInput").value=b.dataset.aiPrompt;sendAI()}})}
 initAI();
 document.querySelectorAll("[data-page]").forEach(function(b){b.addEventListener("click",function(){if(b.dataset.page==="aiChatPage")setTimeout(initAI,30)})});
