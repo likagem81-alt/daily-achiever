@@ -335,73 +335,167 @@ if($("mapcenter")){$("mapSearch").addEventListener("input",renderMapCenter);$("m
 })();
 </script><script id="aiChatJs">
 (function(){
-function aiEl(id){return document.getElementById(id)}
-function aiAdd(role,text){var m=aiEl("aiMessages");if(!m)return;var d=document.createElement("div");d.className="ai-msg "+role;var b=document.createElement("div");b.className="ai-bubble";b.textContent=text;d.appendChild(b);m.appendChild(d);m.scrollTop=m.scrollHeight}
-function aiContext(){try{var k=[];for(var i=0;i<localStorage.length;i++){var z=localStorage.key(i);if(z&&z.indexOf("da4_")===0&&/(tests|revisions|mains|profile)/.test(z))k.push(z)}return k}catch(e){return[]}}
-function notePool(){try{var ns=load("notes",[]);return ns.filter(function(n){return n&&n.body}).map(function(n){return {title:n.title||"Note",subject:n.subject||"Mixed GS",body:n.body}})}catch(e){return[]}}
-function makeNoteQuestion(){
-var ns=notePool();if(!ns.length)return "Your Notes section is empty. Add notes first, then I can generate note-based questions.";
-var used=load("aiUsedQuestions",[]),pool=[];
-ns.forEach(function(n){var b=n.body, lines=b.split(/\\n+/).map(function(x){return x.replace(/^\\s*[•\\d.\\-]+\\s*/,"").trim()}).filter(function(x){return x.length>35});lines.forEach(function(line){pool.push({n:n,line:line})})});
-pool=pool.filter(function(x){return used.indexOf(x.line)<0});if(!pool.length){used=[];pool=[];ns.forEach(function(n){n.body.split(/\\n+/).forEach(function(line){line=line.replace(/^\\s*[•\\d.\\-]+\\s*/,"").trim();if(line.length>35)pool.push({n:n,line:line})})})}
-var x=pool[Math.floor(Math.random()*pool.length)],line=x.line,topic=x.n.title.replace(/—.*/,"").trim();
-var clean=line.replace(/^(UPSC traps:|Memory:)/i,"").trim();
-var q="According to your note on "+topic+", which statement is correct?";
-var opts=[clean,"This statement is unrelated to the topic","This process occurs only outside the Earth","This statement reverses the process described in the note"];
-var shift=Math.floor(Math.random()*4),a=opts.splice(shift,1)[0];opts.push(a);var ans=opts.indexOf(a);
-used.push(line);save("aiUsedQuestions",used);
-return q+"\\n\\nA) "+opts[0]+"\\nB) "+opts[1]+"\\nC) "+opts[2]+"\\nD) "+opts[3]+"\\n\\nAnswer: "+String.fromCharCode(65+ans)+"\\n\\n📚 Source: "+x.n.title+"\\n💡 Note point: "+clean;
+"use strict";
+function A(id){return document.getElementById(id)}
+function userPrefix(){
+  try{
+    var u=localStorage.getItem("da4_current")||"guest";
+    return "da4_"+u+"_";
+  }catch(e){return "da4_guest_"}
 }
-function aiReply(q){
-var s=q.toLowerCase();
-if(/mcq|question|quiz|test|prelims/.test(s))return makeNoteQuestion();
-if(/notes|note|what.*read|source/.test(s)){var ns=notePool();return ns.length?"Yes. I can use the notes saved in your Daily Achiever Notes section. Current note topics include: "+ns.map(function(n){return n.title}).join(", ")+". Ask me for an MCQ and the question will be generated from those notes.":"No notes are saved yet."}
-var ts=[];try{ts=tests()}catch(e){}
-if(/performance|analyse|analyze|test/.test(s)){var n=0,c=0;ts.forEach(function(t){n+=+t.attempted||0;c+=+t.correct||0});var a=n?Math.round(c/n*100):0;return n?"Your recorded tests contain "+n+" attempted questions with about "+a+"% accuracy. Review your wrong answers first, then revise the weak topics before taking another full test.":"No test data is available yet. Record a test result first, then I can analyse it."}
-if(/revision|revise|weak/.test(s))return "Revision rule: revise a weak topic today, then again after 1 day, 3 days, 7 days and 15 days. I can also generate questions from your saved notes.";
-if(/mains|answer/.test(s))return "Use the Mains Practice page: write a clear introduction, 3–5 analytical points with examples, a practical way forward, and a concise conclusion.";
-if(/hello|hi|hey/.test(s))return "Hello! I’m your Daily Achiever study assistant. Your saved notes can be used for note-based questions.";
-return "I can use your saved Notes, Test results and Revision data. Try: “Give me 10 MCQs from my notes” or “Ask me one question from my Geography notes.”";
+function getData(key,def){
+  try{
+    if(typeof window.load==="function") return window.load(key,def);
+    var raw=localStorage.getItem(userPrefix()+key);
+    return raw?JSON.parse(raw):def;
+  }catch(e){return def}
 }
-var aiTestState={items:[],answers:{},start:0,seconds:0,timer:null};
-function aiBuildQuestion(n,line,idx){
-var clean=line.replace(/^\\s*[•\\d.\\-]+\\s*/,"").trim(),topic=n.title.replace(/—.*/,"").trim();
-var templates=[
-"Which statement is most consistent with the note on "+topic+"?",
-"According to the "+topic+" note, which statement is correct?",
-"Which of the following best describes the concept in the "+topic+" note?"
-];
-var correct=clean,wrong1="It is unrelated to the process described in the note.",wrong2="It always occurs without any geographical or contextual condition.",wrong3="It is the exact opposite of the process described in the note.";
-var opts=[correct,wrong1,wrong2,wrong3],shift=(idx*3)%4,rot=opts.splice(shift,1)[0];opts.push(rot);
-return {q:templates[idx%templates.length],opts:opts,ans:opts.indexOf(correct),source:n.title,point:clean};
+function putData(key,val){
+  try{
+    if(typeof window.save==="function"){window.save(key,val);return}
+    localStorage.setItem(userPrefix()+key,JSON.stringify(val));
+  }catch(e){}
 }
-function aiStartTest(){
-var ns=notePool(),sub=aiEl("aiTestSubject").value,count=+aiEl("aiTestCount").value;
-var lines=[];ns.filter(function(n){return sub==="All"||n.subject===sub}).forEach(function(n){n.body.split(/\\n+/).forEach(function(line){line=line.trim();if(line.length>35)lines.push({n:n,line:line})})});
-if(!lines.length){aiEl("aiTestBody").innerHTML='<div class="ai-result">No notes found for this subject.</div>';return}
-for(var i=lines.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),z=lines[i];lines[i]=lines[j];lines[j]=z}
-var used=load("aiUsedQuestions",[]);lines=lines.filter(function(x){return used.indexOf(x.line)<0});if(!lines.length){used=[];lines=ns.filter(function(n){return sub==="All"||n.subject===sub}).flatMap(function(n){return n.body.split(/\\n+/).filter(function(l){return l.trim().length>35}).map(function(l){return {n:n,line:l.trim()}})})}
-var arr=[];for(var k=0;k<Math.min(count,lines.length);k++){arr.push(aiBuildQuestion(lines[k].n,lines[k].line,k));used.push(lines[k].line)}
-save("aiUsedQuestions",used);aiTestState={items:arr,answers:{},start:Date.now(),seconds:arr.length*60,timer:null};aiRenderTest();clearInterval(aiTestState.timer);aiTestState.timer=setInterval(function(){aiTestState.seconds--;aiUpdateTimer();if(aiTestState.seconds<=0){clearInterval(aiTestState.timer);aiFinishTest()}},1000);
+function escapeText(v){
+  var d=document.createElement("div");d.textContent=String(v==null?"":v);return d.innerHTML;
 }
-function aiUpdateTimer(){var s=Math.max(0,aiTestState.seconds),m=Math.floor(s/60),sec=s%60;aiEl("aiTestTimer").textContent=m+":"+String(sec).padStart(2,"0")}
-function aiRenderTest(){aiEl("aiTestResult").innerHTML="";aiEl("aiTestBody").innerHTML=aiTestState.items.map(function(x,i){return '<div class="ai-q"><b>Q'+(i+1)+'. '+x.q+'</b>'+x.opts.map(function(o,j){return '<label class="ai-opt"><input type="radio" name="aiq'+i+'" value="'+j+'"> '+String.fromCharCode(65+j)+') '+esc(o)+'</label>'}).join("")+'<small>📚 Note: '+esc(x.source)+'</small></div>'}).join("")+'<button id="aiSubmitTest" class="btn primary">Submit Test</button>';document.querySelectorAll('[name^="aiq"]').forEach(function(r){r.onchange=function(){aiTestState.answers[r.name.replace("aiq","")]=+r.value}});aiEl("aiSubmitTest").onclick=aiFinishTest;aiUpdateTimer()}
-function aiFinishTest(){if(!aiTestState.items.length)return;clearInterval(aiTestState.timer);var score=0;aiTestState.items.forEach(function(x,i){if(aiTestState.answers[i]===x.ans)score++});var total=aiTestState.items.length,acc=Math.round(score/total*100);aiEl("aiTestResult").innerHTML='<div class="ai-result"><b>Score: '+score+'/'+total+' ('+acc+'%)</b><br>Wrong answers are ready for revision. Review the Note source shown under each question.</div>';aiTestState.items.forEach(function(x,i){if(aiTestState.answers[i]!==x.ans){var wrong=load("aiWrongBank",[]);wrong.push({date:today(),topic:x.source,question:x.q,options:x.opts,correct:x.ans,point:x.point});save("aiWrongBank",wrong)}});aiEl("aiTestTimer").textContent="Completed";renderSmart()}
-function sendAI(){
-var input=aiEl("aiInput"),q=(input.value||"").trim();if(!q)return;
-aiAdd("user",q);input.value="";setTimeout(function(){aiAdd("ai",aiReply(q))},120);
+function addMessage(role,text){
+  var box=A("aiMessages");if(!box)return;
+  var row=document.createElement("div");row.className="ai-msg "+role;
+  var bubble=document.createElement("div");bubble.className="ai-bubble";bubble.textContent=text;
+  row.appendChild(bubble);box.appendChild(row);box.scrollTop=box.scrollHeight;
 }
-function initAI(){
-if(!aiEl("aiMessages"))return;
-if(!aiEl("aiMessages").children.length)aiAdd("ai","Hello! I’m your Daily Achiever study assistant. Ask me a question or use one of the quick actions below.");
-if(aiEl("aiSend"))aiEl("aiSend").onclick=sendAI;
-if(aiEl("aiInput"))aiEl("aiInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendAI()}});
-document.querySelectorAll("[data-ai-prompt]").forEach(function(b){b.onclick=function(){if(aiEl("aiInput")){aiEl("aiInput").value=b.dataset.aiPrompt;sendAI()}}});
+function notes(){
+  var n=getData("notes",[]);
+  return Array.isArray(n)?n.filter(function(x){return x&&x.body}).map(function(x){
+    return {title:x.title||"Untitled Note",subject:x.subject||"Mixed GS",body:String(x.body)};
+  }):[];
 }
-function initAITest(){if(aiEl("aiStartTest"))aiEl("aiStartTest").onclick=aiStartTest}
-initAITest();
-if(!aiEl("aiMessages"))return;if(!aiEl("aiMessages").children.length)aiAdd("ai","Hello! I’m your Daily Achiever study assistant. Ask me a question or use one of the quick actions below.");aiEl("aiSend").onclick=sendAI;aiEl("aiInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendAI()}});document.querySelectorAll("[data-ai-prompt]").forEach(function(b){b.onclick=function(){aiEl("aiInput").value=b.dataset.aiPrompt;sendAI()}})}
-initAI();
-document.querySelectorAll("[data-page]").forEach(function(b){b.addEventListener("click",function(){if(b.dataset.page==="aiChatPage")setTimeout(initAI,30)})});
+function noteLines(subject){
+  var out=[];
+  notes().forEach(function(n){
+    if(subject&&subject!=="All"&&n.subject!==subject)return;
+    n.body.split(/\r?\n/).forEach(function(line){
+      line=line.replace(/^\s*[•*\-\d.)]+\s*/,"").trim();
+      if(line.length>=28)out.push({line:line,n:n});
+    });
+  });
+  return out;
+}
+function shuffled(a){
+  a=a.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}
+  return a;
+}
+function chatReply(q){
+  var s=q.toLowerCase();
+  if(/^(hi|hello|hey)\b/.test(s))return "Hello! I can work with your saved Notes and Test records. Try “Give me 5 MCQs from my Geography notes”.";
+  if(/notes?|what.*saved/.test(s)){
+    var ns=notes();return ns.length?"Saved notes: "+ns.map(function(n){return n.title}).join(", "):"No Notes are saved yet.";
+  }
+  if(/mcq|quiz|question|prelims/.test(s))return oneQuestion();
+  if(/performance|analyse|analyze/.test(s)){
+    var ts=typeof window.tests==="function"?window.tests():getData("tests",[]);
+    var attempted=0,correct=0;
+    (Array.isArray(ts)?ts:[]).forEach(function(t){attempted+=Number(t.attempted)||0;correct+=Number(t.correct)||0});
+    return attempted?"Recorded performance: "+correct+"/"+attempted+" correct ("+Math.round(correct/attempted*100)+"%). Focus first on the topics behind your wrong answers.":"No recorded test attempts found.";
+  }
+  if(/revision|revise|weak/.test(s))return "Use Revision List for today, +1, +3, +7 and +15 day revision. You can also start a note-based test below.";
+  if(/mains|answer/.test(s))return "For a 15-mark answer: brief introduction → 3–5 analytical arguments → examples/data → way forward → conclusion.";
+  return "I can analyse your saved tests, list Notes, generate note-based MCQs, or guide Mains/Revision. Try “Give me 5 MCQs from my notes”.";
+}
+function oneQuestion(){
+  var lines=noteLines("All");
+  if(!lines.length)return "No usable note text was found. Add a Note with study points first.";
+  var used=getData("aiUsedQuestions",[]);
+  var fresh=lines.filter(function(x){return used.indexOf(x.line)<0});
+  if(!fresh.length){used=[];fresh=lines}
+  var x=fresh[Math.floor(Math.random()*fresh.length)], correct=x.line;
+  used.push(correct);putData("aiUsedQuestions",used.slice(-500));
+  var topic=x.n.title.replace(/\s*[—-].*$/,"");
+  var wrong=[
+    "It is unrelated to the concept described in the note.",
+    "It occurs without any geographical, historical or contextual condition.",
+    "It is the exact opposite of the concept described in the note."
+  ];
+  var opts=shuffled([correct].concat(wrong)),ans=opts.indexOf(correct);
+  return "Q. According to your note on "+topic+", which statement is correct?\n\n"+
+    opts.map(function(o,i){return String.fromCharCode(65+i)+") "+o}).join("\n")+
+    "\n\nAnswer: "+String.fromCharCode(65+ans)+"\n📚 Source: "+x.n.title;
+}
+function send(){
+  var input=A("aiInput");if(!input)return;
+  var q=input.value.trim();if(!q)return;
+  addMessage("user",q);input.value="";
+  setTimeout(function(){addMessage("ai",chatReply(q))},80);
+}
+var state={items:[],answers:{},seconds:0,timer:null};
+function buildQuestion(x,i){
+  var correct=x.line,topic=x.n.title.replace(/\s*[—-].*$/,"");
+  var wrong=[
+    "It is unrelated to the concept described in the note.",
+    "It always occurs without any geographical or contextual condition.",
+    "It reverses the process or relationship described in the note."
+  ];
+  var opts=shuffled([correct].concat(wrong));
+  return {q:"According to the note on "+topic+", which statement is correct?",opts:opts,ans:opts.indexOf(correct),source:x.n.title,point:correct};
+}
+function renderTest(){
+  var body=A("aiTestBody"),result=A("aiTestResult");if(!body)return;
+  if(!state.items.length){body.innerHTML="";return}
+  if(result)result.innerHTML="";
+  body.innerHTML=state.items.map(function(x,i){
+    return '<div class="ai-q"><b>Q'+(i+1)+'. '+escapeText(x.q)+'</b>'+
+      x.opts.map(function(o,j){return '<label class="ai-opt"><input type="radio" name="aiq'+i+'" value="'+j+'"> '+String.fromCharCode(65+j)+') '+escapeText(o)+'</label>'}).join("")+
+      '<small>📚 Source: '+escapeText(x.source)+'</small></div>';
+  }).join("")+'<button type="button" id="aiSubmitTest" class="btn primary">Submit Test</button>';
+  document.querySelectorAll('[name^="aiq"]').forEach(function(r){r.addEventListener("change",function(){state.answers[r.name.slice(3)]=Number(r.value)})});
+  A("aiSubmitTest").onclick=finishTest;updateTimer();
+}
+function updateTimer(){
+  var t=A("aiTestTimer");if(!t)return;
+  var s=Math.max(0,state.seconds),m=Math.floor(s/60),sec=s%60;
+  t.textContent=m+":"+String(sec).padStart(2,"0");
+}
+function startTest(){
+  var subject=A("aiTestSubject")?A("aiTestSubject").value:"All";
+  var count=A("aiTestCount")?Number(A("aiTestCount").value):10;
+  var pool=shuffled(noteLines(subject));
+  var used=getData("aiUsedQuestions",[]);
+  var fresh=pool.filter(function(x){return used.indexOf(x.line)<0});
+  if(!fresh.length){used=[];fresh=pool}
+  fresh=fresh.slice(0,count);
+  if(!fresh.length){if(A("aiTestBody"))A("aiTestBody").innerHTML='<div class="ai-result">No notes found for this subject.</div>';return}
+  state.items=fresh.map(buildQuestion);state.answers={};state.seconds=state.items.length*60;
+  used=used.concat(fresh.map(function(x){return x.line}));putData("aiUsedQuestions",used.slice(-500));
+  clearInterval(state.timer);renderTest();
+  state.timer=setInterval(function(){state.seconds--;updateTimer();if(state.seconds<=0){clearInterval(state.timer);finishTest()}},1000);
+}
+function finishTest(){
+  if(!state.items.length)return;
+  clearInterval(state.timer);var score=0;
+  state.items.forEach(function(x,i){if(state.answers[i]===x.ans)score++});
+  var total=state.items.length,acc=Math.round(score/total*100),wrong=getData("aiWrongBank",[]);
+  state.items.forEach(function(x,i){
+    if(state.answers[i]!==x.ans)wrong.push({date:new Date().toISOString().slice(0,10),topic:x.source,question:x.q,options:x.opts,correct:x.ans,point:x.point});
+  });
+  putData("aiWrongBank",wrong.slice(-300));
+  var result=A("aiTestResult");if(result)result.innerHTML='<div class="ai-result"><b>Score: '+score+'/'+total+' ('+acc+'%)</b><br>Wrong answers have been saved for later review.</div>';
+  var timer=A("aiTestTimer");if(timer)timer.textContent="Completed";
+}
+function init(){
+  var box=A("aiMessages");
+  if(box&&!box.dataset.ready){
+    box.dataset.ready="1";
+    if(!box.children.length)addMessage("ai","Hello! I’m your Daily Achiever study assistant. Ask me about your Notes or start a test below.");
+  }
+  var sendBtn=A("aiSend");if(sendBtn&&!sendBtn.dataset.ready){sendBtn.dataset.ready="1";sendBtn.onclick=send}
+  var input=A("aiInput");if(input&&!input.dataset.ready){input.dataset.ready="1";input.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}})}
+  document.querySelectorAll("[data-ai-prompt]").forEach(function(b){if(!b.dataset.ready){b.dataset.ready="1";b.onclick=function(){var i=A("aiInput");if(i){i.value=b.dataset.aiPrompt;send()}}}});
+  var start=A("aiStartTest");if(start&&!start.dataset.ready){start.dataset.ready="1";start.onclick=startTest}
+}
+window.DailyAchieverAI={init:init,startTest:startTest};
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+document.addEventListener("click",function(e){var p=e.target.closest&&e.target.closest('[data-page="aiChatPage"]');if(p)setTimeout(init,60)});
 })();
 </script></body></html>
