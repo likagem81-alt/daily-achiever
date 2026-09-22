@@ -1,4 +1,4 @@
-const CACHE="daily-achiever-v2";
+const CACHE="daily-achiever-v4";
 const ASSETS=["./","./index.html","./style.css"];
 
 self.addEventListener("install",e=>e.waitUntil(
