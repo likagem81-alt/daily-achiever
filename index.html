@@ -25,6 +25,8 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,syste
 .card{border-color:var(--line);box-shadow:0 2px 12px rgba(20,32,50,.025);border-radius:11px}.btn.primary{background:var(--blue);border-color:var(--blue)}.btn.primary:hover{background:var(--blue2)}
 .dark body{background:#0f141c}.dark .sidebar,.dark .pro-stat,.dark .pro-quick,.dark .pro-date,.dark .pro-panel,.dark .card{background:#171d27;border-color:#2b3441}.dark .content{background:#0f141c}.dark .pro-welcome h1,.dark .pro-panel-head h2,.dark .pro-stat b,.dark .page-head h1,.dark .pro-quick b{color:#edf2f8}.dark .pro-welcome p,.dark .pro-stat span,.dark .pro-stat small,.dark .pro-quick small,.dark .pro-motivation p{color:#9ba6b4}
 @media(max-width:1050px){.pro-stat-grid{grid-template-columns:repeat(2,1fr)}.pro-main-grid{grid-template-columns:1fr}.pro-quick-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.pro-dashboard{padding:20px 14px 35px}.pro-welcome{align-items:flex-start;gap:10px}.pro-welcome h1{font-size:24px}.pro-date{min-width:105px}.pro-stat-grid{gap:8px}.pro-stat{padding:13px}.pro-stat b{font-size:20px}.pro-quick-grid{grid-template-columns:1fr 1fr}.pro-clock{font-size:39px}}
+</style><style id="aiChatCss">
+.ai-chat-wrap{max-width:920px;margin:0 auto}.ai-chat-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.ai-chat-head h1{margin:4px 0;font-size:26px;color:#172033}.ai-chat-sub{color:#7a8492;font-size:12px}.ai-chat-card{background:#fff;border:1px solid #e6eaf0;border-radius:14px;box-shadow:0 2px 12px rgba(20,32,50,.04);overflow:hidden}.ai-chat-messages{height:480px;overflow:auto;padding:18px;background:#f7f9fc}.ai-msg{display:flex;margin:10px 0}.ai-msg.user{justify-content:flex-end}.ai-bubble{max-width:78%;padding:11px 14px;border-radius:14px;font-size:13px;line-height:1.55;white-space:pre-wrap}.ai-msg.ai .ai-bubble{background:#fff;border:1px solid #e2e7ee;color:#263241}.ai-msg.user .ai-bubble{background:#2563eb;color:#fff}.ai-chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid #e6eaf0;background:#fff}.ai-chat-input textarea{flex:1;resize:none;border:1px solid #dbe2eb;border-radius:10px;padding:11px;font:inherit;min-height:44px;outline:none}.ai-chat-input textarea:focus{border-color:#2563eb;box-shadow:0 0 0 3px #edf3ff}.ai-suggestions{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 12px;background:#fff}.ai-chip{border:1px solid #dbe3ef;background:#f8fafc;border-radius:999px;padding:7px 10px;font-size:11px;cursor:pointer;color:#31527e}.ai-chip:hover{border-color:#9db8e8;background:#edf3ff}.ai-status{font-size:10px;color:#7a8492}.dark .ai-chat-card,.dark .ai-chat-input,.dark .ai-msg.ai .ai-bubble{background:#171d27;border-color:#303844}.dark .ai-chat-messages{background:#0f141c}.dark .ai-chat-head h1{color:#edf2f8}.dark .ai-chat-input textarea{background:#111820;color:#edf2f8;border-color:#303844}.dark .ai-chip{background:#1b2532;color:#dbeafe;border-color:#334155}@media(max-width:650px){.ai-chat-messages{height:55vh}.ai-bubble{max-width:88%}}
 </style></head><body>
 <div id="loginScreen" class="login-screen"><div class="login-card">
 <div class="brand-symbol">DA</div><p class="eyebrow">APSC STUDY COMMAND CENTER</p><h1>Daily Achiever</h1><p class="muted">A disciplined system for a disciplined aspirant.</p>
@@ -45,10 +47,25 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,syste
 <button type="button" class="side-link " data-page="mainsPage"><span>✎</span>Mains Practice</button>
 <button type="button" class="side-link " data-page="revisionPage"><span>↻</span>Revision List</button>
 <button type="button" class="side-link " data-page="smart"><span>✦</span>Smart Study</button>
+<button type="button" class="side-link " data-page="aiChatPage"><span>🤖</span>AI Assistant</button>
 <button type="button" class="side-link " data-page="mapcenter"><span>⌖</span>Map Learning</button>
 <button type="button" class="side-link " data-page="settings"><span>⚙</span>Settings</button>
 <div class="side-footer"><div class="assam-line"></div><b>Focus. Learn. Improve.</b><small>Every session counts.</small></div></aside>
 <main class="content">
+<section id="aiChatPage" class="page">
+<div class="ai-chat-wrap">
+<div class="ai-chat-head"><div><span class="eyebrow">DAILY ACHIEVER AI</span><h1>AI Study Assistant</h1><p class="ai-chat-sub">Ask about APSC/UPSC, your tests, revision, maps or Mains writing.</p></div><span id="aiStatus" class="ai-status">Study mode</span></div>
+<div class="ai-chat-card">
+<div id="aiMessages" class="ai-chat-messages"></div>
+<div class="ai-suggestions">
+<button class="ai-chip" data-ai-prompt="Analyse my recent test performance and tell me what I should revise.">📊 Analyse my tests</button>
+<button class="ai-chip" data-ai-prompt="Give me 10 UPSC Prelims questions on Geography.">📝 Generate MCQs</button>
+<button class="ai-chip" data-ai-prompt="Give me a revision plan for my weak topics.">🔄 Revision plan</button>
+<button class="ai-chip" data-ai-prompt="Give me a 15-mark APSC Mains question and evaluate my answer when I send it.">✎ Mains practice</button>
+</div>
+<div class="ai-chat-input"><textarea id="aiInput" placeholder="Ask your study question..." rows="1"></textarea><button id="aiSend" class="btn primary">Send ➤</button></div>
+</div></div>
+</section>
 <section id="dashboard" class="page active">
 <div class="pro-dashboard">
 <div class="pro-welcome"><div><span class="eyebrow">DAILY OVERVIEW</span><h1>Good evening, Robin.</h1><p>Build consistency today. Your preparation is your advantage.</p></div><div class="pro-date"><span>Today</span><b id="heroDay">—</b><small id="heroTime">—</small></div></div>
@@ -304,5 +321,24 @@ document.querySelectorAll("[data-maprev]").forEach(function(b){b.onchange=functi
 function randomMapDrill(){var pool=MAP_DATA.filter(function(x){return localStorage.getItem("maprev_"+x[0])!=="1"});if(!pool.length)pool=MAP_DATA;var x=pool[Math.floor(Math.random()*pool.length)];$("mapSearch").value=x[0];$("mapCategory").value="All";revisedOnly=false;renderMapCenter();setTimeout(function(){var card=document.querySelector(".map-data-card");if(card)card.scrollIntoView({behavior:"smooth",block:"center"})},30)}
 document.querySelectorAll("[data-atlas]").forEach(function(m){m.addEventListener("click",function(){var n=m.getAttribute("data-atlas");$("mapSearch").value=n==="Mumbai"?"Arabian Sea":n;$("mapCategory").value="All";renderMapCenter();$("mapCards").scrollIntoView({behavior:"smooth",block:"start"})})});if($("atlasReset"))$("atlasReset").addEventListener("click",function(){$("mapSearch").value="";$("mapCategory").value="All";renderMapCenter()});
 if($("mapcenter")){$("mapSearch").addEventListener("input",renderMapCenter);$("mapCategory").addEventListener("change",renderMapCenter);$("mapRevisedOnly").addEventListener("click",function(){revisedOnly=!revisedOnly;this.classList.toggle("primary",revisedOnly);this.textContent=revisedOnly?"✓ Showing revised":"✓ Revised only";renderMapCenter()});$("mapRandom").addEventListener("click",randomMapDrill);$("mapReset").addEventListener("click",function(){$("mapSearch").value="";$("mapCategory").value="All";revisedOnly=false;$("mapRevisedOnly").classList.remove("primary");$("mapRevisedOnly").textContent="✓ Revised only";renderMapCenter()});renderMapCenter();}
+})();
+</script><script id="aiChatJs">
+(function(){
+function aiEl(id){return document.getElementById(id)}
+function aiAdd(role,text){var m=aiEl("aiMessages");if(!m)return;var d=document.createElement("div");d.className="ai-msg "+role;var b=document.createElement("div");b.className="ai-bubble";b.textContent=text;d.appendChild(b);m.appendChild(d);m.scrollTop=m.scrollHeight}
+function aiContext(){try{var k=[];for(var i=0;i<localStorage.length;i++){var z=localStorage.key(i);if(z&&z.indexOf("da4_")===0&&/(tests|revisions|mains|profile)/.test(z))k.push(z)}return k}catch(e){return[]}}
+function aiReply(q){
+var s=q.toLowerCase(),ts=[];try{ts=tests()}catch(e){}
+if(/performance|analyse|analyze|test/.test(s)){var n=0,c=0;ts.forEach(function(t){n+=+t.attempted||0;c+=+t.correct||0});var a=n?Math.round(c/n*100):0;return n?"Your recorded tests contain "+n+" attempted questions with about "+a+"% accuracy. Review your wrong answers first, then revise the weak topics before taking another full test.":"No test data is available yet. Record a test result first, then I can analyse it."}
+if(/revision|revise|weak/.test(s)){return"Revision rule: revise a weak topic today, then again after 1 day, 3 days, 7 days and 15 days. For your current workflow, start with the topics marked wrong in the Revision List and finish with 10–20 MCQs."}
+if(/mains|answer/.test(s)){return"Use the Mains Practice page: write a clear introduction, 3–5 analytical points with examples, a practical way forward, and a concise conclusion. Keep the language simple and precise."}
+if(/mcq|question|prelims/.test(s)){return"Sure. Example: Which process is most directly associated with carbonation? A) Oxidation B) Solution of limestone by weak carbonic acid C) Frost action D) Salt weathering. Answer: B."}
+if(/hello|hi|hey/.test(s)){return"Hello! I’m your Daily Achiever study assistant. Ask me about APSC/UPSC topics, tests, revision or Mains practice."}
+return"I can help with APSC/UPSC study planning, Geography, History, Polity, Environment, MCQs, revision and Mains writing. For live AI answers to any topic, this chat interface will need an AI API connection; the current version keeps your study data private in your browser."
+}
+function sendAI(){var q=(aiEl("aiInput").value||"").trim();if(!q)return;aiAdd("user",q);aiEl("aiInput").value="";setTimeout(function(){aiAdd("ai",aiReply(q))},180)}
+function initAI(){if(!aiEl("aiMessages"))return;if(!aiEl("aiMessages").children.length)aiAdd("ai","Hello! I’m your Daily Achiever study assistant. Ask me a question or use one of the quick actions below.");aiEl("aiSend").onclick=sendAI;aiEl("aiInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendAI()}});document.querySelectorAll("[data-ai-prompt]").forEach(function(b){b.onclick=function(){aiEl("aiInput").value=b.dataset.aiPrompt;sendAI()}})}
+initAI();
+document.querySelectorAll("[data-page]").forEach(function(b){b.addEventListener("click",function(){if(b.dataset.page==="aiChatPage")setTimeout(initAI,30)})});
 })();
 </script></body></html>
