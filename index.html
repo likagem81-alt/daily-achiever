@@ -27,6 +27,8 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,syste
 @media(max-width:1050px){.pro-stat-grid{grid-template-columns:repeat(2,1fr)}.pro-main-grid{grid-template-columns:1fr}.pro-quick-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.pro-dashboard{padding:20px 14px 35px}.pro-welcome{align-items:flex-start;gap:10px}.pro-welcome h1{font-size:24px}.pro-date{min-width:105px}.pro-stat-grid{gap:8px}.pro-stat{padding:13px}.pro-stat b{font-size:20px}.pro-quick-grid{grid-template-columns:1fr 1fr}.pro-clock{font-size:39px}}
 </style><style id="aiChatCss">
 .ai-chat-wrap{max-width:920px;margin:0 auto}.ai-chat-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.ai-chat-head h1{margin:4px 0;font-size:26px;color:#172033}.ai-chat-sub{color:#7a8492;font-size:12px}.ai-chat-card{background:#fff;border:1px solid #e6eaf0;border-radius:14px;box-shadow:0 2px 12px rgba(20,32,50,.04);overflow:hidden}.ai-chat-messages{height:480px;overflow:auto;padding:18px;background:#f7f9fc}.ai-msg{display:flex;margin:10px 0}.ai-msg.user{justify-content:flex-end}.ai-bubble{max-width:78%;padding:11px 14px;border-radius:14px;font-size:13px;line-height:1.55;white-space:pre-wrap}.ai-msg.ai .ai-bubble{background:#fff;border:1px solid #e2e7ee;color:#263241}.ai-msg.user .ai-bubble{background:#2563eb;color:#fff}.ai-chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid #e6eaf0;background:#fff}.ai-chat-input textarea{flex:1;resize:none;border:1px solid #dbe2eb;border-radius:10px;padding:11px;font:inherit;min-height:44px;outline:none}.ai-chat-input textarea:focus{border-color:#2563eb;box-shadow:0 0 0 3px #edf3ff}.ai-suggestions{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 12px;background:#fff}.ai-chip{border:1px solid #dbe3ef;background:#f8fafc;border-radius:999px;padding:7px 10px;font-size:11px;cursor:pointer;color:#31527e}.ai-chip:hover{border-color:#9db8e8;background:#edf3ff}.ai-status{font-size:10px;color:#7a8492}.dark .ai-chat-card,.dark .ai-chat-input,.dark .ai-msg.ai .ai-bubble{background:#171d27;border-color:#303844}.dark .ai-chat-messages{background:#0f141c}.dark .ai-chat-head h1{color:#edf2f8}.dark .ai-chat-input textarea{background:#111820;color:#edf2f8;border-color:#303844}.dark .ai-chip{background:#1b2532;color:#dbeafe;border-color:#334155}@media(max-width:650px){.ai-chat-messages{height:55vh}.ai-bubble{max-width:88%}}
+</style><style id="aiTestCss">
+.ai-test-panel{margin-top:14px;background:#fff;border:1px solid #e4e9ef;border-radius:14px;padding:18px}.ai-test-controls{display:grid;grid-template-columns:1.4fr .8fr .8fr auto;gap:8px;align-items:end}.ai-test-controls label{font-size:10px;color:#7a8492}.ai-test-controls select,.ai-test-controls button{margin-top:5px}.ai-q{padding:16px;border:1px solid #e2e7ee;border-radius:12px;margin:10px 0;background:#fbfcfe}.ai-q b{display:block;margin-bottom:10px}.ai-opt{display:block;padding:9px;margin:6px 0;border:1px solid #dbe3ec;border-radius:9px;cursor:pointer;font-size:12px}.ai-opt:hover{background:#edf3ff;border-color:#9db8e8}.ai-result{margin-top:12px;padding:12px;border-radius:10px;background:#edf3ff;color:#31527e;font-size:12px}.ai-test-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.ai-test-timer{font-weight:800;color:#2563eb}.dark .ai-test-panel,.dark .ai-q{background:#171d27;border-color:#303844}.dark .ai-opt{border-color:#334155}.dark .ai-result{background:#1b2a40;color:#dbeafe}@media(max-width:700px){.ai-test-controls{grid-template-columns:1fr 1fr}.ai-test-controls button{grid-column:1/-1}}
 </style></head><body>
 <div id="loginScreen" class="login-screen"><div class="login-card">
 <div class="brand-symbol">DA</div><p class="eyebrow">APSC STUDY COMMAND CENTER</p><h1>Daily Achiever</h1><p class="muted">A disciplined system for a disciplined aspirant.</p>
@@ -55,7 +57,16 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,syste
 <section id="aiChatPage" class="page">
 <div class="ai-chat-wrap">
 <div class="ai-chat-head"><div><span class="eyebrow">DAILY ACHIEVER AI</span><h1>AI Study Assistant</h1><p class="ai-chat-sub">Ask about APSC/UPSC, your tests, revision, maps or Mains writing.</p></div><span id="aiStatus" class="ai-status">Study mode</span></div>
-<div class="ai-chat-card">
+<div class="ai-test-panel">
+<div class="ai-test-top"><div><span class="eyebrow">NOTE-BASED PRACTICE</span><h2>AI Test from My Notes</h2></div><span id="aiTestTimer" class="ai-test-timer">—</span></div>
+<div class="ai-test-controls">
+<label>Subject<select id="aiTestSubject"><option value="All">All Notes</option><option>Geography</option><option>History</option><option>Polity</option><option>Environment</option><option>Economy</option><option>Assam</option></select></label>
+<label>Questions<select id="aiTestCount"><option>10</option><option>20</option><option>30</option></select></label>
+<label>Level<select id="aiTestLevel"><option>UPSC</option><option>APSC</option><option>Hard</option></select></label>
+<button id="aiStartTest" class="btn primary">Start Test</button>
+</div>
+<div id="aiTestBody"></div><div id="aiTestResult"></div>
+</div><div class="ai-chat-card">
 <div id="aiMessages" class="ai-chat-messages"></div>
 <div class="ai-suggestions">
 <button class="ai-chip" data-ai-prompt="Analyse my recent test performance and tell me what I should revise.">📊 Analyse my tests</button>
@@ -352,7 +363,33 @@ if(/mains|answer/.test(s))return "Use the Mains Practice page: write a clear int
 if(/hello|hi|hey/.test(s))return "Hello! I’m your Daily Achiever study assistant. Your saved notes can be used for note-based questions.";
 return "I can use your saved Notes, Test results and Revision data. Try: “Give me 10 MCQs from my notes” or “Ask me one question from my Geography notes.”";
 }
-function initAI(){if(!aiEl("aiMessages"))return;if(!aiEl("aiMessages").children.length)aiAdd("ai","Hello! I’m your Daily Achiever study assistant. Ask me a question or use one of the quick actions below.");aiEl("aiSend").onclick=sendAI;aiEl("aiInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendAI()}});document.querySelectorAll("[data-ai-prompt]").forEach(function(b){b.onclick=function(){aiEl("aiInput").value=b.dataset.aiPrompt;sendAI()}})}
+var aiTestState={items:[],answers:{},start:0,seconds:0,timer:null};
+function aiBuildQuestion(n,line,idx){
+var clean=line.replace(/^\\s*[•\\d.\\-]+\\s*/,"").trim(),topic=n.title.replace(/—.*/,"").trim();
+var templates=[
+"Which statement is most consistent with the note on "+topic+"?",
+"According to the "+topic+" note, which statement is correct?",
+"Which of the following best describes the concept in the "+topic+" note?"
+];
+var correct=clean,wrong1="It is unrelated to the process described in the note.",wrong2="It always occurs without any geographical or contextual condition.",wrong3="It is the exact opposite of the process described in the note.";
+var opts=[correct,wrong1,wrong2,wrong3],shift=(idx*3)%4,rot=opts.splice(shift,1)[0];opts.push(rot);
+return {q:templates[idx%templates.length],opts:opts,ans:opts.indexOf(correct),source:n.title,point:clean};
+}
+function aiStartTest(){
+var ns=notePool(),sub=aiEl("aiTestSubject").value,count=+aiEl("aiTestCount").value;
+var lines=[];ns.filter(function(n){return sub==="All"||n.subject===sub}).forEach(function(n){n.body.split(/\\n+/).forEach(function(line){line=line.trim();if(line.length>35)lines.push({n:n,line:line})})});
+if(!lines.length){aiEl("aiTestBody").innerHTML='<div class="ai-result">No notes found for this subject.</div>';return}
+for(var i=lines.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),z=lines[i];lines[i]=lines[j];lines[j]=z}
+var used=load("aiUsedQuestions",[]);lines=lines.filter(function(x){return used.indexOf(x.line)<0});if(!lines.length){used=[];lines=ns.filter(function(n){return sub==="All"||n.subject===sub}).flatMap(function(n){return n.body.split(/\\n+/).filter(function(l){return l.trim().length>35}).map(function(l){return {n:n,line:l.trim()}})})}
+var arr=[];for(var k=0;k<Math.min(count,lines.length);k++){arr.push(aiBuildQuestion(lines[k].n,lines[k].line,k));used.push(lines[k].line)}
+save("aiUsedQuestions",used);aiTestState={items:arr,answers:{},start:Date.now(),seconds:arr.length*60,timer:null};aiRenderTest();clearInterval(aiTestState.timer);aiTestState.timer=setInterval(function(){aiTestState.seconds--;aiUpdateTimer();if(aiTestState.seconds<=0){clearInterval(aiTestState.timer);aiFinishTest()}},1000);
+}
+function aiUpdateTimer(){var s=Math.max(0,aiTestState.seconds),m=Math.floor(s/60),sec=s%60;aiEl("aiTestTimer").textContent=m+":"+String(sec).padStart(2,"0")}
+function aiRenderTest(){aiEl("aiTestResult").innerHTML="";aiEl("aiTestBody").innerHTML=aiTestState.items.map(function(x,i){return '<div class="ai-q"><b>Q'+(i+1)+'. '+x.q+'</b>'+x.opts.map(function(o,j){return '<label class="ai-opt"><input type="radio" name="aiq'+i+'" value="'+j+'"> '+String.fromCharCode(65+j)+') '+esc(o)+'</label>'}).join("")+'<small>📚 Note: '+esc(x.source)+'</small></div>'}).join("")+'<button id="aiSubmitTest" class="btn primary">Submit Test</button>';document.querySelectorAll('[name^="aiq"]').forEach(function(r){r.onchange=function(){aiTestState.answers[r.name.replace("aiq","")]=+r.value}});aiEl("aiSubmitTest").onclick=aiFinishTest;aiUpdateTimer()}
+function aiFinishTest(){if(!aiTestState.items.length)return;clearInterval(aiTestState.timer);var score=0;aiTestState.items.forEach(function(x,i){if(aiTestState.answers[i]===x.ans)score++});var total=aiTestState.items.length,acc=Math.round(score/total*100);aiEl("aiTestResult").innerHTML='<div class="ai-result"><b>Score: '+score+'/'+total+' ('+acc+'%)</b><br>Wrong answers are ready for revision. Review the Note source shown under each question.</div>';aiTestState.items.forEach(function(x,i){if(aiTestState.answers[i]!==x.ans){var wrong=load("aiWrongBank",[]);wrong.push({date:today(),topic:x.source,question:x.q,options:x.opts,correct:x.ans,point:x.point});save("aiWrongBank",wrong)}});aiEl("aiTestTimer").textContent="Completed";renderSmart()}
+function initAITest(){if(aiEl("aiStartTest"))aiEl("aiStartTest").onclick=aiStartTest}
+initAITest();
+if(!aiEl("aiMessages"))return;if(!aiEl("aiMessages").children.length)aiAdd("ai","Hello! I’m your Daily Achiever study assistant. Ask me a question or use one of the quick actions below.");aiEl("aiSend").onclick=sendAI;aiEl("aiInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendAI()}});document.querySelectorAll("[data-ai-prompt]").forEach(function(b){b.onclick=function(){aiEl("aiInput").value=b.dataset.aiPrompt;sendAI()}})}
 initAI();
 document.querySelectorAll("[data-page]").forEach(function(b){b.addEventListener("click",function(){if(b.dataset.page==="aiChatPage")setTimeout(initAI,30)})});
 })();
