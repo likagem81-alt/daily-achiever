@@ -1,0 +1,10 @@
+{
+  "name":"Daily Achiever — APSC Command Center",
+  "short_name":"Daily Achiever",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#f7faf8",
+  "theme_color":"#0f5132",
+  "description":"APSC study command center with persistent study timer.",
+  "categories":["education","productivity"]
+}
