@@ -32,8 +32,69 @@ function seedJainismResult(){
   ts.push({date:"2026-09-22",subject:"History",topic:"Jainism — UPSC Prelims",total:20,attempted:20,correct:18,wrong:2,learn:"Strong on Tirthankaras, Mahavratas, Triratna, Anekantavada, Syadvada, Jainism vs Buddhism, Jiva/Ajiva and Moksha.",weak:"Revise Jain metaphysics: Jiva vs Ajiva, Pudgala, karmic matter and Jain cosmology."});
   save("tests",ts);
 }
+function seedWeatheringNotes(){
+  const ns=load("notes",[]);
+  const title="Weathering — UPSC/APSC Notes";
+  if(ns.some(n=>n.title===title))return;
+  ns.push({title:title,subject:"Geography",date:"22/09/2026",body:`DEFINITION
+Weathering is the in-situ disintegration or decomposition of rocks at or near the Earth's surface without transportation of the weathered material.
+
+1. TYPES OF WEATHERING
+A. PHYSICAL / MECHANICAL
+• Frost action / freeze-thaw: Water enters cracks, freezes, expands and widens cracks. Water expands by about 9% on freezing.
+• Exfoliation: Onion-skin peeling of rock layers; commonly linked with unloading/pressure release and thermal expansion, especially in massive rocks such as granite.
+• Salt weathering: Saline water enters pores; evaporation causes salt-crystal growth and pressure. Common in arid and semi-arid regions.
+
+B. CHEMICAL
+• Solution: Minerals dissolve directly in water.
+• Carbonation: CO2 + H2O forms weak carbonic acid; important in limestone and karst regions.
+• Oxidation: Oxygen reacts with iron-bearing minerals, producing oxides/rusting.
+• Hydration: Minerals absorb water, causing expansion or structural change.
+• Hydrolysis: Water reacts with minerals such as feldspar and may produce clay minerals.
+
+C. BIOLOGICAL
+• Root wedging: Plant roots enter cracks and widen them.
+• Burrowing animals: Disturb and loosen rock/material.
+• Lichens and microorganisms: Produce organic acids and aid chemical weathering.
+
+2. FACTORS CONTROLLING WEATHERING
+Climate • Rock type • Organisms • Topography/relief • Time
+Mnemonic: C-R-O-T-T
+
+3. CLIMATE AND WEATHERING
+• Warm + humid → strong chemical weathering.
+• Cold environments with freeze-thaw → strong mechanical weathering.
+• Hot + dry → physical weathering and salt weathering are important.
+• Humid tropical regions → intense chemical weathering.
+• High mountains → freeze-thaw action is important.
+
+4. WEATHERING vs EROSION
+Weathering = breakdown/alteration in place; transportation is not required.
+Erosion = removal and transportation by rivers, wind, glaciers, waves, etc.
+Golden line: "Weathering prepares material; erosion removes and transports it."
+
+5. UPSC TRAPS
+• Weathering involves transportation → FALSE.
+• Chemical weathering is strongest in cold/dry climates → FALSE.
+• Freeze-thaw is a chemical process → FALSE.
+• Carbonation is important in limestone/karst regions → TRUE.
+• Biological weathering is always purely physical → FALSE.
+
+6. QUICK REVISION
+Frost action → freezing + expansion
+Exfoliation → unloading / thermal expansion
+Salt weathering → crystal growth
+Carbonation → limestone / karst
+Oxidation → iron / rusting
+Hydrolysis → feldspar / clay
+Chemical weathering → warm + humid
+Weathering → no transportation
+
+PRELIMS MEMORY: Physical = frost, exfoliation, salt | Chemical = solution, carbonation, oxidation, hydration, hydrolysis | Biological = roots, burrowing, lichens.`});
+  save("notes",ns);
+}
 function renderAll(){initTasks();challengeCheck();renderStats();renderRewards();renderTests();renderNotes();renderProgress();renderTimer();$("currentBrief").value=load("brief","");$("journeyDays").textContent=Math.max(1,Math.floor((Date.now()-load("startDate",Date.now()))/86400000)+1)+" days"}
-function openApp(){user=localStorage.getItem("da4_current");if(!user)return;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");if(!load("startDate",null))save("startDate",Date.now());seedGeomorphologyResult();seedJainismResult();timerLoad();renderAll();updateClock();setInterval(updateClock,1000)}
+function openApp(){user=localStorage.getItem("da4_current");if(!user)return;$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");if(!load("startDate",null))save("startDate",Date.now());seedGeomorphologyResult();seedJainismResult();seedWeatheringNotes();timerLoad();renderAll();updateClock();setInterval(updateClock,1000)}
 document.querySelectorAll(".auth-tab").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll(".auth-tab").forEach(x=>x.classList.toggle("active",x===b));$("authBtn").textContent=mode==="login"?"Login":"Create Account";$("authMsg").textContent=""});
 $("authBtn").onclick=()=>{const email=$("email").value.trim().toLowerCase(),pass=$("password").value;if(!email||!pass){$("authMsg").textContent="Enter email and password.";return}const users=JSON.parse(localStorage.getItem("da4_users")||"{}");if(mode==="create"){if(users[email]){$("authMsg").textContent="Account already exists.";return}users[email]=pass;localStorage.setItem("da4_users",JSON.stringify(users))}else if(users[email]!==pass){$("authMsg").textContent="Incorrect details. Create the account first.";return}localStorage.setItem("da4_current",email);openApp()};
 document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>showPage(b.dataset.page));$("logout").onclick=()=>{localStorage.removeItem("da4_current");location.reload()};$("mobileMenu").onclick=()=>$("sidebar").classList.toggle("open");$("startTimer").onclick=startTimer;
