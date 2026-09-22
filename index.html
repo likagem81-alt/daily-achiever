@@ -97,7 +97,7 @@
 (function(){
 "use strict";
 var TASKS=[["Polity","120 min"],["History + Geography","120 min"],["MCQ + PYQ Practice","90 min"],["Current Affairs","60 min"],["Revision","60 min"],["Test Analysis","30 min"]];
-var user=null,mode="login",timer={phase:"study",remaining:1500,running:false,session:1,focus:0,xp:0},tick=null;
+var user=null,mode="login",noteFilter="All",timer={phase:"study",remaining:1500,running:false,session:1,focus:0,xp:0},tick=null;
 function $(id){return document.getElementById(id)}
 function today(){return new Date().toISOString().slice(0,10)}
 function key(k){return "da4_"+user+"_"+k}
